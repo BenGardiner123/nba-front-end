@@ -18,7 +18,7 @@ export class NavService {
   }
 
   navViewTeam() {
-    this.router.navigateByUrl("/viewTeam");
+    this.router.navigateByUrl("/viewTeams");
   }
 
   navViewPlayers() {

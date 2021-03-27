@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+html, body, app-root {
+    height: 100%;
+    margin: 0;
+}
+
+.landingPageBackgroundImage{
+    background-image: url('../src/assets/photo-1519861531473-9200262188bf.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
