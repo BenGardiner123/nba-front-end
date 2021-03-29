@@ -1,7 +1,8 @@
-import { Component, OnInit , OnDestroy , ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // ViewEncapsulation to use body and html tag in a component
 
 import { NavService } from '../../services/nav-service.service';
+import { HttpService } from '../../services/http-service.service';
 
 
 @Component({
@@ -15,37 +16,34 @@ export class HomeComponent implements OnInit {
   buttonName = "Create";
   Teams = [];
 
-  constructor(private navService: NavService) {  }
+  constructor(private navService: NavService, private httpService: HttpService) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
+    // Grab all teams everytime the landing page is loaded
+    // Team[] = this.httpService.GetAllTeams();
     document.body.classList.add('landingPageBackgroundImage');
   }
 
-  ngOnDestroy(){  //I am removing the class to prevent body backgroundImage from leaking to other components
-    document.body.classList.remove('landingPageBackgroundImage'); 
+  ngOnDestroy() {  //I am removing the class to prevent body backgroundImage from leaking to other components
+    document.body.classList.remove('landingPageBackgroundImage');
   }
 
-  navigate(){
-    if(this.buttonName == "View"){
+  navigate() {
+    if (this.buttonName == "View") {
       this.navService.navViewTeam();
     }
-    else{
+    else {
       this.navService.navCreateTeam();
     }
   }
 
-  inputVal(teamName: string){
-    this.currentTeam = teamName;
-    this.navService.getTeams(); // just for now do many requests -- but this will be done only once onInit()
-    this.Teams = this.navService.Teams;
-
-    for(let team in this.Teams){
-      if(this.currentTeam == team){
-        this.buttonName = "View";
-      }
-      else{
-        this.buttonName = "Create";
-      }
+  inputVal(teamName: string) {
+    // console.log(teamName);
+    if (this.Teams.includes(teamName)) {
+      this.buttonName = 'View'
+    }
+    else {
+      this.buttonName = 'Create'
     }
   }
 
