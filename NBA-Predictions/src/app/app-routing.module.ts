@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: "viewTeams", component: ViewTeamsComponent},
   {path: "createTeam", component: CreateTeamComponent},
 
-  {path: "**", redirectTo: "home"}
+  {path: "**", redirectTo: "viewPlayers"}
 ];
 
 @NgModule({
