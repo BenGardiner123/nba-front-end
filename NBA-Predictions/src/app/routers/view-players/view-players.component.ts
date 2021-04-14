@@ -9,30 +9,39 @@ import { HttpService } from '../../services/http-service.service';
 export class ViewPlayersComponent implements OnInit {
 
   players = [];
-  header = ["Firstname", "Lastname","Age","Gp","Mins","+/-", "Ast", "Blk"];
+  header = ["Firstname", "Lastname", "Age", "Gp", "Mins", "+/-", "Ast", "Blk"];
   pageNum: number = 1;
-  pages: number ;
-  pageSize : number = 10; 
+  pages: number;
+  pageSize: number = 10;
+  activeSort: string;
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
-    this.players = this.httpService.ViewPlayers(this.pageNum,this.pageSize);
-    this.pages = this.httpService.pages;
+    // this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
+    // this.pages = this.httpService.pages;
   }
 
-  IncreasePage(){
-    if(this.pageNum < this.pages){
+  IncreasePage() {
+    if (this.pageNum < this.pages) {
       this.pageNum += 1;
-      this.players = this.httpService.ViewPlayers(this.pageNum,this.pageSize);
+      this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
     }
   }
 
-  DecreasePage(){
-    if(this.pageNum > 1){
+  DecreasePage() {
+    if (this.pageNum > 1) {
       this.pageNum -= 1;
-      this.players = this.httpService.ViewPlayers(this.pageNum,this.pageSize);
+      this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
       console.log(this.players);
     }
+  }
+
+  Sorting(sortElement) {
+    this.activeSort = sortElement;
+    // Call HTTP sort 
+    // Should we just have a ViewPlayerRequest class that contains
+    // pageSize,pageNum,searchString,sortingElement
+    // this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
   }
 }

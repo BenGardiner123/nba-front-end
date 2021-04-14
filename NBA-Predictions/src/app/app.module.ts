@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './routers/home/home.component';
 import { ViewPlayersComponent } from './routers/view-players/view-players.component';
 import { ViewTeamsComponent } from './routers/view-teams/view-teams.component';
-import { CreateTeamComponent } from './routers/create-team/create-team.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
@@ -18,7 +17,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HomeComponent,
     ViewPlayersComponent,
     ViewTeamsComponent,
-    CreateTeamComponent
   ],
   imports: [
     BrowserModule,

@@ -3,22 +3,22 @@
 <div class="body">
 
     <div class="container">
-        <div class="header"> 
+        <div class="header">
             <div class="heading">
                 <h1>View Players</h1>
             </div>
-            
+
             <div class="user-input">
                 <input placeholder="Search for a player..." type="text">
                 <button id="searchBtn">Search</button>
             </div>
-  
+
         </div>
 
         <div class="tableDiv">
             <table>
                 <tr>
-                    <th *ngFor="let data of header"> 
+                    <th *ngFor="let data of header" (click)="Sorting(data)" [ngClass]="{'selected':data==activeSort}">
                         {{data}}
                     </th>
                 </tr>
@@ -28,8 +28,8 @@
                         {{data}}
                     </td>
                 </tr> -->
-               
-                <tr *ngFor="let player of players"> 
+
+                <tr *ngFor="let player of players">
                     <td>{{ player.firstname }}</td>
                     <td>{{ player.lastname }}</td>
                     <td>{{ player.age }}</td>
@@ -39,7 +39,7 @@
                     <td>{{ player.ast }}</td>
                     <td>{{ player.blk }}</td>
                 </tr>
-                
+
             </table>
         </div>
         <div class="pagination">
@@ -47,12 +47,12 @@
                 <span class="material-icons">
                     chevron_left
                 </span>
-            </div> 
+            </div>
 
             <div class="pageNum">
-                <span>{{this.pageNum}}/ {{this.pages}}</span> 
-            </div> 
-              
+                <span>{{this.pageNum}}/ {{this.pages}}</span>
+            </div>
+
             <div class="arrowDivs" (click)="IncreasePage()">
                 <span class="material-icons">
                     chevron_right

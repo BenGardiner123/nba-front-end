@@ -12,16 +12,16 @@ import { Header } from '../modules/header';
   providedIn: 'root'
 })
 export class HttpService {
-  teams : Team[] = [];
-  players : Player[] = [];
-  pages : number;
-  headers : Header[] = [];
+  teams: Team[] = [];
+  players: Player[] = [];
+  pages: number;
+  headers: Header[] = [];
 
   constructor(private http: HttpClient) { }
 
-  GetAllTeams(): Team[] {                 
+  GetAllTeams(): Team[] {
     let request = this.http.get<Team[]>("http://awseb-AWSEB-149WJIP2MPL2V-624299779.us-east-1.elb.amazonaws.com/api/Team");
-    request.subscribe((response) =>{
+    request.subscribe((response) => {
       response.forEach(element => {
         this.teams.push(element);
       });
@@ -30,6 +30,7 @@ export class HttpService {
     });
     return this.teams;
   }
+
 
   // PlayerSearch(): {
   //   let request = this.http.get<Team[]>("http://awseb-AWSEB-1659POZ6RBLZQ-1371454790.us-east-1.elb.amazonaws.com");
@@ -40,7 +41,7 @@ export class HttpService {
   //   });
   // }
 
-  ViewPlayers(pageNum : number, pageSizing: number) : Player[]{
+  ViewPlayers(pageNum: number, pageSizing: number): Player[] {
     this.players = [];
     let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-10QJV21J8A2ZQ-1516206366.us-east-1.elb.amazonaws.com/api/Player?PageNumber=" + pageNum + "&PageSize=" + pageSizing);
     request.subscribe((response) => {
@@ -49,23 +50,23 @@ export class HttpService {
       });
       this.pages = response.pages;
 
-    } ,(error) => {
+    }, (error) => {
       alert("The API is down!");
     });
     return this.players
   }
 
-  getPlayerHeaders(){
+  getPlayerHeaders() {
     let request = this.http.get<HeaderEnvelope>("http://awseb-AWSEB-10QJV21J8A2ZQ-1516206366.us-east-1.elb.amazonaws.com/api/Player/headers");
-    request.subscribe ((response) => {
+    request.subscribe((response) => {
       response.data.forEach(element => {
         this.headers.push(element);
       });
-    }, (error) =>{
+    }, (error) => {
       alert("The API is down!");
     });
 
     return this.headers;
   }
-  
+
 }

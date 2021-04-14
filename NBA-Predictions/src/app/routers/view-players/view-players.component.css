@@ -76,7 +76,7 @@ table{
     margin: 0;
 }
 
-table th{
+th{
     background-color: #707070;
     color: #fff;
 }
@@ -87,6 +87,7 @@ tr{
 
 th{
     text-align: left;
+    cursor: pointer;
 }
 
 td, th{
@@ -135,6 +136,8 @@ img{
     transform: scale(2);
 }
 
-/* .link{
-    color: white;
-} */
+.selected{
+    background-color: #4788eb; 
+    color: #fff;
+    border: none;
+}
