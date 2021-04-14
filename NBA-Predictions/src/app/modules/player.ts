@@ -3,7 +3,7 @@ export interface Player{
     lastname : string;
     age : number;
     gp: number;
-    min : number;
+    mins : number;
     pluS_MINUS : number;
     ast : number;
     blk : number;
@@ -18,6 +18,7 @@ export interface Player{
     fgm : number;
     fT_PCT : number;
     fta : number;
+    ftm: number;
     w : number;
     l : number;
     w_PCT : number;

@@ -1,8 +1,8 @@
 import { Player } from './player'
 
-export interface PlayerEvelope{
+export interface PlayerEnvelope{
     data: Player[];
-    errors: string[];
     message : string;
     succeeded : boolean;
+    pages : number;
 }

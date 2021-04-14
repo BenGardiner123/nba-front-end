@@ -8,16 +8,17 @@ import { HttpService } from '../../services/http-service.service';
 })
 export class ViewPlayersComponent implements OnInit {
 
-  pageNum: number = 1;
   players = [];
   header = ["Firstname", "Lastname","Age","Gp","Mins","+/-", "Ast", "Blk"];
-  pages: number = 10;
+  pageNum: number = 1;
+  pages: number ;
   pageSize : number = 10; 
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
     this.players = this.httpService.ViewPlayers(this.pageNum,this.pageSize);
+    this.pages = this.httpService.pages;
   }
 
   IncreasePage(){
