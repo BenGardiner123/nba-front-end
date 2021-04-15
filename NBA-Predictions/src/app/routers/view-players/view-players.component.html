@@ -1,7 +1,11 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <img src="../../../assets/logo-NBA-trans2.png" alt="Logo">
 <div class="body">
-
+    <div>
+    <div class="tabs">
+        <div class="manage-team">Manage Team</div>
+        <div class="team-summary">Team Summary</div>
+    </div>
     <div class="container">
         <div class="header">
             <div class="heading">
@@ -15,11 +19,13 @@
 
         </div>
 
-        <div class="tableDiv">
+        <div class="tableDiv tableWrapper">
             <table>
                 <tr>
-                    <th *ngFor="let data of header" (click)="Sorting(data)" [ngClass]="{'selected':data==activeSort}">
-                        {{data}}
+                    <th> </th>
+                    <th *ngFor="let data of headers" (click)="Sorting(data)" [ngClass]="{'selected-up':data==activeUpSort}"
+                    [ngClass]="{'selected-down':data==activeDownSort}">
+                        {{ data }}
                     </th>
                 </tr>
 
@@ -29,8 +35,9 @@
                     </td>
                 </tr> -->
 
-                <tr *ngFor="let player of players">
-                    <td>{{ player.firstname }}</td>
+                <tr *ngFor="let player of players" [ngClass]="{'selected-row': player==activeDownSort}">
+                    <td><input type="checkbox" class="checkbox"></td>
+                    <td>{{player.firstname }}</td>
                     <td>{{ player.lastname }}</td>
                     <td>{{ player.age }}</td>
                     <td>{{ player.gp }}</td>
@@ -38,6 +45,27 @@
                     <td>{{ player.pluS_MINUS }}</td>
                     <td>{{ player.ast }}</td>
                     <td>{{ player.blk }}</td>
+                    <td>{{ player.blka }}</td>
+                    <td>{{ player.oreb }}</td>
+                    <td>{{ player.dreb }}</td>
+                    <td>{{ player.fG_PCT }}</td>
+                    <td>{{ player.fG3_PCT }}</td>
+                    <td>{{ player.fG3A }}</td>
+                    <td>{{ player.fG3M }}</td>
+                    <td>{{ player.fga }}</td>
+                    <td>{{ player.fgm }}</td>
+                    <td>{{ player.fta }}</td>
+                    <td>{{ player.fT_PCT }}</td>
+                    <td>{{ player.ftm }}</td>
+                    <td>{{ player.w }}</td>
+                    <td>{{ player.l }}</td>
+                    <td>{{ player.w_PCT }}</td>
+                    <td>{{ player.pf }}</td>
+                    <td>{{ player.pfd }}</td>
+                    <td>{{ player.reb }}</td>
+                    <td>{{ player.tov }}</td>
+                    <td>{{ player.stl }}</td>
+                    <td>{{ player.pts }}</td>
                 </tr>
 
             </table>
@@ -61,4 +89,5 @@
         </div>
 
     </div>
+</div>
 </div>

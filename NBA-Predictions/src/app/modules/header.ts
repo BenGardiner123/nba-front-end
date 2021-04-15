@@ -1,3 +1,3 @@
 export interface Header{
-    column_name : string;
+    columN_NAME : string;
 }

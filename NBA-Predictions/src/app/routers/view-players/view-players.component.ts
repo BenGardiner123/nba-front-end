@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http-service.service';
+import { ForTable } from '../../modules/forTable';
+import { PlayerEnvelope } from 'src/app/modules/playerEnvelope';
 
 @Component({
   selector: 'app-view-players',
@@ -9,17 +11,21 @@ import { HttpService } from '../../services/http-service.service';
 export class ViewPlayersComponent implements OnInit {
 
   players = [];
-  header = ["Firstname", "Lastname", "Age", "Gp", "Mins", "+/-", "Ast", "Blk"];
+  headers: string[];
   pageNum: number = 1;
   pages: number;
   pageSize: number = 10;
-  activeSort: string;
+  activeUpSort: string = '';
+  activeDownSort: string = '';
+  
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
-    // this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
-    // this.pages = this.httpService.pages;
+    
+    this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
+    // this.pages = this.playerEnvelope.pages;
+    this.headers = this.httpService.GetPlayerHeaders();
   }
 
   IncreasePage() {
@@ -33,15 +39,23 @@ export class ViewPlayersComponent implements OnInit {
     if (this.pageNum > 1) {
       this.pageNum -= 1;
       this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
-      console.log(this.players);
     }
   }
 
   Sorting(sortElement) {
-    this.activeSort = sortElement;
+    if(this.activeUpSort == sortElement){
+      this.activeUpSort = '';
+      this.activeDownSort = sortElement;
+    }
+    else if((this.activeDownSort == sortElement) && (this.activeUpSort == '')){
+      this.activeDownSort = '';
+      this.activeUpSort = '';
+    }
+    else{
+      this.activeDownSort = '';
+      this.activeUpSort = sortElement;
+    }
+
     // Call HTTP sort 
-    // Should we just have a ViewPlayerRequest class that contains
-    // pageSize,pageNum,searchString,sortingElement
-    // this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
   }
 }
