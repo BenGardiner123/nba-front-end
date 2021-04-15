@@ -13,7 +13,7 @@ export class ViewPlayersComponent implements OnInit {
   pageNum: number = 1;
   pages: number;
   pageSize: number = 10;
-  activeSort: string;
+  activeSort: string = "notSelected";
 
   constructor(private httpService: HttpService) { }
 
@@ -38,7 +38,7 @@ export class ViewPlayersComponent implements OnInit {
   }
 
   Sorting(sortElement) {
-    this.activeSort = sortElement;
+    this.activeSort = this.activeSort == "notSelected"? sortElement : "notSelected";
     // Call HTTP sort 
     // Should we just have a ViewPlayerRequest class that contains
     // pageSize,pageNum,searchString,sortingElement
