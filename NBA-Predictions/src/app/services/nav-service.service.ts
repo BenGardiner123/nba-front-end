@@ -8,15 +8,15 @@ import { Router } from '@angular/router';
 export class NavService {
   constructor(private router: Router) { }
 
-  navLandingPage() {
+  NavLandingPage() {
     this.router.navigateByUrl("/LandingPage");
   }
 
-  navManagePlayers() {
+  NavManagePlayers() {
     this.router.navigateByUrl("/ManagePlayers");
   }
 
-  navTeamSummary() {
+  NavTeamSummary() {
     this.router.navigateByUrl("/TeamSummary");
   }
 }

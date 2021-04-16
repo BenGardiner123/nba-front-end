@@ -33,11 +33,11 @@ export class HomeComponent implements OnInit {
   navigate() {
     // Team Exists
     if (this.buttonName == "View") {
-      this.navService.navTeamSummary();
+      this.navService.NavTeamSummary();
     }
     // Team DOSENT Exists
     else {
-      this.navService.navManagePlayers();
+      this.navService.NavManagePlayers();
     }
   }
 

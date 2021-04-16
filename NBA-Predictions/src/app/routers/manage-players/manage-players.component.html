@@ -2,92 +2,96 @@
 <img src="../../../assets/logo-NBA-trans2.png" alt="Logo">
 <div class="body">
     <div>
-    <div class="tabs">
-        <div class="manage-team">Manage Team</div>
-        <div class="team-summary">Team Summary</div>
+
+        <div class="tabs">
+            <div class="manage-team">Manage Players</div>
+            <div class="team-summary" (click)="NavTeamSummary()">Team Summary</div>
+        </div>
+
+        <div class="container">
+
+            <div class="header">
+                <div class="heading">
+                    <h1>Example Players</h1>
+                </div>
+
+                <div class="user-input">
+                    <input #searchString placeholder="Search for a player..." type="text">
+                    <button (click)="Searching(searchString.value)">Search</button>
+                </div>
+
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>selected</th>
+                        <th *ngFor="let data of headers" (click)="Sorting(data)"
+                            [ngClass]="{'selected-up':data==activeUpSort}"
+                            [ngClass]="{'selected-down':data==activeDownSort}">
+                            {{ data }}
+                        </th>
+                    </tr>
+                    <tr *ngFor="let player of players"
+                        [ngClass]="{'selected-row': selectedPlayers.includes(player), 'deselected-row': !selectedPlayers.includes(player)}"
+                        (click)="ManageSelectedPlayers(player)">
+                        <td>
+                            <span class="material-icons"> chevron_right </span>
+                        </td>
+                        <td>{{player.firstname }}</td>
+                        <td>{{ player.lastname }}</td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.gp }}</td>
+                        <td>{{ player.mins }}</td>
+                        <td>{{ player.pluS_MINUS }}</td>
+                        <td>{{ player.ast }}</td>
+                        <td>{{ player.blk }}</td>
+                        <td>{{ player.blka }}</td>
+                        <td>{{ player.oreb }}</td>
+                        <td>{{ player.dreb }}</td>
+                        <td>{{ player.fG_PCT }}</td>
+                        <td>{{ player.fG3_PCT }}</td>
+                        <td>{{ player.fG3A }}</td>
+                        <td>{{ player.fG3M }}</td>
+                        <td>{{ player.fga }}</td>
+                        <td>{{ player.fgm }}</td>
+                        <td>{{ player.fta }}</td>
+                        <td>{{ player.fT_PCT }}</td>
+                        <td>{{ player.ftm }}</td>
+                        <td>{{ player.w }}</td>
+                        <td>{{ player.l }}</td>
+                        <td>{{ player.w_PCT }}</td>
+                        <td>{{ player.pf }}</td>
+                        <td>{{ player.pfd }}</td>
+                        <td>{{ player.reb }}</td>
+                        <td>{{ player.tov }}</td>
+                        <td>{{ player.stl }}</td>
+                        <td>{{ player.pts }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="footer">
+                <div class="team-size">{{selectedPlayers.length}}/15 Players Selected</div>
+                <button>Save & Exit</button>
+                <div class="pagination">
+                    <div class="arrow-divs" (click)="DecreasePage()">
+                        <span class="material-icons">
+                            chevron_left
+                        </span>
+                    </div>
+
+                    <div class="page-num">
+                        <span>{{this.pageNum}}/ {{this.pages}}</span>
+                    </div>
+
+                    <div class="arrow-divs" (click)="IncreasePage()">
+                        <span class="material-icons">
+                            chevron_right
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="container">
-        <div class="header">
-            <div class="heading">
-                <h1>View Players</h1>
-            </div>
-
-            <div class="user-input">
-                <input placeholder="Search for a player..." type="text">
-                <button id="searchBtn">Search</button>
-            </div>
-
-        </div>
-
-        <div class="tableDiv tableWrapper">
-            <table>
-                <tr>
-                    <th> </th>
-                    <th *ngFor="let data of headers" (click)="Sorting(data)" [ngClass]="{'selected-up':data==activeUpSort}"
-                    [ngClass]="{'selected-down':data==activeDownSort}">
-                        {{ data }}
-                    </th>
-                </tr>
-
-                <!-- <tr *ngFor="let player of players"> 
-                    <td *ngFor="let data of player">
-                        {{data}}
-                    </td>
-                </tr> -->
-
-                <tr *ngFor="let player of players" [ngClass]="{'selected-row': player==activeDownSort}">
-                    <td><input type="checkbox" class="checkbox"></td>
-                    <td>{{player.firstname }}</td>
-                    <td>{{ player.lastname }}</td>
-                    <td>{{ player.age }}</td>
-                    <td>{{ player.gp }}</td>
-                    <td>{{ player.mins }}</td>
-                    <td>{{ player.pluS_MINUS }}</td>
-                    <td>{{ player.ast }}</td>
-                    <td>{{ player.blk }}</td>
-                    <td>{{ player.blka }}</td>
-                    <td>{{ player.oreb }}</td>
-                    <td>{{ player.dreb }}</td>
-                    <td>{{ player.fG_PCT }}</td>
-                    <td>{{ player.fG3_PCT }}</td>
-                    <td>{{ player.fG3A }}</td>
-                    <td>{{ player.fG3M }}</td>
-                    <td>{{ player.fga }}</td>
-                    <td>{{ player.fgm }}</td>
-                    <td>{{ player.fta }}</td>
-                    <td>{{ player.fT_PCT }}</td>
-                    <td>{{ player.ftm }}</td>
-                    <td>{{ player.w }}</td>
-                    <td>{{ player.l }}</td>
-                    <td>{{ player.w_PCT }}</td>
-                    <td>{{ player.pf }}</td>
-                    <td>{{ player.pfd }}</td>
-                    <td>{{ player.reb }}</td>
-                    <td>{{ player.tov }}</td>
-                    <td>{{ player.stl }}</td>
-                    <td>{{ player.pts }}</td>
-                </tr>
-
-            </table>
-        </div>
-        <div class="pagination">
-            <div class="arrowDivs" (click)="DecreasePage()">
-                <span class="material-icons">
-                    chevron_left
-                </span>
-            </div>
-
-            <div class="pageNum">
-                <span>{{this.pageNum}}/ {{this.pages}}</span>
-            </div>
-
-            <div class="arrowDivs" (click)="IncreasePage()">
-                <span class="material-icons">
-                    chevron_right
-                </span>
-            </div>
-        </div>
-
-    </div>
-</div>
 </div>

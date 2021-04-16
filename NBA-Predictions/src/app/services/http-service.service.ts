@@ -32,9 +32,8 @@ export class HttpService {
     return this.teams;
   }
 
-
-  // PlayerSearch(): {
-  //   let request = this.http.get<Team[]>("http://awseb-AWSEB-1659POZ6RBLZQ-1371454790.us-east-1.elb.amazonaws.com");
+  // PlayerSearch(pageNum: number, pageSizing: number): {
+  //   let request = this.http.get<Player[]>("http://awseb-AWSEB-1659POZ6RBLZQ-1371454790.us-east-1.elb.amazonaws.com");
   //   request.subscribe((response) =>{
 
   //   }, (error) => {
@@ -42,7 +41,7 @@ export class HttpService {
   //   });
   // }
 
-  ViewPlayers(pageNum: number, pageSizing: number): Player[]{
+  ViewPlayers(pageNum: number, pageSizing: number): Player[] {
     let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1UO2IPKY1A3IS-112883167.us-east-1.elb.amazonaws.com/api/Player?PageNumber=" + pageNum + "&PageSize=" + pageSizing);
     request.subscribe((response) => {
       response.data.forEach(element => {
@@ -53,10 +52,10 @@ export class HttpService {
     }, (error) => {
       alert("The API is down!");
     });
-    
-    return this.players; 
+
+    return this.players;
   }
- 
+
 
   GetPlayerHeaders(): string[] {
     this.headers = [];

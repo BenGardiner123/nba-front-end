@@ -1,3 +1,5 @@
-export interface Team{
-    teamName : string;
+// import { Player } from './player'
+export interface Team {
+    teamName: string;
+    // players : Player[];
 }
