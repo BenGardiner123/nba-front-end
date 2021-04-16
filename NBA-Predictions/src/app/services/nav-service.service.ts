@@ -12,15 +12,11 @@ export class NavService {
     this.router.navigateByUrl("/LandingPage");
   }
 
-  navViewTeam() {
-    this.router.navigateByUrl("/viewTeams");
+  navManagePlayers() {
+    this.router.navigateByUrl("/ManagePlayers");
   }
 
-  navViewPlayers() {
-    this.router.navigateByUrl("/viewPlayers");
-  }
-
-  navCreateTeam() {
-    this.router.navigateByUrl("/createTeam");
+  navTeamSummary() {
+    this.router.navigateByUrl("/TeamSummary");
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 // ViewEncapsulation to use body and html tag in a component
 
 import { NavService } from '../../services/nav-service.service';
@@ -8,7 +8,6 @@ import { Team } from '../../modules/team';
 
 
 @Component({
-  encapsulation: ViewEncapsulation.None,
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -24,23 +23,24 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // Grab all teams everytime the landing page is loaded
     this.teams = this.httpService.GetAllTeams();
-
     document.body.classList.add('landingPageBackgroundImage');
   }
-  
-  ngOnDestroy() {  //I am removing the class to prevent body backgroundImage from leaking to other components
+
+  ngOnDestroy() {
     document.body.classList.remove('landingPageBackgroundImage');
   }
-  
+
   navigate() {
+    // Team Exists
     if (this.buttonName == "View") {
-      this.navService.navViewTeam();
+      this.navService.navTeamSummary();
     }
+    // Team DOSENT Exists
     else {
-      this.navService.navCreateTeam();
+      this.navService.navManagePlayers();
     }
   }
-  
+
   inputVal(userInput: string) {
 
     // Minor error, shouldnt need to call every time a user inputs, cant do in init 
@@ -48,15 +48,15 @@ export class HomeComponent implements OnInit {
       this.stringTeams.push(team.teamName.toLowerCase());
     });
 
-    if(this.stringTeams.includes(userInput.toLowerCase())){
+    if (this.stringTeams.includes(userInput.toLowerCase())) {
       this.buttonName = "View";
     }
-    else{
+    else {
       this.buttonName = "Create";
     }
-    
+
   }
 
- 
+
 
 }

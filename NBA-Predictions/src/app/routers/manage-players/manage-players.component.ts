@@ -4,11 +4,11 @@ import { ForTable } from '../../modules/forTable';
 import { PlayerEnvelope } from 'src/app/modules/playerEnvelope';
 
 @Component({
-  selector: 'app-view-players',
-  templateUrl: './view-players.component.html',
-  styleUrls: ['./view-players.component.css']
+  selector: 'app-manage-players',
+  templateUrl: './manage-players.component.html',
+  styleUrls: ['./manage-players.component.css']
 })
-export class ViewPlayersComponent implements OnInit {
+export class ManagePlayersComponent implements OnInit {
 
   players = [];
   headers: string[];
@@ -17,12 +17,12 @@ export class ViewPlayersComponent implements OnInit {
   pageSize: number = 10;
   activeUpSort: string = '';
   activeDownSort: string = '';
-  
+
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
-    
+
     this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
     // this.pages = this.playerEnvelope.pages;
     this.headers = this.httpService.GetPlayerHeaders();
@@ -43,15 +43,15 @@ export class ViewPlayersComponent implements OnInit {
   }
 
   Sorting(sortElement) {
-    if(this.activeUpSort == sortElement){
+    if (this.activeUpSort == sortElement) {
       this.activeUpSort = '';
       this.activeDownSort = sortElement;
     }
-    else if((this.activeDownSort == sortElement) && (this.activeUpSort == '')){
+    else if ((this.activeDownSort == sortElement) && (this.activeUpSort == '')) {
       this.activeDownSort = '';
       this.activeUpSort = '';
     }
-    else{
+    else {
       this.activeDownSort = '';
       this.activeUpSort = sortElement;
     }

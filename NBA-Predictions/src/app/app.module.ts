@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './routers/home/home.component';
-import { ViewPlayersComponent } from './routers/view-players/view-players.component';
-import { ViewTeamsComponent } from './routers/view-teams/view-teams.component';
+import { ManagePlayersComponent } from './routers/manage-players/manage-players.component';
+import { TeamSummaryComponent } from './routers/team-summary/team-summary.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
@@ -15,8 +15,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: [
     AppComponent,
     HomeComponent,
-    ViewPlayersComponent,
-    ViewTeamsComponent,
+    ManagePlayersComponent,
+    TeamSummaryComponent,
   ],
   imports: [
     BrowserModule,
