@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http-service.service';
 import { NavService } from '../../services/nav-service.service'
+import { CurrentTeamService } from '../../services/current-team.service'
 
 import { ForTable } from '../../modules/forTable';
 import { Player } from '../../modules/player';
@@ -13,6 +14,7 @@ import { PlayerEnvelope } from 'src/app/modules/playerEnvelope';
 })
 export class ManagePlayersComponent implements OnInit {
 
+  teamName: string;
   players = [];
   headers: string[];
   pageNum: number = 1;
@@ -23,7 +25,9 @@ export class ManagePlayersComponent implements OnInit {
   selectedPlayers: Player[] = [];
 
 
-  constructor(private httpService: HttpService, private navService: NavService) { }
+  constructor(private httpService: HttpService, private navService: NavService, private currentTeamService: CurrentTeamService) {
+    this.teamName = this.currentTeamService.teamName;
+  }
 
   ngOnInit(): void {
     this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
@@ -88,4 +92,8 @@ export class ManagePlayersComponent implements OnInit {
     this.navService.NavTeamSummary();
   }
 
+  SaveTeam() {
+    // this.httpService.UpdateTeam(this.selectedPlayers);
+    this.navService.NavLandingPage();
+  }
 }

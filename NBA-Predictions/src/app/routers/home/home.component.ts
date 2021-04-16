@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-// ViewEncapsulation to use body and html tag in a component
 
 import { NavService } from '../../services/nav-service.service';
 import { HttpService } from '../../services/http-service.service';
+import { CurrentTeamService } from '../../services/current-team.service';
+
 import { Team } from '../../modules/team';
 
 
@@ -13,12 +14,11 @@ import { Team } from '../../modules/team';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  currentTeam = " ";
   buttonName = "Create";
-  teams = [];
+  teams: Team[] = [];
   stringTeams = [];
 
-  constructor(private navService: NavService, private httpService: HttpService) { }
+  constructor(private navService: NavService, private httpService: HttpService, private currentTeamService: CurrentTeamService) { }
 
   ngOnInit(): void {
     // Grab all teams everytime the landing page is loaded
@@ -30,19 +30,18 @@ export class HomeComponent implements OnInit {
     document.body.classList.remove('landingPageBackgroundImage');
   }
 
-  navigate() {
-    // Team Exists
+  Navigate(teamName: string) {
+    this.currentTeamService.SetTeamName(teamName);
     if (this.buttonName == "View") {
+
       this.navService.NavTeamSummary();
     }
-    // Team DOSENT Exists
     else {
       this.navService.NavManagePlayers();
     }
   }
 
-  inputVal(userInput: string) {
-
+  UpdateInput(userInput: string) {
     // Minor error, shouldnt need to call every time a user inputs, cant do in init 
     this.teams.forEach(team => {
       this.stringTeams.push(team.teamName.toLowerCase());

@@ -59,6 +59,10 @@ img{
     border-radius: 5px 5px 0 0;
 }
 
+.team-summary{
+    border-radius: 5px 0 0 0;
+}
+
 /* CONTAINER */
 
 .container > *{
@@ -211,6 +215,7 @@ tr.deselected-row:nth-child(even){
     font-size: large;
     border: solid 1px #707070;
     padding: 2vh 6vw;
+    cursor: pointer;
 }
 
 .team-size{

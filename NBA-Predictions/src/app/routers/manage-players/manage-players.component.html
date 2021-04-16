@@ -12,7 +12,7 @@
 
             <div class="header">
                 <div class="heading">
-                    <h1>Example Players</h1>
+                    <h1>{{teamName}}</h1>
                 </div>
 
                 <div class="user-input">
@@ -73,7 +73,7 @@
 
             <div class="footer">
                 <div class="team-size">{{selectedPlayers.length}}/15 Players Selected</div>
-                <button>Save & Exit</button>
+                <button (click)="SaveTeam()">Save & Exit</button>
                 <div class="pagination">
                     <div class="arrow-divs" (click)="DecreasePage()">
                         <span class="material-icons">

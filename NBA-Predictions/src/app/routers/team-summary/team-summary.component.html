@@ -1,1 +1,66 @@
-<p>view-teams works!</p>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<img src="../../../assets/logo-NBA-trans2.png" alt="Logo">
+<div class="body">
+    <div>
+
+        <div class="tabs">
+            <div class="manage-team" (click)="NavManagePlayers()">Manage Players</div>
+            <div class="team-summary">Team Summary</div>
+        </div>
+
+        <div class="container">
+
+            <div class="header">
+                <div class="heading">
+                    <h1>{{teamName}}</h1>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <!-- <tr>
+                        <th *ngFor="let data of headers" (click)="Sorting(data)">
+                            {{ data }}
+                        </th>
+                    </tr> -->
+                    <tr *ngFor="let player of players">
+                        <td>{{player.firstname }}</td>
+                        <td>{{ player.lastname }}</td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.gp }}</td>
+                        <td>{{ player.mins }}</td>
+                        <td>{{ player.pluS_MINUS }}</td>
+                        <td>{{ player.ast }}</td>
+                        <td>{{ player.blk }}</td>
+                        <td>{{ player.blka }}</td>
+                        <td>{{ player.oreb }}</td>
+                        <td>{{ player.dreb }}</td>
+                        <td>{{ player.fG_PCT }}</td>
+                        <td>{{ player.fG3_PCT }}</td>
+                        <td>{{ player.fG3A }}</td>
+                        <td>{{ player.fG3M }}</td>
+                        <td>{{ player.fga }}</td>
+                        <td>{{ player.fgm }}</td>
+                        <td>{{ player.fta }}</td>
+                        <td>{{ player.fT_PCT }}</td>
+                        <td>{{ player.ftm }}</td>
+                        <td>{{ player.w }}</td>
+                        <td>{{ player.l }}</td>
+                        <td>{{ player.w_PCT }}</td>
+                        <td>{{ player.pf }}</td>
+                        <td>{{ player.pfd }}</td>
+                        <td>{{ player.reb }}</td>
+                        <td>{{ player.tov }}</td>
+                        <td>{{ player.stl }}</td>
+                        <td>{{ player.pts }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="footer">
+                <div class="team-size">{{players.length}}/15 Players Selected</div>
+                <button (click)="SaveTeam()">Save & Exit</button>
+            </div>
+        </div>
+    </div>
+</div>
