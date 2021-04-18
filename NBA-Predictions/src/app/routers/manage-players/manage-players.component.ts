@@ -32,6 +32,7 @@ export class ManagePlayersComponent implements OnInit {
   ngOnInit(): void {
     this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
     this.headers = this.httpService.GetPlayerHeaders();
+    this.selectedPlayers = this.currentTeamService.players;
   }
 
 
@@ -89,6 +90,7 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   NavTeamSummary() {
+    this.currentTeamService.players = this.selectedPlayers;
     this.navService.NavTeamSummary();
   }
 

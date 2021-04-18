@@ -14,6 +14,8 @@ export class TeamSummaryComponent implements OnInit {
 
   teamName: string;
   players: Player[] = [];
+  headers: string[];
+
 
   constructor(private httpService: HttpService, private navService: NavService, private currentTeamService: CurrentTeamService) {
     this.teamName = this.currentTeamService.teamName;
@@ -21,6 +23,7 @@ export class TeamSummaryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.headers = this.httpService.GetPlayerHeaders();
   }
 
   NavManagePlayers() {

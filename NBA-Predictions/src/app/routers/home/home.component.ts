@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   }
 
   Navigate(teamName: string) {
-    this.currentTeamService.SetTeamName(teamName);
+    this.currentTeamService.teamName = teamName;
     if (this.buttonName == "View") {
 
       this.navService.NavTeamSummary();

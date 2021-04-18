@@ -9,10 +9,6 @@ export class CurrentTeamService {
   constructor() { }
 
   teamName: string;
-  players: Player[];
+  players: Player[] = [];
 
-
-  SetTeamName(teamName: string) {
-    this.teamName = teamName;
-  }
 }

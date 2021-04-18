@@ -42,6 +42,7 @@ export class HttpService {
   // }
 
   ViewPlayers(pageNum: number, pageSizing: number): Player[] {
+    this.players = [];
     let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1UO2IPKY1A3IS-112883167.us-east-1.elb.amazonaws.com/api/Player?PageNumber=" + pageNum + "&PageSize=" + pageSizing);
     request.subscribe((response) => {
       response.data.forEach(element => {
