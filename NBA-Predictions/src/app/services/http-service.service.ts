@@ -13,7 +13,7 @@ import { ForTable } from '../modules/forTable';
 })
 export class HttpService {
   teams: Team[];
-  pages: number = 0;
+  pages: number = 1;
   headers: string[];
   players: Player[] = [];
 

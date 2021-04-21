@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
 import { HttpService } from '../../services/http-service.service';
 import { NavService } from '../../services/nav-service.service'
 import { CurrentTeamService } from '../../services/current-team.service'
@@ -18,7 +21,7 @@ export class ManagePlayersComponent implements OnInit {
   players = [];
   headers: string[];
   pageNum: number = 1;
-  pages: number;
+  pages: number = 1;
   pageSize: number = 10;
   activeUpSort: string = '';
   activeDownSort: string = '';
@@ -27,14 +30,34 @@ export class ManagePlayersComponent implements OnInit {
 
   constructor(private httpService: HttpService, private navService: NavService, private currentTeamService: CurrentTeamService) {
     this.teamName = this.currentTeamService.teamName;
+
+    //to get the pages from local storage when page refreshes
+    if(localStorage.getItem('pages') != null && Number(JSON.parse(localStorage.getItem('pages'))) > 1){
+      this.pages = Number(JSON.parse(localStorage.getItem('pages')));
+    }
+    
   }
 
   ngOnInit(): void {
     this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
     this.headers = this.httpService.GetPlayerHeaders();
     this.selectedPlayers = this.currentTeamService.players;
+     
+    // used an observable to get the pages and a conditions to only set the localStorage item at first
+    if (this.pages == 1){
+      of(null).pipe(delay(100)).subscribe(() => {
+        this.pages = this.httpService.pages;
+        console.log(this.pages + 'observable');
+        localStorage.setItem('pages', JSON.stringify(this.pages));
+      }); 
+    }
+
   }
 
+  ngOnDestroy(){
+    //remove the item when component is destroyed
+    localStorage.removeItem('pages');
+  }
 
 
   Searching(searchString: string) {
