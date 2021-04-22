@@ -31,13 +31,18 @@ export class HomeComponent implements OnInit {
   }
 
   Navigate(teamName: string) {
+    if(teamName == '' || teamName == null){
+      alert('Please enter a team name');
+      return;
+    }
     this.currentTeamService.teamName = teamName;
     if (this.buttonName == "View") {
 
-      this.navService.NavTeamSummary();
+      this.navService.NavTeamSummary(teamName);
     }
     else {
-      this.navService.NavManagePlayers();
+      this.navService.NavManagePlayers(teamName);
+      // this.httpService.CreateTeam(teamName);
     }
   }
 

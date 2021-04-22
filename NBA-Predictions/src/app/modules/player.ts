@@ -1,4 +1,5 @@
 export interface Player{
+    player_key: number;
     firstname: string
     lastname : string;
     age : number;

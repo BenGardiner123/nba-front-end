@@ -12,11 +12,23 @@ export class NavService {
     this.router.navigateByUrl("/LandingPage");
   }
 
-  NavManagePlayers() {
+  NavManagePlayers(teamName: string) {
+    if(localStorage.getItem('team') != null){
+      localStorage.removeItem('team');
+    }
+    else{
+      localStorage.setItem('team', JSON.stringify(teamName));
+    }
     this.router.navigateByUrl("/ManagePlayers");
   }
 
-  NavTeamSummary() {
+  NavTeamSummary(teamName:string) {
     this.router.navigateByUrl("/TeamSummary");
+    if(localStorage.getItem('team') != null){
+      localStorage.removeItem('team');
+    }
+    else{
+      localStorage.setItem('team', JSON.stringify(teamName));
+    }
   }
 }
