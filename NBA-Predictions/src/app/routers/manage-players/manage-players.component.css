@@ -146,6 +146,10 @@ tr.deselected-row:nth-child(even){
     background-color: #fff;
 }
 
+input[type=checkbox]{
+    width: 4vw;
+}
+
 /* ROW SELECTION */
 .selected-up{
     background-color: #4788eb; 

@@ -25,7 +25,7 @@
             <div class="table-container">
                 <table>
                     <tr>
-                        <th>selected</th>
+                        <th>select</th>
                         <th *ngFor="let data of headers" (click)="Sorting(data)"
                             [ngClass]="{'selected-up':data==activeUpSort}"
                             [ngClass]="{'selected-down':data==activeDownSort}">
@@ -33,10 +33,10 @@
                         </th>
                     </tr>
                     <tr *ngFor="let player of players"
-                        [ngClass]="{'selected-row': selectedPlayers.includes(player), 'deselected-row': !selectedPlayers.includes(player)}"
-                        (click)="ManageSelectedPlayers(player)">
+                        [ngClass]="{'selected-row': selectedPlayers.includes(player), 'deselected-row': !selectedPlayers.includes(player)}">
                         <td>
-                            <span class="material-icons"> chevron_right </span>
+                            <!-- <span class="material-icons"> chevron_right </span> -->
+                            <input type="checkbox" [checked]="checked" (click)="ManageSelectedPlayers(player)"/>
                         </td>
                         <td>{{player.firstname }}</td>
                         <td>{{ player.lastname }}</td>

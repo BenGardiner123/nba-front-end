@@ -6,9 +6,9 @@ import { HttpService } from '../../services/http-service.service';
 import { NavService } from '../../services/nav-service.service'
 import { CurrentTeamService } from '../../services/current-team.service'
 
-import { ForTable } from '../../modules/forTable';
 import { Player } from '../../modules/player';
 import { PlayerEnvelope } from 'src/app/modules/playerEnvelope';
+import { browserRefresh } from '../../app.component';
 
 @Component({
   selector: 'app-manage-players',
@@ -26,15 +26,14 @@ export class ManagePlayersComponent implements OnInit {
   activeUpSort: string = '';
   activeDownSort: string = '';
   selectedPlayers: Player[] = [];
-
+  checked = false;
+  refreshed : boolean;
 
   constructor(private httpService: HttpService, private navService: NavService, private currentTeamService: CurrentTeamService) {
     this.teamName = this.currentTeamService.teamName;
 
-    //to get the pages from local storage when page refreshes
-    if(localStorage.getItem('pages') != null && Number(JSON.parse(localStorage.getItem('pages'))) > 1){
-      this.pages = Number(JSON.parse(localStorage.getItem('pages')));
-    }
+    //detects browser refresh
+    this.refreshed = browserRefresh;
     
   }
 
@@ -42,15 +41,19 @@ export class ManagePlayersComponent implements OnInit {
     this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize);
     this.headers = this.httpService.GetPlayerHeaders();
     this.selectedPlayers = this.currentTeamService.players;
-     
-    // used an observable to get the pages and a conditions to only set the localStorage item at first
-    if (this.pages == 1){
-      of(null).pipe(delay(100)).subscribe(() => {
+
+    //used an observable to get the pages and localstorage to keep the pages on refresh
+    of(null).pipe(delay(350)).subscribe(() => {
+      if(this.refreshed == false){
         this.pages = this.httpService.pages;
-        console.log(this.pages + 'observable');
         localStorage.setItem('pages', JSON.stringify(this.pages));
-      }); 
-    }
+      }
+      else if(localStorage.getItem('pages') != null && Number(JSON.parse(localStorage.getItem('pages'))) > 1)
+      {
+        this.pages = Number(JSON.parse(localStorage.getItem('pages')));
+      }
+     
+    });
 
   }
 

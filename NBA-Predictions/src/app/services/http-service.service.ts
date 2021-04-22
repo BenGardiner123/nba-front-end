@@ -6,7 +6,6 @@ import { Player } from '../modules/player';
 import { error } from '@angular/compiler/src/util';
 import { PlayerEnvelope } from '../modules/playerEnvelope';
 import { HeaderEnvelope } from '../modules/headerEnvelope';
-import { ForTable } from '../modules/forTable';
 
 @Injectable({
   providedIn: 'root'
