@@ -16,8 +16,9 @@
                 </div>
 
                 <div class="user-input">
-                    <input #search placeholder="Search for a player..." type="text" (keyup)="onKeyUp(search.value)">
-                    <button (click)="Searching(search.value)">Search</button>
+                    <input #search id="search" placeholder="Search for a player..." type="text"
+                        (keyup)="onKeyUp(search.value)">
+                    <button (click)="Searching()">Search</button>
                 </div>
 
             </div>
@@ -25,21 +26,28 @@
             <div class="table-container">
                 <table>
                     <!-- fix this for when api down -->
-                    <tr> 
+                    <tr>
                         <th>select</th>
                         <th *ngFor="let data of headers" (click)="Sorting(data)"
                             [ngClass]="{'selected-up':data==activeUpSort}"
                             [ngClass]="{'selected-down':data==activeDownSort}">
                             {{ data.toLowerCase()}}
-                            <!-- will figure this one later -->
-                            <span style="display: none;"> <fa-icon [icon]="sorticon"></fa-icon></span> 
+                            <span id="default">
+                                <fa-icon [icon]="faSortIcon"></fa-icon>
+                            </span>
+                            <span id="sort-up">
+                                <fa-icon [icon]="faSortIconUp"></fa-icon>
+                            </span>
+                            <span id="sort-down">
+                                <fa-icon [icon]="faSortIconDown"></fa-icon>
+                            </span>
                         </th>
                     </tr>
                     <tr *ngFor="let player of players"
                         [ngClass]="{'selected-row': selectedPlayers.includes(player), 'deselected-row': !selectedPlayers.includes(player)}">
                         <td>
                             <!-- <span class="material-icons"> chevron_right </span> -->
-                            <input type="checkbox" [checked]="checked" (click)="ManageSelectedPlayers(player)"/>
+                            <input type="checkbox" [checked]="checked" (click)="ManageSelectedPlayers(player)" />
                         </td>
                         <td>{{player.firstname }}</td>
                         <td>{{ player.lastname }}</td>

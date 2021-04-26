@@ -128,7 +128,6 @@ input{
 table{
     border-collapse: collapse;
     width: 100%;
-    height: 100%;
 }
 
 th{
@@ -138,6 +137,8 @@ th{
     text-align: left;
     cursor: pointer;
 }
+
+th
 
 td, th{
     padding: 0.5vh 0.3vw;
@@ -158,10 +159,34 @@ input[type=checkbox]{
     border: none;
 }
 
+fa-icon{
+    color: #fff;
+}
+
+#sort-up, #sort-down{
+    display: none;
+}
+
+.selected-up #sort-up{
+    display: inline;
+}
+
+.selected-up #sort-down, .selected-up #default{
+    display: none;
+}
+
 .selected-down{
     background-color: red; 
     color: #fff;
     border: none;
+}
+
+.selected-down #sort-down{
+    display: inline;
+}
+
+.selected-down #sort-up, .selected-down #default{
+    display: none;
 }
 
 .selected-row{
@@ -170,10 +195,6 @@ input[type=checkbox]{
 
 .selected-row span{
     display: inline-block;
-}
-
-.deselected-row span{
-    display: none;
 }
 
 /* FOOTER */

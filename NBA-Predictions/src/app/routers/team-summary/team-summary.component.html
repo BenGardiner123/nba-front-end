@@ -19,19 +19,12 @@
 
             <div class="table-container">
                 <table>
-                    <!-- fix this for when api down -->
-                    <tr> 
-                        <th>select</th>
-                        <th *ngFor="let data of headers" (click)="Sorting(data)"
-                            [ngClass]="{'selected-up':data==activeUpSort}"
-                            [ngClass]="{'selected-down':data==activeDownSort}">
+                    <tr>
+                        <th *ngFor="let data of headers">
                             {{ data}}
-                            <!-- will figure this one later -->
-                            <span style="display: none;"> <fa-icon [icon]="sorticon"></fa-icon></span> 
                         </th>
                     </tr>
-                    <tr *ngFor="let player of players"
-                        [ngClass]="{'selected-row': selectedPlayers.includes(player), 'deselected-row': !selectedPlayers.includes(player)}">
+                    <tr *ngFor="let player of players">
                         <td>{{player.firstname }}</td>
                         <td>{{ player.lastname }}</td>
                         <td>{{ player.age }}</td>
@@ -68,23 +61,7 @@
             <div class="footer">
                 <div class="team-size">{{selectedPlayers.length}}/15 Players Selected</div>
                 <button (click)="SaveTeam()">Save & Exit</button>
-                <div class="pagination">
-                    <div class="arrow-divs" (click)="DecreasePage()">
-                        <span class="material-icons">
-                            chevron_left
-                        </span>
-                    </div>
-
-                    <div class="page-num">
-                        <span>{{this.pageNum}}/ {{this.pages}}</span>
-                    </div>
-
-                    <div class="arrow-divs" (click)="IncreasePage()">
-                        <span class="material-icons">
-                            chevron_right
-                        </span>
-                    </div>
-                </div>
+                <div id="spacer"></div>
             </div>
         </div>
     </div>
