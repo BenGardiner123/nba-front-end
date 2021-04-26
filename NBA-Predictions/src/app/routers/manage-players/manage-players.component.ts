@@ -50,6 +50,7 @@ export class ManagePlayersComponent implements OnInit {
   ngOnInit(): void {
     this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
     this.headers = this.httpService.GetPlayerHeaders();
+    this.headers.unshift('selected');
     this.selectedPlayersKeys = this.currentTeamService.playerKeys;
     this.selectedPlayers = this.currentTeamService.players;
 
@@ -111,8 +112,7 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   Sorting(sortElement) {
-    let value = this.headers.indexOf(sortElement);
-    this.sortString = this.headers[value];
+    this.sortString = sortElement;
 
     if (this.activeUpSort == sortElement) {
       this.activeUpSort = '';
@@ -131,13 +131,22 @@ export class ManagePlayersComponent implements OnInit {
       this.sortOrder = 'ASC';
     }
 
-    if (this.searchString == '') {
-      this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
+    if (sortElement == 'selected') {
+      this.SortSelected();
       return;
     }
-    else if (this.searchString != '' && this.sortOrder == 'DESC') {
+
+    if (this.searchString == '') {
+      this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
+    }
+    else {
       this.players = this.httpService.PlayerSearch(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
     }
+  }
+
+  SortSelected() {
+    this.players = this.selectedPlayers;
+
   }
 
   ManageSelectedPlayers(player: Player) {

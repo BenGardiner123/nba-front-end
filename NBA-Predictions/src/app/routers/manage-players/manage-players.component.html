@@ -26,26 +26,28 @@
             <div class="table-container">
                 <table>
                     <tr>
-                        <th>selected</th>
                         <th *ngFor="let data of headers" (click)="Sorting(data)"
                             [ngClass]="{'selected-up':data==activeUpSort}"
                             [ngClass]="{'selected-down':data==activeDownSort}">
-                            {{ data.toLowerCase()}}
-                            <span id="default">
-                                <fa-icon [icon]="faSortIcon"></fa-icon>
-                            </span>
-                            <span id="sort-up">
-                                <fa-icon [icon]="faSortIconUp"></fa-icon>
-                            </span>
-                            <span id="sort-down">
-                                <fa-icon [icon]="faSortIconDown"></fa-icon>
-                            </span>
+                            <div class="header-container">
+                                <div>
+                                    {{ data.toLowerCase()}}
+                                </div>
+                                <span id="default">
+                                    <fa-icon [icon]="faSortIcon"></fa-icon>
+                                </span>
+                                <span id="sort-up">
+                                    <fa-icon [icon]="faSortIconUp"></fa-icon>
+                                </span>
+                                <span id="sort-down">
+                                    <fa-icon [icon]="faSortIconDown"></fa-icon>
+                                </span>
+                            </div>
                         </th>
                     </tr>
                     <tr *ngFor="let player of players"
                         [ngClass]="{'selected-row': selectedPlayersKeys.includes(player.player_key), 'deselected-row': !selectedPlayersKeys.includes(player.player_key)}">
                         <td>
-                            <!-- <span class="material-icons"> chevron_right </span> -->
                             <input type="checkbox" [checked]="checked" (click)="ManageSelectedPlayers(player)" />
                         </td>
                         <td>{{player.firstname }}</td>

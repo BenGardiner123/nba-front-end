@@ -130,12 +130,24 @@ table{
     width: 100%;
 }
 
+.header-container{
+    display: flex;
+    color: #fff;
+}
+
+.header-container > :first-child{
+    color: #fff;
+    padding-right: 0.5vw;
+}
+
+
 th{
     background-color: #707070;
     font-weight: 800;
     color: #fff;
     text-align: left;
     cursor: pointer;
+    user-select: none;
 }
 
 td, th{

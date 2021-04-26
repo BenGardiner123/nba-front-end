@@ -34,7 +34,6 @@ export class HttpService {
 
   PlayerSearch(pageNum: number, pageSizing: number, searchstring: string, sortstring: string, sortorder: string): Player[] {
     this.players = [];
-    // 
     let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Player/SearchPlayer?searchstring=" + searchstring + "&PageNumber=" + pageNum + "&PageSize=" + pageSizing + "&SortString=" + sortstring + "&SortOrder=" + sortorder);
     request.subscribe((response) => {
       response.data.forEach(element => {
@@ -100,19 +99,9 @@ export class HttpService {
   }
 
   UpdateTeam(teamname: string, players: number[]) {
-    console.log(teamname);
-    console.log(players);
-    let request = this.http.post<PlayerSelections>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/PlayerSelection", {
+    let request = this.http.put<PlayerSelections>("http://awseb-AWSEB-VBBS22Y9S5EK-806329012.us-east-1.elb.amazonaws.com/", {
       teamname: teamname,
       player_keys: players
-    } as PlayerSelections);
-
-    request.subscribe((response) => {
-      console.log(response + " => Players added");
-    }, (error) => {
-      alert("The API is down!");
     });
-
   }
-
 }
