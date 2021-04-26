@@ -9,6 +9,6 @@ export class CurrentTeamService {
   constructor() { }
 
   teamName: string;
+  playerKeys: number[] = [];
   players: Player[] = [];
-
 }

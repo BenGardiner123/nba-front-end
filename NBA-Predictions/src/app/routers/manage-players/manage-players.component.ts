@@ -36,9 +36,8 @@ export class ManagePlayersComponent implements OnInit {
   sortOrder: string = 'ASC';
   activeUpSort: string = '';
   activeDownSort: string = '';
-  selectedPlayers: Player[] = [];
   selectedPlayersKeys: number[] = [];
-  checked = false;
+  selectedPlayers: Player[] = [];
   refreshed: boolean;
   playerSearched: boolean = false;
   searchString?: string = '';
@@ -46,24 +45,16 @@ export class ManagePlayersComponent implements OnInit {
 
   constructor(private httpService: HttpService, private navService: NavService, private currentTeamService: CurrentTeamService) {
     this.teamName = this.currentTeamService.teamName;
-    //detects browser refresh
-
-
-    // Why are we refreshing again??
-    // this.refreshed = browserRefresh;
   }
 
   ngOnInit(): void {
     this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
     this.headers = this.httpService.GetPlayerHeaders();
+    this.selectedPlayersKeys = this.currentTeamService.playerKeys;
     this.selectedPlayers = this.currentTeamService.players;
-    console.log(this.selectedPlayers)
-    console.log(this.players);
-
-    console.log(this.players.includes(this.selectedPlayers));
 
     //used an observable to get the pages and localstorage to keep the pages on refresh
-    of(null).pipe(delay(650)).subscribe(() => {
+    of(null).pipe(delay(0)).subscribe(() => {
       if (this.refreshed == false) {
         this.pages = this.httpService.pages;
         localStorage.setItem('pages', JSON.stringify(this.pages));
@@ -73,18 +64,10 @@ export class ManagePlayersComponent implements OnInit {
       }
 
     });
-
-    // This isnt needed. Thats what the current team service is for
-    //get Team name
-    // of(null).pipe(delay(300)).subscribe(() => {
-    //   this.teamName = JSON.parse(localStorage.getItem('team'));
-    // });
   }
 
   ngOnDestroy() {
-    //remove the item when component is destroyed
     localStorage.removeItem('pages');
-    // localStorage.removeItem('team');
   }
 
 
@@ -97,7 +80,7 @@ export class ManagePlayersComponent implements OnInit {
     this.playerSearched = true;
     this.players = this.httpService.PlayerSearch(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
 
-    of(null).pipe(delay(500)).subscribe(() => {
+    of(null).pipe(delay(0)).subscribe(() => {
       this.pages = Number(JSON.parse(localStorage.getItem('playerSearchPages')));
     });
 
@@ -159,16 +142,15 @@ export class ManagePlayersComponent implements OnInit {
 
   ManageSelectedPlayers(player: Player) {
     // If player already selected
-    if (this.selectedPlayers.includes(player)) {
-      let index = this.selectedPlayers.indexOf(player);
-      let keyindex = this.selectedPlayersKeys.indexOf(player.player_key);
+    if (this.selectedPlayersKeys.includes(player.player_key)) {
+      let index = this.selectedPlayersKeys.indexOf(player.player_key);
+      this.selectedPlayersKeys.splice(index, 1);
       this.selectedPlayers.splice(index, 1);
-      this.selectedPlayersKeys.splice(keyindex, 1);
     }
-    // Check that selectedPlayers arent full
-    else if (this.selectedPlayers.length < 15) {
-      this.selectedPlayers.push(player);
+    // Check that selectedPlayerKeys arent full
+    else if (this.selectedPlayersKeys.length < 15) {
       this.selectedPlayersKeys.push(player.player_key);
+      this.selectedPlayers.push(player);
     }
     // selectedPlayers are full
     else {
@@ -187,6 +169,7 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   NavTeamSummary() {
+    this.currentTeamService.playerKeys = this.selectedPlayersKeys;
     this.currentTeamService.players = this.selectedPlayers;
     this.navService.NavTeamSummary(this.teamName);
   }

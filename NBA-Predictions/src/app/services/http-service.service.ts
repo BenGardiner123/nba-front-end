@@ -32,11 +32,11 @@ export class HttpService {
     return this.teams;
   }
 
-  PlayerSearch(pageNum: number, pageSizing: number, searchstring: string, sortstring:string, sortorder:string) : Player[] {
+  PlayerSearch(pageNum: number, pageSizing: number, searchstring: string, sortstring: string, sortorder: string): Player[] {
     this.players = [];
     // 
-    let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Player/SearchPlayer?searchstring="+searchstring+"&PageNumber="+pageNum+"&PageSize="+pageSizing+"&SortString="+sortstring+"&SortOrder="+sortorder);
-    request.subscribe((response) =>{
+    let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Player/SearchPlayer?searchstring=" + searchstring + "&PageNumber=" + pageNum + "&PageSize=" + pageSizing + "&SortString=" + sortstring + "&SortOrder=" + sortorder);
+    request.subscribe((response) => {
       response.data.forEach(element => {
         this.players.push(element);
       });
@@ -51,10 +51,10 @@ export class HttpService {
     return this.players;
   }
 
-  
-  ViewPlayers(pageNum: number, pageSizing: number, sortString: string, sortOrder:string): Player[] {
+
+  ViewPlayers(pageNum: number, pageSizing: number, sortString: string, sortOrder: string): Player[] {
     this.players = [];
-    let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Player?PageNumber=" + pageNum + "&PageSize=" + pageSizing+ "&SortString=" + sortString+ "&SortOrder=" + sortOrder);
+    let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Player?PageNumber=" + pageNum + "&PageSize=" + pageSizing + "&SortString=" + sortString + "&SortOrder=" + sortOrder);
     request.subscribe((response) => {
       response.data.forEach(element => {
         this.players.push(element);
@@ -84,28 +84,28 @@ export class HttpService {
     return this.headers;
   }
 
-  CreateTeam(teamname: string){
-    let request = this.http.post<Team>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Team",{
+  CreateTeam(teamname: string) {
+    let request = this.http.post<Team>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Team", {
       teamName: teamname
-    }as Team);
+    } as Team);
 
-    localStorage.setItem('team',JSON.stringify(teamname));
+    localStorage.setItem('team', JSON.stringify(teamname));
 
     request.subscribe((response) => {
       console.log(response + " => Team Created");
     }, (error) => {
       alert("The API is down!");
     });
-    
+
   }
 
-  UpdateTeam(teamname:string, players:number[]){
+  UpdateTeam(teamname: string, players: number[]) {
     console.log(teamname);
     console.log(players);
-    let request = this.http.post<PlayerSelections>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/PlayerSelection",{
-      teamname:teamname,
-      player_keys:players
-    }as PlayerSelections);
+    let request = this.http.post<PlayerSelections>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/PlayerSelection", {
+      teamname: teamname,
+      player_keys: players
+    } as PlayerSelections);
 
     request.subscribe((response) => {
       console.log(response + " => Players added");

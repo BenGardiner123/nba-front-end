@@ -138,10 +138,8 @@ th{
     cursor: pointer;
 }
 
-th
-
 td, th{
-    padding: 0.5vh 0.3vw;
+    padding: 1vh .6vw;
 }
 
 tr.deselected-row:nth-child(even){
