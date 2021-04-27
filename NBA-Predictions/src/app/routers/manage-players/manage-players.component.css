@@ -72,7 +72,7 @@ img{
     align-items: center;
     flex-direction: column;
     width: 70vw;
-    height: 75vh;
+    height: 77vh;
     padding: 3vw 3vw 1vw 3vw;
     border-radius: 0 0 5px 5px;
 }
@@ -150,8 +150,12 @@ th{
     user-select: none;
 }
 
-td, th{
-    padding: 1vh .6vw;
+th{
+    padding: 0.9vh .6vw;
+}
+
+td{
+    padding : 0.47vh 0.6vw;
 }
 
 tr.deselected-row:nth-child(even){

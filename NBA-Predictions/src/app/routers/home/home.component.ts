@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // Grab all teams everytime the landing page is loaded
     this.teams = this.httpService.GetAllTeams();
+    
     document.body.classList.add('landingPageBackgroundImage');
   }
 
@@ -42,7 +43,8 @@ export class HomeComponent implements OnInit {
     }
     else {
       this.navService.NavManagePlayers(teamName);
-      // this.httpService.CreateTeam(teamName);
+      this.httpService.CreateTeam(teamName);
+      localStorage.setItem('teamname', JSON.stringify(teamName));
     }
   }
 

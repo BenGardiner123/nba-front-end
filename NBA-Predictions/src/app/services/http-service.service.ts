@@ -21,7 +21,7 @@ export class HttpService {
 
   GetAllTeams(): Team[] {
     this.teams = [];
-    let request = this.http.get<Team[]>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Team");
+    let request = this.http.get<Team[]>("http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/Team");
     request.subscribe((response) => {
       response.forEach(element => {
         this.teams.push(element);
@@ -34,12 +34,19 @@ export class HttpService {
 
   PlayerSearch(pageNum: number, pageSizing: number, searchstring: string, sortstring: string, sortorder: string): Player[] {
     this.players = [];
-    let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Player/SearchPlayer?searchstring=" + searchstring + "&PageNumber=" + pageNum + "&PageSize=" + pageSizing + "&SortString=" + sortstring + "&SortOrder=" + sortorder);
+    localStorage.removeItem('playerSearchPages');
+    let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/Player/SearchPlayer?searchstring=" + searchstring + "&PageNumber=" + pageNum + "&PageSize=" + pageSizing + "&SortString=" + sortstring + "&SortOrder=" + sortorder);
     request.subscribe((response) => {
       response.data.forEach(element => {
         this.players.push(element);
       });
-      this.pages = response.pages;
+      if(response.pages == 0){
+        this.pages = 1;
+      }
+      else{
+        this.pages = response.pages;
+      }
+      
       localStorage.setItem('playerSearchPages', JSON.stringify(this.pages));
       console.log(this.pages + " in playersearch");
 
@@ -53,7 +60,7 @@ export class HttpService {
 
   ViewPlayers(pageNum: number, pageSizing: number, sortString: string, sortOrder: string): Player[] {
     this.players = [];
-    let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Player?PageNumber=" + pageNum + "&PageSize=" + pageSizing + "&SortString=" + sortString + "&SortOrder=" + sortOrder);
+    let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/Player?PageNumber=" + pageNum + "&PageSize=" + pageSizing + "&SortString=" + sortString + "&SortOrder=" + sortOrder);
     request.subscribe((response) => {
       response.data.forEach(element => {
         this.players.push(element);
@@ -71,7 +78,7 @@ export class HttpService {
 
   GetPlayerHeaders(): string[] {
     this.headers = [];
-    let request = this.http.get<HeaderEnvelope>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Player/Headers");
+    let request = this.http.get<HeaderEnvelope>("http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/Player/Headers");
     request.subscribe((response) => {
       response.data.forEach(element => {
         this.headers.push(element.columN_NAME); //.toLowerCase()
@@ -84,14 +91,12 @@ export class HttpService {
   }
 
   CreateTeam(teamname: string) {
-    let request = this.http.post<Team>("http://awseb-AWSEB-1K6FM3S9T6GFL-276867050.us-east-1.elb.amazonaws.com/api/Team", {
+    let request = this.http.post<Team>("http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/Team", {
       teamName: teamname
     } as Team);
 
-    localStorage.setItem('team', JSON.stringify(teamname));
-
     request.subscribe((response) => {
-      console.log(response + " => Team Created");
+      // console.log(response + " => Team Created");
     }, (error) => {
       alert("The API is down!");
     });
@@ -99,9 +104,22 @@ export class HttpService {
   }
 
   UpdateTeam(teamname: string, players: number[]) {
-    let request = this.http.put<PlayerSelections>("http://awseb-AWSEB-VBBS22Y9S5EK-806329012.us-east-1.elb.amazonaws.com/", {
+    let request = this.http.put<PlayerSelections>("http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/PlayerSelection", {
       teamname: teamname,
-      player_keys: players
+      playerkeys: players
+    }as PlayerSelections);
+
+    request.subscribe((response) => {
+      // console.log(response);
+    }, (error) => {
+      alert("The API is down!");
     });
+  }
+
+  getTeamPlayers(teamname: string, sortstring: string, sorttype: string){
+   //the end point needs fixing!
+   let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/Player/getPlayersFromTeam")
+   request.subscribe()
+
   }
 }

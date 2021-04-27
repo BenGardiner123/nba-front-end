@@ -1,4 +1,4 @@
 export interface PlayerSelections{
     teamname: string;
-    player_keys: number[];
+    playerkeys: number[];
 }

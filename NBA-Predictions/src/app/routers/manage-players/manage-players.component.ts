@@ -45,6 +45,9 @@ export class ManagePlayersComponent implements OnInit {
 
   constructor(private httpService: HttpService, private navService: NavService, private currentTeamService: CurrentTeamService) {
     this.teamName = this.currentTeamService.teamName;
+
+    //detects browser refresh
+    this.refreshed = browserRefresh;
   }
 
   ngOnInit(): void {
@@ -55,16 +58,18 @@ export class ManagePlayersComponent implements OnInit {
     this.selectedPlayers = this.currentTeamService.players;
 
     //used an observable to get the pages and localstorage to keep the pages on refresh
-    of(null).pipe(delay(0)).subscribe(() => {
+    of(null).pipe(delay(550)).subscribe(() => {
       if (this.refreshed == false) {
         this.pages = this.httpService.pages;
         localStorage.setItem('pages', JSON.stringify(this.pages));
       }
       else if (localStorage.getItem('pages') != null && Number(JSON.parse(localStorage.getItem('pages'))) > 1) {
         this.pages = Number(JSON.parse(localStorage.getItem('pages')));
+        this.teamName = JSON.parse(localStorage.getItem('teamname'));
       }
 
     });
+    
   }
 
   ngOnDestroy() {
@@ -74,6 +79,7 @@ export class ManagePlayersComponent implements OnInit {
 
   Searching() {
     this.pageNum = 1;
+
     if (this.searchString == '' || this.searchString == null) {
       alert("No search string was provided");
       return null;
@@ -81,7 +87,7 @@ export class ManagePlayersComponent implements OnInit {
     this.playerSearched = true;
     this.players = this.httpService.PlayerSearch(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
 
-    of(null).pipe(delay(0)).subscribe(() => {
+    of(null).pipe(delay(600)).subscribe(() => {
       this.pages = Number(JSON.parse(localStorage.getItem('playerSearchPages')));
     });
 
@@ -141,6 +147,9 @@ export class ManagePlayersComponent implements OnInit {
     }
     else {
       this.players = this.httpService.PlayerSearch(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
+      of(null).pipe(delay(500)).subscribe(() => {
+        this.pages = Number(JSON.parse(localStorage.getItem('playerSearchPages')));
+      });
     }
   }
 
@@ -184,7 +193,14 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   SaveTeam() {
-    this.httpService.UpdateTeam(this.teamName, this.selectedPlayersKeys);
+    if(this.selectedPlayersKeys.length != 0){
+      this.httpService.UpdateTeam(this.teamName, this.selectedPlayersKeys);
+    }
+    
+    this.selectedPlayers = [];
+    this.selectedPlayersKeys = [];
+    localStorage.removeItem('teamname');
+    
     this.navService.NavLandingPage();
   }
 }
