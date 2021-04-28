@@ -18,6 +18,9 @@ export class HomeComponent implements OnInit {
   teams: Team[] = [];
   stringTeams = [];
 
+  sortstring: string = 'FIRSTNAME';
+  sorttype : string = 'ASC';
+
   constructor(private navService: NavService, private httpService: HttpService, private currentTeamService: CurrentTeamService) { }
 
   ngOnInit(): void {
@@ -40,10 +43,16 @@ export class HomeComponent implements OnInit {
     if (this.buttonName == "View") {
 
       this.navService.NavTeamSummary(teamName);
+
+      this.currentTeamService.teamName = teamName;
+      localStorage.setItem('teamname', JSON.stringify(teamName));
+      this.currentTeamService.players = this.httpService.getTeamPlayers(teamName,this.sortstring,this.sorttype);
     }
     else {
       this.navService.NavManagePlayers(teamName);
       this.httpService.CreateTeam(teamName);
+
+      this.currentTeamService.playerKeys = [];
       localStorage.setItem('teamname', JSON.stringify(teamName));
     }
   }

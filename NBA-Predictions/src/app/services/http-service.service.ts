@@ -7,6 +7,7 @@ import { error } from '@angular/compiler/src/util';
 import { PlayerEnvelope } from '../modules/playerEnvelope';
 import { HeaderEnvelope } from '../modules/headerEnvelope';
 import { PlayerSelections } from '../modules/playerSelections';
+import { CurrentTeamService } from './current-team.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,10 @@ export class HttpService {
   pages: number = 1;
   headers: string[];
   players: Player[] = [];
+  teamPlayers: Player[] = [];
+  teamPlayersKeys: number[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private currentTeamService: CurrentTeamService) { }
 
   GetAllTeams(): Team[] {
     this.teams = [];
@@ -116,10 +119,25 @@ export class HttpService {
     });
   }
 
-  getTeamPlayers(teamname: string, sortstring: string, sorttype: string){
-   //the end point needs fixing!
-   let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/Player/getPlayersFromTeam")
-   request.subscribe()
+  getTeamPlayers(teamname: string, sortstring: string, sorttype: string): Player[]{
+    this.teamPlayers = [];
+    this.teamPlayersKeys = [];
+    this.currentTeamService.playerKeys = [];
+ 
+   let request = this.http.get<PlayerEnvelope>("http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/Player/getPlayersFromTeam?TeamName="+ teamname+ "&SortString="+ sortstring +"&SortType="+ sorttype)
+   request.subscribe((response) => {
+    response.data.forEach(element => {
+      this.teamPlayers.push(element);
+      this.currentTeamService.playerKeys.push(element.player_key);
+    });
+   
+    localStorage.setItem('playerkeys', JSON.stringify(this.currentTeamService.playerKeys));
+    localStorage.setItem('teamplayers', JSON.stringify(this.teamPlayers));
+  }, (error) => {
+    alert("The API is down!");
+  });
 
+  return this.teamPlayers;
   }
+
 }

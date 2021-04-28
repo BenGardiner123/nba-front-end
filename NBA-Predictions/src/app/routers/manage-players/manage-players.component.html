@@ -48,7 +48,7 @@
                     <tr *ngFor="let player of players"
                         [ngClass]="{'selected-row': selectedPlayersKeys.includes(player.player_key), 'deselected-row': !selectedPlayersKeys.includes(player.player_key)}">
                         <td>
-                            <input type="checkbox" (click)="ManageSelectedPlayers(player)" />
+                            <input type="checkbox" (click)="ManageSelectedPlayers(player)"/>
                         </td>
                         <td>{{player.firstname }}</td>
                         <td>{{ player.lastname }}</td>

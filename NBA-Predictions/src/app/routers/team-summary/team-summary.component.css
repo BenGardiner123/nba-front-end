@@ -91,6 +91,7 @@ img{
 
 .header h1{
     font-size: 2.5rem;
+    padding-bottom: 2vh;
 }
 
 .user-input{
@@ -139,10 +140,11 @@ th{
     color: #fff;
     text-align: left;
     cursor: pointer;
+    padding: 1vh .6vw;
 }
 
-td, th{
-    padding: 1vh .6vw;
+td{
+    padding : 0.47vh 0.6vw;
 }
 
 tr:nth-child(even){

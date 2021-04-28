@@ -58,7 +58,7 @@ export class ManagePlayersComponent implements OnInit {
     this.selectedPlayers = this.currentTeamService.players;
 
     //used an observable to get the pages and localstorage to keep the pages on refresh
-    of(null).pipe(delay(550)).subscribe(() => {
+    of(null).pipe(delay(600)).subscribe(() => {
       if (this.refreshed == false) {
         this.pages = this.httpService.pages;
         localStorage.setItem('pages', JSON.stringify(this.pages));
@@ -189,6 +189,7 @@ export class ManagePlayersComponent implements OnInit {
   NavTeamSummary() {
     this.currentTeamService.playerKeys = this.selectedPlayersKeys;
     this.currentTeamService.players = this.selectedPlayers;
+    this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
     this.navService.NavTeamSummary(this.teamName);
   }
 
