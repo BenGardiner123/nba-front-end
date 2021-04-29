@@ -159,7 +159,17 @@ export class ManagePlayersComponent implements OnInit {
 
   Sort() {
     if (this.activeUpSort == 'selected') {
-      this.players = this.selectedPlayers;
+      this.selectedPlayers.forEach(player => {
+        let index = this.players.indexOf(player);
+        this.players.splice(index, 1);
+        this.players.unshift(player);
+      });
+      // if (this.selectedPlayersKeys.includes(player.player_key)) {
+      //   let index = this.selectedPlayersKeys.indexOf(player.player_key);
+      //   this.selectedPlayersKeys.splice(index, 1);
+      //   this.selectedPlayers.splice(index, 1);
+      // }
+      return;
     }
 
     if (this.searchString == '') {
