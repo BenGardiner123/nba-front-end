@@ -17,8 +17,8 @@
 
                 <div class="user-input">
                     <input #search id="search" placeholder="Search for a player..." type="text"
-                        (keyup)="onKeyUp(search.value)">
-                    <button (click)="Searching()">Search</button>
+                        (keyup)="onKeyUp(search.value)" (keydown.enter)="Search()">
+                    <button (click)="Search()">Search</button>
                 </div>
 
             </div>
@@ -26,12 +26,12 @@
             <div class="table-container">
                 <table>
                     <tr>
-                        <th *ngFor="let data of headers" (click)="Sorting(data)"
-                            [ngClass]="{'selected-up':data==activeUpSort}"
-                            [ngClass]="{'selected-down':data==activeDownSort}">
+                        <th *ngFor="let header of headers" (click)="UpdateSort(header)" (click)="Sort()"
+                            [ngClass]="{'selected-up':header==activeUpSort}"
+                            [ngClass]="{'selected-down':header==activeDownSort}">
                             <div class="header-container">
                                 <div>
-                                    {{ data.toLowerCase()}}
+                                    {{ header.toLowerCase()}}
                                 </div>
                                 <span id="default">
                                     <fa-icon [icon]="faSortIcon"></fa-icon>
@@ -47,11 +47,14 @@
                     </tr>
                     <tr *ngFor="let player of players"
                         [ngClass]="{'selected-row': selectedPlayersKeys.includes(player.player_key), 'deselected-row': !selectedPlayersKeys.includes(player.player_key)}">
-                        <td>
-                            <input type="checkbox" (click)="ManageSelectedPlayers(player)"/>
+                        <td class="firstColumn">
+                            <input type="checkbox" (click)="ManageSelectedPlayers(player)"
+                                [checked]='selectedPlayersKeys.includes(player.player_key)' />
                         </td>
-                        <td>{{player.firstname }}</td>
-                        <td>{{ player.lastname }}</td>
+                        <!-- This section looks as though it would be easier to iterate over like the headers -->
+                        <!-- But being able to add the "column" class really shrinks the jquery section -->
+                        <td class="secondColumn">{{player.firstname }}</td>
+                        <td class="thirdColumn">{{ player.lastname }}</td>
                         <td>{{ player.age }}</td>
                         <td>{{ player.gp }}</td>
                         <td>{{ player.mins }}</td>

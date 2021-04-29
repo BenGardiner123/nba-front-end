@@ -2,7 +2,8 @@
 <div class="container">
     <div class="image"><img src="../../../assets/logo-NBA-trans2.png"></div>
     <div class="user-input">
-        <input type="text" placeholder="Enter a team name..." (keyup)="UpdateInput(input.value)" #input>
-        <button (click)="Navigate(input.value)">{{buttonName}}</button>
+        <input type="text" placeholder="Enter a team name..." (keyup)="UpdateInput(input.value)" #input
+            (keydown.enter)="Navigate(input.value)">
+        <button (click)=" Navigate(input.value)">{{buttonName}}</button>
     </div>
 </div>

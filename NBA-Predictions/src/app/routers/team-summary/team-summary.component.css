@@ -147,8 +147,12 @@ td{
     padding : 0.47vh 0.6vw;
 }
 
-tr:nth-child(even){
+tr:nth-child(even) td{
     background-color: #fff;
+}
+
+tr:nth-child(odd) td{
+    background-color: #d9d9d9;
 }
 
 input[type=checkbox]{

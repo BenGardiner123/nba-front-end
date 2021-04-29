@@ -133,6 +133,10 @@ table{
     width: 100%;
 }
 
+/* table tr td:nth-child(3),th:nth-child(3){
+    border-right: #707070 5px solid;
+} */
+
 .header-container{
     display: flex;
     color: #fff;
@@ -158,8 +162,12 @@ td{
     padding : 0.47vh 0.6vw;
 }
 
-tr.deselected-row:nth-child(even){
+tr.deselected-row:nth-child(even) td{
     background-color: #fff;
+}
+
+tr.deselected-row:nth-child(odd) td{
+    background-color: #d9d9d9;
 }
 
 input[type=checkbox]{
@@ -203,7 +211,7 @@ fa-icon{
     display: none;
 }
 
-.selected-row{
+.selected-row td{
     background-color: #C4F8C4;
 }
 

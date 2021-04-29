@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, timeout } from 'rxjs/operators';
 
 import { HttpService } from '../../services/http-service.service';
 import { NavService } from '../../services/nav-service.service'
@@ -58,7 +58,7 @@ export class ManagePlayersComponent implements OnInit {
     this.selectedPlayers = this.currentTeamService.players;
 
     //used an observable to get the pages and localstorage to keep the pages on refresh
-    of(null).pipe(delay(600)).subscribe(() => {
+    of(null).pipe(delay(900)).subscribe(() => {
       if (this.refreshed == false) {
         this.pages = this.httpService.pages;
         localStorage.setItem('pages', JSON.stringify(this.pages));
@@ -68,19 +68,59 @@ export class ManagePlayersComponent implements OnInit {
         this.teamName = JSON.parse(localStorage.getItem('teamname'));
       }
 
-    });
-    
-  }
+      // Upped delay to ensure that this happens after the headers are returned.
+      // This part need to be executed after the headers are returned. 
+      // Better alternative is we can have an observer or promise for when the headers are filled.
+      this.OnPageResize();
+
+    })
+  };
 
   ngOnDestroy() {
     localStorage.removeItem('pages');
   }
 
+  @HostListener('window:resize', ['$event'])
+  OnPageResize() {
+    let $headers = $('.header-container').slice(0, 3);
+    let $firstColumn = $('.firstColumn');
+    let $secondColumn = $('.secondColumn');
+    let $thirdColumn = $('.thirdColumn');
 
-  Searching() {
+    let i = 0, coloumnOfsets = [0];
+    // Getting offsets
+    $headers.each(function () {
+      let parentElement = this.parentElement;
+      if (coloumnOfsets.length < 3) {
+        coloumnOfsets.push(coloumnOfsets[i] + parentElement.offsetWidth)
+        i += 1;
+      }
+    })
+    i = 0;
+
+    // Setting offsets
+    $headers.each(function () {
+      let parentElement = this.parentElement;
+      $(parentElement).css({ "position": "sticky", "left": coloumnOfsets[i], "z-index": 1 })
+      i += 1;
+    })
+    $firstColumn.each(function () {
+      $(this).css({ "position": "sticky", "left": coloumnOfsets[0], "z-index": 1 })
+    })
+    $secondColumn.each(function () {
+      $(this).css({ "position": "sticky", "left": coloumnOfsets[1], "z-index": 1 })
+
+    })
+    $thirdColumn.each(function () {
+      $(this).css({ "position": "sticky", "left": coloumnOfsets[2], "z-index": 1 })
+    })
+  }
+
+
+  Search() {
     this.pageNum = 1;
 
-    if (this.searchString == '' || this.searchString == null) {
+    if (this.searchString === '' || this.searchString === null) {
       alert("No search string was provided");
       return null;
     }
@@ -96,7 +136,7 @@ export class ManagePlayersComponent implements OnInit {
   IncreasePage() {
     if (this.pageNum < this.pages) {
       this.pageNum += 1;
-      if (this.playerSearched == false) {
+      if (this.playerSearched === false) {
         this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
       }
       else {
@@ -108,7 +148,7 @@ export class ManagePlayersComponent implements OnInit {
   DecreasePage() {
     if (this.pageNum > 1) {
       this.pageNum -= 1;
-      if (this.playerSearched == false) {
+      if (this.playerSearched === false) {
         this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
       }
       else {
@@ -117,29 +157,9 @@ export class ManagePlayersComponent implements OnInit {
     }
   }
 
-  Sorting(sortElement) {
-    this.sortString = sortElement;
-
-    if (this.activeUpSort == sortElement) {
-      this.activeUpSort = '';
-      this.activeDownSort = sortElement;
-      this.sortOrder = 'DESC';
-    }
-    else if ((this.activeDownSort == sortElement) && (this.activeUpSort == '')) {
-      this.activeDownSort = '';
-      this.activeUpSort = '';
-      this.sortString = 'FIRSTNAME';
-      this.sortOrder = 'ASC';
-    }
-    else {
-      this.activeDownSort = '';
-      this.activeUpSort = sortElement;
-      this.sortOrder = 'ASC';
-    }
-
-    if (sortElement == 'selected') {
-      this.SortSelected();
-      return;
+  Sort() {
+    if (this.activeUpSort == 'selected') {
+      this.players = this.selectedPlayers;
     }
 
     if (this.searchString == '') {
@@ -153,8 +173,36 @@ export class ManagePlayersComponent implements OnInit {
     }
   }
 
-  SortSelected() {
-    this.players = this.selectedPlayers;
+  UpdateSort(sortElement) {
+    this.sortString = sortElement;
+
+    // Set to defult if already sorting by selected
+    if (sortElement == 'selected' && sortElement == this.activeUpSort) {
+      this.activeDownSort = '';
+      this.activeUpSort = '';
+      this.sortString = 'FIRSTNAME';
+      this.sortOrder = 'ASC';
+    }
+    // If already sorting set the sorting to down sort
+    else if (this.activeUpSort == sortElement) {
+      this.activeUpSort = '';
+      this.activeDownSort = sortElement;
+      this.sortOrder = 'DESC';
+    }
+    // If down sorting set to default
+    else if ((this.activeDownSort == sortElement) && (this.activeUpSort == '')) {
+      this.activeDownSort = '';
+      this.activeUpSort = '';
+      this.sortString = 'FIRSTNAME';
+      this.sortOrder = 'ASC';
+    }
+    // If default set the sort to sortElement
+    else {
+      this.activeDownSort = '';
+      this.activeUpSort = sortElement;
+      this.sortOrder = 'ASC';
+    }
+
 
   }
 
@@ -179,11 +227,9 @@ export class ManagePlayersComponent implements OnInit {
   //to keep track of the value in search input
   onKeyUp(searchVal: string) {
     this.searchString = searchVal;
-
-    this.activeDownSort = '';
-    this.activeUpSort = '';
-    this.sortString = 'FIRSTNAME';
-    this.sortOrder = 'ASC';
+    if (searchVal === '') {
+      this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
+    }
   }
 
   NavTeamSummary() {
@@ -194,14 +240,14 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   SaveTeam() {
-    if(this.selectedPlayersKeys.length != 0){
+    if (this.selectedPlayersKeys.length != 0) {
       this.httpService.UpdateTeam(this.teamName, this.selectedPlayersKeys);
     }
-    
+
     this.selectedPlayers = [];
     this.selectedPlayersKeys = [];
     localStorage.removeItem('teamname');
-    
+
     this.navService.NavLandingPage();
   }
 }

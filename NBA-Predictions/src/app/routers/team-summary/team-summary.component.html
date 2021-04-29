@@ -20,13 +20,13 @@
             <div class="table-container">
                 <table>
                     <tr>
-                        <th *ngFor="let data of headers">
+                        <th *ngFor="let data of headers" class="header-container">
                             {{ data.toLowerCase() }}
                         </th>
                     </tr>
                     <tr *ngFor="let player of players">
-                        <td>{{player.firstname }}</td>
-                        <td>{{ player.lastname }}</td>
+                        <td class="firstColumn">{{player.firstname }}</td>
+                        <td class="secondColumn">{{ player.lastname }}</td>
                         <td>{{ player.age }}</td>
                         <td>{{ player.gp }}</td>
                         <td>{{ player.mins }}</td>
