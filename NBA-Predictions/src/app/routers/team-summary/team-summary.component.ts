@@ -51,6 +51,7 @@ export class TeamSummaryComponent implements OnInit {
 
   }
 
+
   @HostListener('window:resize', ['$event'])
   OnPageResize() {
     let $headers = $('.header-container').slice(0, 2);
@@ -101,6 +102,8 @@ export class TeamSummaryComponent implements OnInit {
 
     this.selectedPlayersKeys = [];
     localStorage.removeItem('teamname');
+    localStorage.removeItem('playerkeys');
+    localStorage.removeItem('teamplayers');
 
     this.navService.NavLandingPage();
   }
