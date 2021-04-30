@@ -257,6 +257,8 @@ export class ManagePlayersComponent implements OnInit {
     this.selectedPlayers = [];
     this.selectedPlayersKeys = [];
     localStorage.removeItem('teamname');
+    localStorage.removeItem('playerkeys');
+    localStorage.removeItem('teamplayers');
 
     this.navService.NavLandingPage();
   }
