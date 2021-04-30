@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
 
       this.currentTeamService.teamName = teamName;
       localStorage.setItem('teamname', JSON.stringify(teamName));
+
       this.currentTeamService.players = this.httpService.getTeamPlayers(teamName,this.sortstring,this.sorttype);
     }
     else {
@@ -53,6 +54,7 @@ export class HomeComponent implements OnInit {
       this.httpService.CreateTeam(teamName);
 
       this.currentTeamService.playerKeys = [];
+      this.currentTeamService.players = [];
       localStorage.setItem('teamname', JSON.stringify(teamName));
     }
   }

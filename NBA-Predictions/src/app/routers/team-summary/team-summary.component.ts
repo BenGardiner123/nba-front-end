@@ -37,6 +37,7 @@ export class TeamSummaryComponent implements OnInit {
 
     if (this.refreshed === true) {
       this.teamName = JSON.parse(localStorage.getItem('teamname'));
+
       this.selectedPlayersKeys = JSON.parse(localStorage.getItem('playerkeys'));
       this.players = JSON.parse(localStorage.getItem('teamplayers'));
     }
@@ -104,6 +105,9 @@ export class TeamSummaryComponent implements OnInit {
     this.selectedPlayersKeys = [];
     this.players = [];
     localStorage.removeItem('teamname');
+
+    localStorage.setItem('playerkeys', JSON.stringify([]));
+    localStorage.setItem('teamplayers', JSON.stringify([]));
 
     this.navService.NavLandingPage();
   }

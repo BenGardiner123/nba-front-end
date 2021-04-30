@@ -54,14 +54,19 @@ export class ManagePlayersComponent implements OnInit {
     this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
     this.headers = this.httpService.GetPlayerHeaders();
     this.headers.unshift('selected');
-    this.selectedPlayersKeys = this.currentTeamService.playerKeys;
-    this.selectedPlayers = this.currentTeamService.players;
-
+   
+    if(this.refreshed === true){
+      this.selectedPlayers = JSON.parse(localStorage.getItem('teamplayers'));
+      this.selectedPlayersKeys = JSON.parse(localStorage.getItem('playerkeys'));
+    }
+    
     //used an observable to get the pages and localstorage to keep the pages on refresh
     of(null).pipe(delay(900)).subscribe(() => {
-      if (this.refreshed == false) {
+      if (this.refreshed === false) {
         this.pages = this.httpService.pages;
         localStorage.setItem('pages', JSON.stringify(this.pages));
+        this.selectedPlayersKeys = this.currentTeamService.playerKeys;
+        this.selectedPlayers = this.currentTeamService.players;
       }
       else if (localStorage.getItem('pages') != null && Number(JSON.parse(localStorage.getItem('pages'))) > 1) {
         this.pages = Number(JSON.parse(localStorage.getItem('pages')));
@@ -246,10 +251,11 @@ export class ManagePlayersComponent implements OnInit {
     this.currentTeamService.playerKeys = this.selectedPlayersKeys;
     this.currentTeamService.players = this.selectedPlayers;
 
+    this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
+
     localStorage.setItem('playerkeys', JSON.stringify(this.selectedPlayersKeys));
     localStorage.setItem('teamplayers', JSON.stringify(this.selectedPlayers));
-    
-    this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
+
     this.navService.NavTeamSummary(this.teamName);
   }
 
@@ -261,8 +267,9 @@ export class ManagePlayersComponent implements OnInit {
     this.selectedPlayers = [];
     this.selectedPlayersKeys = [];
     localStorage.removeItem('teamname');
-    // localStorage.removeItem('playerkeys');
-    // localStorage.removeItem('teamplayers');
+
+    localStorage.removeItem('playerkeys');
+    localStorage.removeItem('teamplayers');
 
     this.navService.NavLandingPage();
   }
