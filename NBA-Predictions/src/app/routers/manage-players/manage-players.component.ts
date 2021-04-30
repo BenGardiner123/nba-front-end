@@ -245,6 +245,10 @@ export class ManagePlayersComponent implements OnInit {
   NavTeamSummary() {
     this.currentTeamService.playerKeys = this.selectedPlayersKeys;
     this.currentTeamService.players = this.selectedPlayers;
+
+    localStorage.setItem('playerkeys', JSON.stringify(this.selectedPlayersKeys));
+    localStorage.setItem('teamplayers', JSON.stringify(this.selectedPlayers));
+    
     this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
     this.navService.NavTeamSummary(this.teamName);
   }
@@ -257,8 +261,8 @@ export class ManagePlayersComponent implements OnInit {
     this.selectedPlayers = [];
     this.selectedPlayersKeys = [];
     localStorage.removeItem('teamname');
-    localStorage.removeItem('playerkeys');
-    localStorage.removeItem('teamplayers');
+    // localStorage.removeItem('playerkeys');
+    // localStorage.removeItem('teamplayers');
 
     this.navService.NavLandingPage();
   }

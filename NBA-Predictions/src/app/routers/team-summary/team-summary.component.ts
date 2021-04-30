@@ -34,7 +34,8 @@ export class TeamSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.headers = this.httpService.GetPlayerHeaders();
-    if (this.refreshed == true) {
+
+    if (this.refreshed === true) {
       this.teamName = JSON.parse(localStorage.getItem('teamname'));
       this.selectedPlayersKeys = JSON.parse(localStorage.getItem('playerkeys'));
       this.players = JSON.parse(localStorage.getItem('teamplayers'));
@@ -87,7 +88,7 @@ export class TeamSummaryComponent implements OnInit {
 
   NavManagePlayers(teamName: string) {
     this.navService.NavManagePlayers(teamName);
-    if (this.refreshed == true) {
+    if (this.refreshed === true) {
       this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
       this.currentTeamService.playerKeys = JSON.parse(localStorage.getItem('playerkeys'));
       this.currentTeamService.players = JSON.parse(localStorage.getItem('teamplayers'));
@@ -101,9 +102,8 @@ export class TeamSummaryComponent implements OnInit {
     }
 
     this.selectedPlayersKeys = [];
+    this.players = [];
     localStorage.removeItem('teamname');
-    localStorage.removeItem('playerkeys');
-    localStorage.removeItem('teamplayers');
 
     this.navService.NavLandingPage();
   }
