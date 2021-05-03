@@ -54,12 +54,12 @@ export class ManagePlayersComponent implements OnInit {
     this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
     this.headers = this.httpService.GetPlayerHeaders();
     this.headers.unshift('selected');
-   
-    if(this.refreshed === true){
+
+    if (this.refreshed === true) {
       this.selectedPlayers = JSON.parse(localStorage.getItem('teamplayers'));
       this.selectedPlayersKeys = JSON.parse(localStorage.getItem('playerkeys'));
     }
-    
+
     //used an observable to get the pages and localstorage to keep the pages on refresh
     of(null).pipe(delay(900)).subscribe(() => {
       if (this.refreshed === false) {
@@ -169,11 +169,6 @@ export class ManagePlayersComponent implements OnInit {
         this.players.splice(index, 1);
         this.players.unshift(player);
       });
-      // if (this.selectedPlayersKeys.includes(player.player_key)) {
-      //   let index = this.selectedPlayersKeys.indexOf(player.player_key);
-      //   this.selectedPlayersKeys.splice(index, 1);
-      //   this.selectedPlayers.splice(index, 1);
-      // }
       return;
     }
 
