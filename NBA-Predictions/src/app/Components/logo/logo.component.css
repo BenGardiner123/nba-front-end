@@ -1,0 +1,9 @@
+img{
+    top: 2vh;
+    left: 2vw;
+    position: absolute;
+    width: auto;
+    height: auto;
+    max-width: 20vh;
+    max-height: 20vh;
+}

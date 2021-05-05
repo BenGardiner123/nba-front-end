@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './routers/home/home.component';
 import { ManagePlayersComponent } from './routers/manage-players/manage-players.component';
+// import { ManagePlayersComponent } from './routers/manage-players/manage-players.component';
 import { TeamSummaryComponent } from './routers/team-summary/team-summary.component';
 
 
 const routes: Routes = [
   { path: "Home", component: HomeComponent },
+  // { path: "MyTeam", component: MyTeamComponent },
   { path: "ManagePlayers", component: ManagePlayersComponent },
   { path: "TeamSummary", component: TeamSummaryComponent },
 

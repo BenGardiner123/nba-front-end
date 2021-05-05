@@ -9,6 +9,9 @@ import { HomeComponent } from './routers/home/home.component';
 import { ManagePlayersComponent } from './routers/manage-players/manage-players.component';
 import { TeamSummaryComponent } from './routers/team-summary/team-summary.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LogoutComponent } from './Components/logout/logout.component';
+import { LogoComponent } from './Components/logo/logo.component';
+import { TabsComponent } from './Components/tabs/tabs.component';
 
 
 @NgModule({
@@ -17,6 +20,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HomeComponent,
     ManagePlayersComponent,
     TeamSummaryComponent,
+    LogoutComponent,
+    LogoComponent,
+    TabsComponent,
   ],
   imports: [
     BrowserModule,
