@@ -1,0 +1,40 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<app-logo></app-logo>
+<app-logout></app-logout>
+
+<div class="body">
+    <div>
+        <app-tabs></app-tabs>
+        <div class="container">
+
+            <div class="header">
+                <h1>Username's Teams</h1>
+                <div class="user-input">
+                    <input #createTeam type="text" placeholder="Create a new team..."
+                        (keydown.enter)="CreateTeam(createTeam.value)">
+                    <button (click)="CreateTeam(createTeam.value)">Create</button>
+                </div>
+            </div>
+            <div class="tables">
+                <div class="table-container">
+                    <div class="table-header">
+                        <div>My Teams</div>
+                        <div class="select-all">
+                            <div>select all</div>
+                            <input type="checkbox" (click)="SelectAllTeams()" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <div>Leaderboard</div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+            </div>
+        </div>
+    </div>
+</div>

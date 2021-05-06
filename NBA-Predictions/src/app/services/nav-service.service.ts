@@ -13,7 +13,7 @@ export class NavService {
   }
 
   NavMyTeam() {
-    this.router.navigateByUrl("/MyTeam");
+    this.router.navigateByUrl("/MyTeams");
   }
 
   NavManagePlayers(teamName: string) {

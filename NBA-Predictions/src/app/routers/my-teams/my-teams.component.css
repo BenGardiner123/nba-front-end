@@ -8,7 +8,7 @@
 }
 
 button{
-    border: none;
+    border: 2px solid #707070;
     outline: none;
     background-color: #d9d9d9;
     border-radius: 5px;
@@ -24,7 +24,7 @@ button{
     flex-direction: column;
     width: 70vw;
     height: 77vh;
-    padding: 3vh 3vw 1vh 3vw;
+    padding: 5vh 5vw 5vh 5vw;
     border-radius: 0 0 5px 5px;
 }
 
@@ -39,11 +39,11 @@ button{
 
 .header h1{
     font-size: 3vw;
-    padding-bottom: 2vh;
+    padding-bottom: 5vh;
 }
 
 .user-input{
-    padding-bottom: 2vh;
+    padding-bottom: 5vh;
 }
 
 .user-input *{
@@ -63,77 +63,46 @@ input{
 }
 
 .user-input button{
+    font-size: 1rem;
     margin-left: 0.7vw;
-    padding: 1vh;
+    padding: 1vh 1vw;
 }
 
 /* TABLE */
 
+.table-header {
+    font-size: 1.5vw;
+    margin: 1vh 2vw;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+.select-all{
+    font-size: 1vw;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type=checkbox]{
+    width: 4vw;
+    transform: scale(1.5);
+}
+
+
+.tables{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .table-container{
     width: 100%;
-    overflow-x: scroll;
+    overflow-y: scroll;
     height: 50vh;
     border: 5px solid #d9d9d9;
     background-color: #d9d9d9;
 }
 
-table{
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th{
-    background-color: #707070;
-    font-weight: 600;
-    color: #fff;
-    text-align: left;
-    cursor: pointer;
-    padding: 1vh .6vw;
-}
-
-td{
-    padding : 0.47vh 0.6vw;
-}
-
-tr:nth-child(even) td{
-    background-color: #fff;
-}
-
-tr:nth-child(odd) td{
-    background-color: #d9d9d9;
-}
-
-input[type=checkbox]{
-    width: 4vw;
-}
-
-/* FOOTER */
-
-.footer{
-    display: flex;
-    width: 100%;
-    height: auto;
-    justify-content: space-between;
-    padding: 4vh 2vw;
-}
-
-.footer button{
-    font-size: 1.5vw;
-    border: solid 2px #707070;
-    border-radius: 8px;
-    padding: 2vh 6vw;
-    cursor: pointer;
-}
-
-#spacer{
-       width: 189.75px;
-}
-
-.team-size{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #707070;
-    font-size: 1.5vw;
-    font-weight: 500;
-}

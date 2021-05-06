@@ -1,0 +1,11 @@
+<div class="overlay"></div>
+<div class="background-img">
+</div>
+
+<div class="container">
+    <img src="../../../assets/logo-NBA-trans2.png" class="logo-img">
+
+    <!-- When these components revcieve an event of (clicked) they call a function to swap between each component -->
+    <app-login [ngClass]="{displayed : displayLogin}" (changeDisplay)="ChangeDisplay()"></app-login>
+    <app-register [ngClass]="{displayed : displayRegister}" (changeDisplay)="ChangeDisplay()"></app-register>
+</div>

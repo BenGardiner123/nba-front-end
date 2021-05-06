@@ -1,0 +1,10 @@
+<div class="container">
+    <h1>Login</h1>
+    <input #username type="text" placeholder="Username...">
+    <input #password type="text" placeholder="Password..." (keydown.enter)="Login(username.value,password.value)">
+    <button (click)="Login(username.value,password.value)">Login</button>
+    <div class="sign-up-container">
+        Dont have an account?
+        <div class="sign-up" (click)="ChangeDisplay()"> Sign Up</div>
+    </div>
+</div>

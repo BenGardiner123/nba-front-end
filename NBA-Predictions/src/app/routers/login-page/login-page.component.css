@@ -1,26 +1,16 @@
-body{
-    box-sizing: border-box;
-    position: relative;
-    width: 100%;
-    height:auto;
-    margin: 0;
-    border: 0;
-    overflow: hidden;
-}
-
 .container{
+    width: 100vw;
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw; 
 }
 
 .overlay{
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     top: 0;
     left: 0;
     background: rgb(0, 0, 255);
@@ -28,20 +18,24 @@ body{
     z-index: -1;
 }
 
-img{
+.background-img{
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../../assets/photo-1519861531473-9200262188bf.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    z-index: -2;
+}
+
+.logo-img{
     width: auto;
     height: auto;
     max-width: 200px;
     max-height: 200px;
 }
 
-.user-input{
-    height: 18vh;
-    margin-top: 5vh;
-    outline: none;
-    border-radius: 6px;
-    outline-style: none;
-}
 
 input{
     border: none;
@@ -66,4 +60,12 @@ button{
     border-radius: 4px;
     color: #676767;
     cursor: pointer;
+}
+
+app-register, app-login{
+    display: none;
+}
+
+.displayed{
+    display: inline;
 }

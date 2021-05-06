@@ -63,7 +63,6 @@ export class TeamSummaryComponent implements OnInit {
 
     // Getting offsets
     $headers.each(function () {
-      console.log(this);
       if (coloumnOfsets.length < 3) {
         coloumnOfsets.push(coloumnOfsets[i] + this.offsetWidth)
         i += 1;
@@ -77,16 +76,15 @@ export class TeamSummaryComponent implements OnInit {
       i += 1;
     })
     $firstColumn.each(function () {
-      console.log(this);
       $(this).css({ "position": "sticky", "left": coloumnOfsets[0], "z-index": 1 })
     })
     $secondColumn.each(function () {
-      console.log(this);
       $(this).css({ "position": "sticky", "left": coloumnOfsets[1], "z-index": 1 })
 
     })
   }
 
+  // Move the team into local storage 
   NavManagePlayers(teamName: string) {
     this.navService.NavManagePlayers(teamName);
     if (this.refreshed === true) {
@@ -94,9 +92,9 @@ export class TeamSummaryComponent implements OnInit {
       this.currentTeamService.playerKeys = JSON.parse(localStorage.getItem('playerkeys'));
       this.currentTeamService.players = JSON.parse(localStorage.getItem('teamplayers'));
     }
-
   }
 
+  // Once user clicks on save remove the team and update the database
   SaveTeam() {
     if (this.selectedPlayersKeys.length != 0) {
       this.httpService.UpdateTeam(this.teamName, this.selectedPlayersKeys);

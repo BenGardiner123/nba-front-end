@@ -36,6 +36,7 @@ export class HttpService {
     return this.teams;
   }
 
+  //TODO Make this into promise 
   PlayerSearch(pageNum: number, pageSizing: number, searchstring: string, sortstring: string, sortorder: string): Player[] {
     this.players = [];
     localStorage.removeItem('playerSearchPages');
@@ -52,12 +53,9 @@ export class HttpService {
       }
 
       localStorage.setItem('playerSearchPages', JSON.stringify(this.pages));
-      console.log(this.pages + " in playersearch");
-
     }, (error) => {
       alert("The API is down!");
     });
-
     return this.players;
   }
 

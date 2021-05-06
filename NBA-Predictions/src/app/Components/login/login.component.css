@@ -1,0 +1,54 @@
+.container{
+    background-color: #e9e9e4;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-width: 30vw;
+    min-height: 35vh;
+    margin-top: 5vh;
+    padding: 3vh 3vw 1vh 3vw;
+    border-radius: 10px;
+}
+
+.container *{
+    margin-bottom: 2vh;
+}
+
+::placeholder{
+    color: #c5c5c5;
+}
+
+input{
+    width: 20vw;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 1.5vh 1vh;
+}
+
+button{
+    font-size: 2vh;
+    border: solid 2px #707070;
+    border-radius: 8px;
+    padding: 1vh 3vw;
+    cursor: pointer;
+}
+
+.sign-up-container{
+    display: flex;
+}
+
+.sign-up-container :first-child{
+    margin-left: .5vw;
+}
+
+.sign-up{
+    cursor: pointer;
+    color: #4788eb;
+}
+
+.sign-up:active{
+    cursor: pointer;
+    user-select: none;
+    color: #fff;
+}

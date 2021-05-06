@@ -9,12 +9,17 @@ import { Router } from '@angular/router';
 })
 export class TabsComponent implements OnInit {
 
+  // TODO Fix 'selected-tab' logic for applying styles
+  selectedTab: string = 'TeamSummary';
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   Navigate(directory: string) {
+    this.selectedTab = directory;
+    // console.log(this.selectedTab);
     this.router.navigateByUrl('/' + directory);
   }
 
