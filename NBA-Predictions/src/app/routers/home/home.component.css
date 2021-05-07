@@ -1,4 +1,4 @@
-body{
+/* body{
     box-sizing: border-box;
     position: relative;
     width: 100%;
@@ -6,7 +6,7 @@ body{
     margin: 0;
     border: 0;
     overflow: hidden;
-}
+} */
 
 .container{
     display: flex;

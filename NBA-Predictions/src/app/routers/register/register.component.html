@@ -1,0 +1,36 @@
+<div class="overlay"></div>
+<div class="container">
+    <div class="image"><img src="../../../assets/logo-NBA-trans2.png"></div>
+    <div class="user-input" [ngClass]="{ 'allErrored': allErrored==true, 'oneError': oneError==true }" 
+    [ngClass]="{'responseAppears' : response === true}">
+        
+        <h4 class="loginHeader"> Sign up </h4>
+        <p  *ngIf="response === true" class="response" [ngClass]="{ 'unsuccessful': response === false}">
+            <span *ngIf="notExists === false" class="notCreated">Unsuccessful! user already exists try again...</span>
+            <span *ngIf="notExists === true" class="created">User created! click here to 
+            <a [routerLink]="['/Login']">Login</a></span>
+        </p>
+        
+        <div class="formDiv">
+            <form [formGroup]="RegistrationForm" (ngSubmit)="onSubmit()">
+                <div class="inputDivs">
+                    <input type="text" formControlName="username" placeholder="Username..." [ngClass]="{ 'isEmpty': submitted && f.username.errors }" required 
+                    (keyup)="onKeyUp()" />
+                    <div *ngIf="submitted && f.username.errors" class="inputError">
+                        <div *ngIf="f.username.errors?.required">Username is required</div>
+                    </div>
+                </div>
+                <div class="inputDivs">
+                    <input type="password" formControlName="password" placeholder="Password..." [ngClass]="{ 'isEmpty': submitted && f.password.errors }" required
+                    (keyup)="onKeyUp()" />
+                    <div *ngIf="submitted && f.password.errors" class="inputError">
+                        <div *ngIf="f.password.errors?.required">Password is required</div>
+                    </div>
+                </div>
+    
+                <button type="submit"> Create </button>
+            </form>
+        </div>
+        
+    </div>
+</div>
