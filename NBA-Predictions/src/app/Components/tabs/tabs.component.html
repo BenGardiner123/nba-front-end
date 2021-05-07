@@ -1,8 +1,11 @@
 <div class="tabs">
-    <div class="my-teams" [ngClass]="{'selected-tab':selectedTab=='MyTeams'}" (click)="Navigate('MyTeams')">My Teams
+    <div class="my-teams" [ngClass]="{'selected-tab':selectedTab==='MyTeams'}" 
+    (click)="Navigate('MyTeams')">My Teams
     </div>
-    <div class="manage-team" [ngClass]="{'selected-tab':selectedTab=='ManagePlayers'}"
-        (click)="Navigate('ManagePlayers')">Manage Players</div>
-    <div class="team-summary" [ngClass]="{'selected-tab':selectedTab=='TeamSummary'}" (click)="Navigate('TeamSummary')">
-        Team Summary</div>
+    <div class="manage-team" [ngClass]="{'selected-tab':selectedTab==='ManagePlayers'}"
+        (click)="Navigate('ManagePlayers')">Manage Players
+    </div>
+    <div class="team-summary" [ngClass]="{'selected-tab':selectedTab==='TeamSummary'}" 
+    (click)="Navigate('TeamSummary')">Team Summary
+    </div>
 </div>
