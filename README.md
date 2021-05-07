@@ -1,1 +1,1 @@
-# NBA-FrontEnd
+When first cloning, be sure to run >npm install inside "NBA -predictions".
