@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './routers/home/home.component';
@@ -16,7 +17,10 @@ import { TabsComponent } from './Components/tabs/tabs.component';
 import { RegisterComponent } from './routers/register/register.component';
 import { LoginComponent } from './routers/login/login.component';
 
-
+export function tokenGetter(){
+  return localStorage.getItem('token');
+}
+  
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +39,15 @@ import { LoginComponent } from './routers/login/login.component';
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:5001"],
+        disallowedRoutes: []
+      }
+    })
+     
   ],
   providers: [],
   bootstrap: [AppComponent]

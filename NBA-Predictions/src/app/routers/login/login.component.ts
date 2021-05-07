@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { User } from 'src/app/modules/user';
+import { NavService } from 'src/app/services/nav-service.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   allErrored = false;
   count = 0;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private navigate:NavService) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -55,14 +56,14 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('token', JSON.stringify(response.token));
       this.invalidLogin = false;
 
-      //navigate somewhere
+      this.navigate.NavTeamSummary('bob');
       
     }
-    // , (error) => {
-    //   this.invalidLogin = true;
-    //   alert("The API is down!");
-    //   return;
-    // }
+    , (error) => {
+      this.invalidLogin = true;
+      alert("The User login is down!");
+      return;
+    }
     ).then(() => console.log('hello'));
 
     

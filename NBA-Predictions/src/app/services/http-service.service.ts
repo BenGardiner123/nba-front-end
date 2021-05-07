@@ -19,7 +19,8 @@ export class HttpService {
   players: Player[] = [];
   teamPlayers: Player[] = [];
   teamPlayersKeys: number[] = [];
-  APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
+  // APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
+  APIURL = "https://localhost:5001/api";
 
   constructor(private http: HttpClient, private currentTeamService: CurrentTeamService) { }
 

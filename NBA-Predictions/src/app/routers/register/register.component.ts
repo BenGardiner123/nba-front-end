@@ -55,10 +55,12 @@ export class RegisterComponent implements OnInit {
 
     var promise = this.userService.registerUser(credentials).then(data => {
       this.notExists = data;
-    }, (error) => {
-      alert("The API is down!");
-      return;
-    }).then(() => this.response = true);
+    }
+    // , (error) => {
+    //   alert("The API is down!");
+    //   return;
+    // }
+    ).then(() => this.response = true);
 
   }
 
