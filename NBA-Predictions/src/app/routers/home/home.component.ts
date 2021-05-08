@@ -14,18 +14,22 @@ import { Team } from '../../modules/team';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  buttonName = "Create";
+  buttonName = "View";
   teams: Team[] = [];
   stringTeams = [];
 
   sortstring: string = 'FIRSTNAME';
   sorttype : string = 'ASC';
+  token: string;
 
-  constructor(private navService: NavService, private httpService: HttpService, private currentTeamService: CurrentTeamService) { }
+  constructor(private navService: NavService, private httpService: HttpService, private currentTeamService: CurrentTeamService) {
+    this.token = JSON.parse(localStorage.getItem('token'));
+  }
 
   ngOnInit(): void {
     // Grab all teams everytime the landing page is loaded
-    this.teams = this.httpService.GetAllTeams();
+    // this.teams = this.httpService.GetAllTeams();
+    this.token = JSON.parse(localStorage.getItem('token'));
     
     document.body.classList.add('landingPageBackgroundImage');
   }
@@ -47,7 +51,7 @@ export class HomeComponent implements OnInit {
       this.currentTeamService.teamName = teamName;
       localStorage.setItem('teamname', JSON.stringify(teamName));
 
-      this.currentTeamService.players = this.httpService.getTeamPlayers(teamName,this.sortstring,this.sorttype);
+      this.currentTeamService.players = this.httpService.getTeamPlayers(this.token, teamName, this.sortstring, this.sorttype);
     }
     else {
       this.navService.NavManagePlayers(teamName);
@@ -61,16 +65,18 @@ export class HomeComponent implements OnInit {
 
   UpdateInput(userInput: string) {
     // Minor error, shouldnt need to call every time a user inputs, cant do in init 
-    this.teams.forEach(team => {
-      this.stringTeams.push(team.teamName.toLowerCase());
-    });
+    // this.teams.forEach(team => {
+    //   this.stringTeams.push(team.teamName.toLowerCase());
+    // });
 
-    if (this.stringTeams.includes(userInput.toLowerCase())) {
-      this.buttonName = "View";
-    }
-    else {
-      this.buttonName = "Create";
-    }
+    // if (this.stringTeams.includes(userInput.toLowerCase())) {
+    //   this.buttonName = "View";
+    // }
+    // else {
+    //   this.buttonName = "Create";
+    // }
+
+    this.buttonName = "View";
 
   }
 

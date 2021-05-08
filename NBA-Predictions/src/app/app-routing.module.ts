@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from './guards/auth-guard.service';
+import {AuthenticationGuard } from './guards/authentication.guard';
 
 import { HomeComponent } from './routers/home/home.component';
 import { LoginComponent } from './routers/login/login.component';
 import { ManagePlayersComponent } from './routers/manage-players/manage-players.component';
 import { RegisterComponent } from './routers/register/register.component';
-// import { ManagePlayersComponent } from './routers/manage-players/manage-players.component';
 import { TeamSummaryComponent } from './routers/team-summary/team-summary.component';
 
 
 const routes: Routes = [
-  { path: "Home", component: HomeComponent },
+  { path: "Home", component: HomeComponent, canActivate: [AuthenticationGuard]},
   // { path: "MyTeam", component: MyTeamComponent },
-  { path: "ManagePlayers", component: ManagePlayersComponent },
-  { path: "TeamSummary", component: TeamSummaryComponent },
+  { path: "ManagePlayers", component: ManagePlayersComponent, canActivate: [AuthenticationGuard] },
+  { path: "TeamSummary", component: TeamSummaryComponent, canActivate: [AuthenticationGuard] },
   { path: "Login", component: LoginComponent},
   { path: "Register", component: RegisterComponent },
 

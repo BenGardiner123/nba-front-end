@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   allErrored = false;
   count = 0;
   exists = false;
-  response = true;
+  response = false;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private navigate:NavService) {
     this.loginForm = this.formBuilder.group({
@@ -60,22 +60,20 @@ export class LoginComponent implements OnInit {
       if(response != null && response.token != 'Incorrect credentials'){
         this.exists = true;
         this.response = false;
+        this.navigate.NavLandingPage();
       }
       else{
         this.exists = false;
         this.response = true;
       }
 
-      // this.invalidLogin = false;
-      // this.navigate.NavTeamSummary('bob');
     }
-    // , (error) => {
-    //   this.invalidLogin = true;
-    //   alert("The User login is down!");
-    //   return;
-    // }
+    , (error) => {
+      this.invalidLogin = true;
+      alert("The User login is down!");
+      return;
+    }
     );
-
     
   }
 
