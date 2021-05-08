@@ -55,21 +55,19 @@ export class RegisterComponent implements OnInit {
 
     var promise = this.userService.registerUser(credentials).then(data => {
       this.notExists = data;
-    }
-    // , (error) => {
-    //   alert("The API is down!");
-    //   return;
-    // }
-    ).then(() => this.response = true);
+    }, (error) => {
+      alert("The API for registration is down!");
+      return;
+    }).then(() => this.response = true);
 
   }
 
- //get the number of errors a form has
   getFormValidationErrors(){
     this.count = 0;
     this.allErrored = false;
     this.oneError = false;
 
+    //get the number of errors a form has
     Object.keys(this.RegistrationForm.controls).forEach(key => {
       const controlErrors: ValidationErrors = this.RegistrationForm.get(key).errors;
       if(controlErrors != null) {

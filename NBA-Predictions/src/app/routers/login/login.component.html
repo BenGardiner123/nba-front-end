@@ -1,8 +1,12 @@
 <div class="overlay"></div>
 <div class="container">
     <div class="image"><img src="../../../assets/logo-NBA-trans2.png"></div>
-    <div class="user-input" [ngClass]="{ 'allErrored': allErrored, 'oneError': oneError }">
+    <div class="user-input" [ngClass]="{ 'allErrored': allErrored, 'oneError': oneError }"
+    [ngClass]="{'responseAppears' : response === true}">
         <h4 class="loginHeader">Login</h4>
+        <p  *ngIf="response === true" class="response" [ngClass]="{ 'unsuccessful': response === false}">
+            <span *ngIf="exists === false" class="notloggedin">Incorrect username or password! try again...</span>
+        </p>
 
         <div class="formDiv">
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -14,7 +18,7 @@
                     </div>
                 </div>
                 <div class="inputDivs">
-                    <input type="text" formControlName="password" placeholder="Password..."  [ngClass]="{ 'isEmpty': submitted && f.username.errors }" 
+                    <input type="password" formControlName="password" placeholder="Password..."  [ngClass]="{ 'isEmpty': submitted && f.username.errors }" 
                     (keyup)="onKeyUp()" required #input/>
                     <div *ngIf="submitted && f.password.errors" class="inputError">
                         <div *ngIf="f.password.errors.required">Password is required</div>

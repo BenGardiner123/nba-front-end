@@ -127,3 +127,27 @@ a, a:visited{
 .allErrored{
     height: 47vh;
 }
+
+.response{
+    margin-top: -4vh;
+    margin-left: 1.4vw;
+    margin-bottom: 4vh;
+    width: 25.5vw;
+    border: 1px solid yellow;
+    padding: 10px;
+    background-color: cornsilk;
+    border-radius: 6px;
+    color: #414141;
+}
+
+.responseAppears{
+    height: 47vh;
+}
+
+.notloggedin{
+    color: red;
+}
+
+.unsuccessful{
+    border: 1px solid red; 
+}

@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
   oneError = false;
   allErrored = false;
   count = 0;
+  exists = false;
+  response = true;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private navigate:NavService) {
     this.loginForm = this.formBuilder.group({
@@ -52,27 +54,35 @@ export class LoginComponent implements OnInit {
     }
 
     var promise = this.userService.loginUser(credentials).then(response => {
-      console.log(response);
+      console.log(response.token);
       localStorage.setItem('token', JSON.stringify(response.token));
-      this.invalidLogin = false;
 
-      this.navigate.NavTeamSummary('bob');
-      
+      if(response != null && response.token != 'Incorrect credentials'){
+        this.exists = true;
+        this.response = false;
+      }
+      else{
+        this.exists = false;
+        this.response = true;
+      }
+
+      // this.invalidLogin = false;
+      // this.navigate.NavTeamSummary('bob');
     }
-    , (error) => {
-      this.invalidLogin = true;
-      alert("The User login is down!");
-      return;
-    }
-    ).then(() => console.log('hello'));
+    // , (error) => {
+    //   this.invalidLogin = true;
+    //   alert("The User login is down!");
+    //   return;
+    // }
+    );
 
     
   }
 
-  //get the number of errors a form has
   getFormValidationErrors(){
     this.count = 0;
 
+    //get the number of errors a form has
     Object.keys(this.loginForm.controls).forEach(key => {
       const controlErrors: ValidationErrors = this.loginForm.get(key).errors;
       if(controlErrors != null) {
@@ -101,6 +111,8 @@ export class LoginComponent implements OnInit {
     this.allErrored = false;
     this.oneError = false;
     this.count = 0;
+    this.response = false;
+    this.exists = false;
   }
 
 }
