@@ -8,6 +8,7 @@ import { PlayerEnvelope } from '../modules/playerEnvelope';
 import { HeaderEnvelope } from '../modules/headerEnvelope';
 import { PlayerSelections } from '../modules/playerSelections';
 import { CurrentTeamService } from './current-team.service';
+import { TeamPlayers } from '../modules/teamPlayers';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class HttpService {
   players: Player[] = [];
   teamPlayers: Player[] = [];
   teamPlayersKeys: number[] = [];
-  APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
+  // APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
+  APIURL = "https://localhost:5001/api";
 
   constructor(private http: HttpClient, private currentTeamService: CurrentTeamService) { }
 
@@ -77,17 +79,17 @@ export class HttpService {
     return this.players;
   }
 
-
+  //edited
   GetPlayerHeaders(): string[] {
     this.headers = [];
-    let request = this.http.get<HeaderEnvelope>(this.APIURL + "Player/Headers");
+    let request = this.http.get<HeaderEnvelope>(this.APIURL + "/Players/headers");
     request.subscribe((response) => {
       response.data.forEach(element => {
         this.headers.push(element.columN_NAME); //.toLowerCase()
       });
 
     }, (error) => {
-      alert("The API is down!");
+      alert("The Column API is down!");
     });
     return this.headers;
   }
@@ -118,12 +120,21 @@ export class HttpService {
     });
   }
 
-  getTeamPlayers(teamname: string, sortstring: string, sorttype: string): Player[] {
+  //editted to mathc the current endpoints
+  //it grabs players of a user's team  
+  getTeamPlayers(token: string, teamname: string, sortstring: string, sorttype: string): Player[] {
     this.teamPlayers = [];
     this.teamPlayersKeys = [];
     this.currentTeamService.playerKeys = [];
 
-    let request = this.http.get<PlayerEnvelope>(this.APIURL + "Player/getPlayersFromTeam?TeamName=" + teamname + "&SortString=" + sortstring + "&SortType=" + sorttype)
+    var tPlayers: TeamPlayers = {
+      "token": token,
+      "teamName" : teamname,
+      "sortString": sortstring,
+      "sortType": sorttype
+    }
+
+    let request = this.http.post<PlayerEnvelope>(this.APIURL + "/Players/getPlayersFromTeam" , tPlayers)
     request.subscribe((response) => {
       response.data.forEach(element => {
         this.teamPlayers.push(element);
@@ -133,7 +144,7 @@ export class HttpService {
       localStorage.setItem('playerkeys', JSON.stringify(this.currentTeamService.playerKeys));
       localStorage.setItem('teamplayers', JSON.stringify(this.teamPlayers));
     }, (error) => {
-      alert("The API is down!");
+      alert("The get team players API is down!");
     });
 
     return this.teamPlayers;

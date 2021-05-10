@@ -9,7 +9,7 @@ export class NavService {
   constructor(private router: Router) { }
 
   NavLandingPage() {
-    this.router.navigateByUrl("/LandingPage");
+    this.router.navigateByUrl("/Home");
   }
 
   NavMyTeam() {
