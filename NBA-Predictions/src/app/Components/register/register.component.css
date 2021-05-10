@@ -1,53 +1,92 @@
 .container{
-    background-color: #e9e9e4;
+    background-color: rgba(255,255,255, 0.7);
+    min-height: auto;
+    width: 30vw;
+    margin-top: 3vh;
+    outline: none;
+    border-radius: 6px;
+    padding: 1vh 1vw;
+}
+
+.centered{
     display: flex;
+    justify-content: center;
     align-items: center;
-    flex-direction: column;
-    min-width: 30vw;
-    min-height: 35vh;
-    margin-top: 5vh;
-    padding: 3vh 3vw 1vh 3vw;
-    border-radius: 10px;
 }
 
-.container *{
-    margin-bottom: 2vh;
+.header{
+    font-size: 2rem;
+    padding: 1vh 0 5vh 1vw;
+    font-weight: 600;
 }
 
-::placeholder{
-    color: #c5c5c5;
+.user-inputs{
+    padding-bottom: 3vh;
 }
 
 input{
-    width: 20vw;
-    outline: none;
+    width: 100%;
     border: none;
-    border-radius: 5px;
-    padding: 1.5vh 1vh;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    width: 25vw;
+    padding: 1vh 1vw;
+    margin: 5px;
+    font-size: 1rem;
 }
 
+::placeholder {
+    color: #c5c5c5;
+}
+
+button, input:focus { outline: none; }
+
 button{
-    font-size: 2vh;
-    border: solid 2px #707070;
-    border-radius: 8px;
+    background-color: #DFDFDF;
+    font-weight: bold;
+    color: black;
+    margin-top: 1vh;
     padding: 1vh 3vw;
+    border: 1px solid #707070;
+    border-radius: 6px;
     cursor: pointer;
 }
 
-.sign-up-container{
-    display: flex;
+/* ERRORS  */
+.primary-error{
+    border: 1px solid yellow;
+    padding: 1vh 1vw;
+    background-color: cornsilk;
+    border-radius: 6px;
+    color: #414141;
 }
 
-.sign-up-container :first-child{
+.secondary-error{
+    font-size: 0.8rem;
+    padding: 1px;
+    margin-left: 1vw;
+    color: red;
+}
+
+.invalid-input{
+    border-color: red;
+}
+
+/* Make Account */
+.sign-in-container{
+    margin-top: 1vh;
+}
+
+.user-not-created :first-child{
     margin-left: .5vw;
 }
 
-.sign-up{
+.sign-in{
     cursor: pointer;
     color: #4788eb;
 }
 
-.sign-up:active{
+.sign-in:active{
     cursor: pointer;
     user-select: none;
     color: #fff;

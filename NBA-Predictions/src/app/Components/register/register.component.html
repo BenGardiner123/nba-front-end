@@ -1,10 +1,29 @@
 <div class="container">
-    <h1>Register</h1>
-    <input #username type="text" placeholder="Username...">
-    <input #password type="text" placeholder="Password..." (keydown.enter)="Register(username.value,password.value)">
-    <button (click)="Register(username.value,password.value)">Login</button>
-    <div class="sign-up-container">
-        Already have an account?
-        <div class="sign-up" (click)="ChangeDisplay()"> Sign In</div>
+    <div class="header">Register</div>
+    <div class="user-inputs">
+        <div class="primary-error" *ngIf="failedRegistration">
+            <div class="user-created"> Unsuccessful! user already exists try again...</div>
+            <div class="user-not-created centered">User created! click here to
+                <div class="sign-in" (click)="ChangeDisplay()"> Sign In</div>
+            </div>
+        </div>
+
+        <input #username type="text" placeholder="Username..." (keydown)="ClearErrors()"
+            [ngClass]="{'invalid-input':invalidInputs.includes(username.value)}">
+
+        <div *ngIf="invalidInputs.includes('username')" class="secondary-error">Username is invalid</div>
+
+        <input #password type="password" placeholder="Password..." (keydown)="ClearErrors()"
+            (keydown.enter)="AttemptUserLogin(username.value,password.value)"
+            [ngClass]="{'invalid-input':invalidInputs.includes(password.value)}">
+
+        <div *ngIf="invalidInputs.includes('password')" class="secondary-error">Password is invalid</div>
+        <div class="centered">
+            <button (click)="AttemptUserLogin(username.value,password.value)">Create</button>
+        </div>
+        <div class="sign-in-container centered">
+            Already have an account?
+            <div class="sign-in" (click)="ChangeDisplay()"> Sign In</div>
+        </div>
     </div>
 </div>

@@ -6,7 +6,7 @@ import { HttpService } from 'src/app/services/http-service.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-register-router',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -31,18 +31,18 @@ export class RegisterComponent implements OnInit {
     document.body.classList.add('landingPageBackgroundImage');
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     document.body.classList.remove('landingPageBackgroundImage');
   }
 
   //getter to easily access form fields
   get f() { return this.RegistrationForm.controls; }
 
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
     this.count = 0;
     this.getFormValidationErrors();
-    
+
     //if the form has errors stop
     if (this.RegistrationForm.invalid) {
       return;
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
 
     const credentials: User = {
       'username': this.RegistrationForm.value.username,
-      'passwordHash' : this.RegistrationForm.value.password
+      'passwordHash': this.RegistrationForm.value.password
     }
 
     var promise = this.userService.registerUser(credentials).then(data => {
@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  getFormValidationErrors(){
+  getFormValidationErrors() {
     this.count = 0;
     this.allErrored = false;
     this.oneError = false;
@@ -70,29 +70,29 @@ export class RegisterComponent implements OnInit {
     //get the number of errors a form has
     Object.keys(this.RegistrationForm.controls).forEach(key => {
       const controlErrors: ValidationErrors = this.RegistrationForm.get(key).errors;
-      if(controlErrors != null) {
+      if (controlErrors != null) {
         Object.keys(controlErrors).forEach(keyError => {
           this.count++;
         });
       }
-    }); 
+    });
 
     // to increase the container height based on number of errors displaying
-    if(this.count === 1){
+    if (this.count === 1) {
       this.oneError = true;
       this.allErrored = false;
     }
-    else if(this.count === 2){
+    else if (this.count === 2) {
       this.allErrored = true;
       this.oneError = false;
-    }else{
+    } else {
       this.oneError = false;
       this.allErrored = false;
     }
-    
+
   }
 
-  onKeyUp(){
+  onKeyUp() {
     this.submitted = false;
     this.allErrored = false;
     this.oneError = false;
