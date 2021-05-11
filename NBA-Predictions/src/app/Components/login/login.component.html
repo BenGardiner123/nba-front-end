@@ -6,21 +6,21 @@
         </div>
 
         <input #username type="text" placeholder="Username..." (keydown)="ClearErrors()"
-            [ngClass]="{'invalid-input':invalidInputs.includes(username.value)}">
+            [ngClass]="{'invalid-input':invalidInputs.includes('username')}">
 
         <div *ngIf="invalidInputs.includes('username')" class="secondary-error">Username is invalid</div>
 
         <input #password type="password" placeholder="Password..." (keydown)="ClearErrors()"
             (keydown.enter)="AttemptUserLogin(username.value,password.value)"
-            [ngClass]="{'invalid-input':invalidInputs.includes(password.value)}">
+            [ngClass]="{'invalid-input':invalidInputs.includes('password')}">
 
         <div *ngIf="invalidInputs.includes('password')" class="secondary-error">Password is invalid</div>
         <div class="centered">
-            <button (click)="AttemptUserLogin(username.value,password.value)">Submit</button>
+            <button (click)="AttemptUserLogin(username.value,password.value)">Login</button>
         </div>
         <div class="sign-up-container centered">
-            Dont have an account?
-            <div class="sign-up" (click)="ChangeDisplay()"> Sign Up</div>
+            click here to
+            <div class="sign-up" (click)="ChangeDisplay()">create an account</div>
         </div>
     </div>
 </div>

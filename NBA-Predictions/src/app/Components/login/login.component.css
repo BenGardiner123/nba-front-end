@@ -1,6 +1,10 @@
+*{
+    color: black;
+}
+
 .container{
     background-color: rgba(255,255,255, 0.7);
-    min-height: auto;
+    min-height: 45vh;
     width: 30vw;
     margin-top: 3vh;
     outline: none;
@@ -16,12 +20,11 @@
 
 .header{
     font-size: 2rem;
-    padding: 1vh 0 5vh 1vw;
-    font-weight: 600;
+    padding: 2vh 0 1vh 1vw;
 }
 
 .user-inputs{
-    padding-bottom: 3vh;
+    padding: 0 2vh 3vh 2vh;
 }
 
 input{
@@ -44,9 +47,9 @@ button, input:focus { outline: none; }
 button{
     background-color: #DFDFDF;
     font-weight: bold;
-    color: black;
-    margin-top: 1vh;
-    padding: 1vh 3vw;
+    margin-top: 2vh;
+    min-width: 110px;
+    padding: 1vh 1vw;
     border: 1px solid #707070;
     border-radius: 6px;
     cursor: pointer;
@@ -69,12 +72,13 @@ button{
 }
 
 .invalid-input{
-    border-color: red;
+    border: red 1px solid;
 }
 
 /* Make Account */
 .sign-up-container{
-    margin-top: 1vh;
+    font-family: 'Libre Franklin';
+    margin-top: 2vh;
 }
 
 .sign-up-container :first-child{
@@ -82,8 +86,9 @@ button{
 }
 
 .sign-up{
+    font-family: 'Libre Franklin';
     cursor: pointer;
-    color: #4788eb;
+    color: blue;
 }
 
 .sign-up:active{

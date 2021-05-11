@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
     if (!password.length) {
       this.invalidInputs.push('password');
     }
+    console.log(this.invalidInputs)
     // Invalid
     if (this.invalidInputs.length) {
       return false;

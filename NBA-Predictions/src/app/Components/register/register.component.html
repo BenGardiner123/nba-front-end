@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="header">Register</div>
+    <div class="header">Sign up</div>
     <div class="user-inputs">
         <div class="primary-error" *ngIf="failedRegistration">
             <div class="user-created"> Unsuccessful! user already exists try again...</div>
@@ -20,10 +20,6 @@
         <div *ngIf="invalidInputs.includes('password')" class="secondary-error">Password is invalid</div>
         <div class="centered">
             <button (click)="AttemptUserLogin(username.value,password.value)">Create</button>
-        </div>
-        <div class="sign-in-container centered">
-            Already have an account?
-            <div class="sign-in" (click)="ChangeDisplay()"> Sign In</div>
         </div>
     </div>
 </div>
