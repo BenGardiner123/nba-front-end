@@ -77,11 +77,12 @@ button{
     margin-top: 1vh;
 }
 
-.user-not-created :first-child{
-    margin-left: .5vw;
+.user-not-created:first-child{
+    margin-right: .5vw;
 }
 
 .sign-in{
+    margin-left: .5vw;
     cursor: pointer;
     color: #4788eb;
 }
