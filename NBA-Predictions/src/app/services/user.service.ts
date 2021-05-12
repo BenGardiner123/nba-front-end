@@ -10,6 +10,7 @@ import { Token } from '../modules/token';
 export class UserService {
   apiUrl = "https://localhost:5001/";
   notExists = false;
+  username: string;
 
   constructor(private http: HttpClient) { }
 
@@ -28,11 +29,12 @@ export class UserService {
   // }
 
   registerUser(credentials: User) {
+    this.username = credentials.username;
     return this.http.post<boolean>(this.apiUrl + "register", credentials).toPromise();
   }
 
-  loginUser(credentials: User){
+  loginUser(credentials: User) {
+    this.username = credentials.username;
     return this.http.post<Token>(this.apiUrl + "Login", credentials).toPromise();
   }
-
 }

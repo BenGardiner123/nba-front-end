@@ -23,4 +23,8 @@ export class NavService {
   NavTeamSummary(teamName: string) {
     this.router.navigateByUrl("/TeamSummary");
   }
+
+  NavLogin() {
+    this.router.navigateByUrl("/Login");
+  }
 }

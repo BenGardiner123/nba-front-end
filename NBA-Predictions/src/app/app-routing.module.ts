@@ -4,13 +4,11 @@ import { AuthenticationGuard } from './guards/authentication.guard';
 
 import { MyTeamsComponent } from './routers/my-teams/my-teams.component'
 import { ManagePlayersComponent } from './routers/manage-players/manage-players.component';
-import { HomeComponent } from './routers/home/home.component';
 import { LoginPageComponent } from './routers/login-page/login-page.component';
 import { TeamSummaryComponent } from './routers/team-summary/team-summary.component';
 
 
 const routes: Routes = [
-  { path: "Home", component: HomeComponent },
   // , canActivate: [AuthenticationGuard]},
   { path: "MyTeams", component: MyTeamsComponent },
   // , canActivate: [AuthenticationGuard]},

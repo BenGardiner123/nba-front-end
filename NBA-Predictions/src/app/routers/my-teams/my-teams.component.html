@@ -9,11 +9,13 @@
         <div class="container">
 
             <div class="header">
-                <h1>Username's Teams</h1>
+                <h1>{{username}}'s Teams</h1>
                 <div class="user-input">
-                    <input #createTeam type="text" placeholder="Create a new team..."
-                        (keydown.enter)="CreateTeam(createTeam.value)">
-                    <button (click)="CreateTeam(createTeam.value)">Create</button>
+                    <input type="text" placeholder="Enter a team name..." #input
+                        (keydown.enter)="CreateTeam(input.value)" (keydown)="ClearError()"
+                        [ngClass]="{'input-error':invalidTeam}">
+                    <button (click)=" CreateTeam(input.value)">{{buttonValue}}</button>
+                    <div *ngIf="invalidTeam" class="error">Invalid Team Name</div>
                 </div>
             </div>
             <div class="tables">
@@ -22,15 +24,37 @@
                         <div>My Teams</div>
                         <div class="select-all">
                             <div>select all</div>
-                            <input type="checkbox" (click)="SelectAllTeams()" />
+                            <input type="checkbox" (click)="SelectAllTeams()"
+                                [checked]="selectedTeams === usersTeams" />
                         </div>
                     </div>
+                    <table class="my-teams-table">
+                        <tr>
+                            <th>Favs</th>
+                            <th>Team Name</th>
+                            <th>Players</th>
+                        </tr>
+                        <tr *ngFor="let team of usersTeams" (click)="SelectTeam(team)"
+                            [ngClass]="{'selected-team': selectedTeams.includes(team), 'highlighted-team': highlightedTeam == team.teamName}">
+                            <!-- <fa-icon [icon]="faStarIcon" *ngIf="team.favourite"></fa-icon> -->
+                            <td>
+                                favs
+                                <!-- <input type="checkbox" (click)="ManageFavourites(team)"
+                                    [checked]='selectedPlayersKeys.includes(player.player_key)' /> -->
+                            </td>
+                            <td class="team-name">{{team.teamName}}</td>
+                            <td>Players</td>
+                        </tr>
+                    </table>
                 </div>
 
                 <div class="table-container">
                     <div class="table-header">
                         <div>Leaderboard</div>
                     </div>
+                    <table class="leaderboard-table">
+
+                    </table>
                 </div>
             </div>
             <div class="footer">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from '../../services/nav-service.service';
 
 @Component({
   selector: 'app-logout',
@@ -7,14 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navService: NavService) { }
 
   ngOnInit(): void {
   }
 
   Logout() {
-    // localStorage.removeItem('userIdToken');
-    console.log('logout')
+    localStorage.removeItem('token');
+    this.navService.NavLogin();
   }
 
 
