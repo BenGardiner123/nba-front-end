@@ -16,8 +16,8 @@ import { Team } from '../../modules/team';
 export class LoginPageComponent implements OnInit {
 
 
-  displayLogin: boolean = false;
-  displayRegister: boolean = true;
+  isDisplayLogin: boolean = true;
+  isDisplayRegister: boolean = false;
 
   constructor(private navService: NavService, private httpService: HttpService) { }
 
@@ -25,9 +25,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   ChangeDisplay() {
-    this.displayLogin = !this.displayLogin;
-    this.displayRegister = !this.displayRegister;
-    console.log(this.displayRegister);
+    this.isDisplayLogin = !this.isDisplayLogin;
+    this.isDisplayRegister = !this.isDisplayRegister;
   }
 
 }

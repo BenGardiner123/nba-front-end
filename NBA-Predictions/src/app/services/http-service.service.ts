@@ -20,8 +20,8 @@ export class HttpService {
   players: Player[] = [];
   teamPlayers: Player[] = [];
   teamPlayersKeys: number[] = [];
-  // APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
-  APIURL = "https://localhost:5001/api";
+  APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
+  // APIURL = "https://localhost:5001/api";
 
   constructor(private http: HttpClient, private currentTeamService: CurrentTeamService) { }
 
@@ -129,12 +129,12 @@ export class HttpService {
 
     var tPlayers: TeamPlayers = {
       "token": token,
-      "teamName" : teamname,
+      "teamName": teamname,
       "sortString": sortstring,
       "sortType": sorttype
     }
 
-    let request = this.http.post<PlayerEnvelope>(this.APIURL + "/Players/getPlayersFromTeam" , tPlayers)
+    let request = this.http.post<PlayerEnvelope>(this.APIURL + "/Players/getPlayersFromTeam", tPlayers)
     request.subscribe((response) => {
       response.data.forEach(element => {
         this.teamPlayers.push(element);

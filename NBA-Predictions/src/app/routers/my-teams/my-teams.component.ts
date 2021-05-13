@@ -24,7 +24,6 @@ export class MyTeamsComponent implements OnInit {
   faStarIcon = faStar;
 
 
-  stringTeams = [];
   token: string;
   invalidTeam: boolean;
 
@@ -51,7 +50,6 @@ export class MyTeamsComponent implements OnInit {
     private navService: NavService,
     private httpService: HttpService,
     private currentTeamService: CurrentTeamService) {
-
   }
 
   ngOnInit(): void {
@@ -61,8 +59,15 @@ export class MyTeamsComponent implements OnInit {
   }
 
   // Occurs when a user clicks 'Select all teams' checkbox
-  SelectAllTeams() {
-
+  SelectAllTeams(isChecked) {
+    if (isChecked) {
+      this.selectedTeams = this.usersTeams;
+    }
+    // Everything already selected
+    else {
+      this.selectedTeams = [];
+    }
+    this.highlightedTeam = undefined;
   }
 
   SelectTeam(team: Team) {
@@ -80,11 +85,10 @@ export class MyTeamsComponent implements OnInit {
         this.highlightedTeam = undefined;
       }
     }
-    console.log(this.selectedTeams);
-    console.log(this.usersTeams);
-    if (this.selectedTeams == this.usersTeams) {
-      alert('a')
-    }
+
+    console.log(JSON.stringify(this.selectedTeams) == JSON.stringify(this.usersTeams))
+    console.log(this.selectedTeams)
+    console.log(this.usersTeams)
   }
 
   // Takes in a team and inverts its favourite: boolean

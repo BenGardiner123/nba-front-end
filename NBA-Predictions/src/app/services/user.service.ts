@@ -8,14 +8,16 @@ import { Token } from '../modules/token';
   providedIn: 'root'
 })
 export class UserService {
-  apiUrl = "https://localhost:5001/";
+  // APIURL = "https://localhost:5001/";
+  APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
+
   notExists = false;
   username: string;
 
   constructor(private http: HttpClient) { }
 
   // registerUser(credentials: User): boolean{
-  //   let request = this.http.put<boolean>(this.apiUrl + "register", credentials);
+  //   let request = this.http.put<boolean>(this.APIURL + "register", credentials);
 
   //   request.subscribe((response) => {
   //     this.exists = response;
@@ -30,11 +32,11 @@ export class UserService {
 
   registerUser(credentials: User) {
     this.username = credentials.username;
-    return this.http.post<boolean>(this.apiUrl + "register", credentials).toPromise();
+    return this.http.post<boolean>(this.APIURL + "register", credentials).toPromise();
   }
 
   loginUser(credentials: User) {
     this.username = credentials.username;
-    return this.http.post<Token>(this.apiUrl + "Login", credentials).toPromise();
+    return this.http.post<Token>(this.APIURL + "Login", credentials).toPromise();
   }
 }

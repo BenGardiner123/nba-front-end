@@ -24,8 +24,8 @@
                         <div>My Teams</div>
                         <div class="select-all">
                             <div>select all</div>
-                            <input type="checkbox" (click)="SelectAllTeams()"
-                                [checked]="selectedTeams === usersTeams" />
+                            <input #selectAll type="checkbox" (click)="SelectAllTeams(selectAll.checked)"
+                                [checked]="selectedTeams.length === usersTeams.length" />
                         </div>
                     </div>
                     <table class="my-teams-table">
@@ -35,7 +35,7 @@
                             <th>Players</th>
                         </tr>
                         <tr *ngFor="let team of usersTeams" (click)="SelectTeam(team)"
-                            [ngClass]="{'selected-team': selectedTeams.includes(team), 'highlighted-team': highlightedTeam == team.teamName}">
+                            [ngClass]="{'selected-team': selectedTeams.includes(team), 'highlighted-team': highlightedTeam == team}">
                             <!-- <fa-icon [icon]="faStarIcon" *ngIf="team.favourite"></fa-icon> -->
                             <td>
                                 favs

@@ -5,6 +5,6 @@
     <img src="../../../assets/logo-NBA-trans2.png" class="logo-img">
 
     <!-- When these components revcieve an event of (clicked) they call a function to swap between each component -->
-    <app-login [ngClass]="{displayed : displayLogin}" (changeDisplay)="ChangeDisplay()"></app-login>
-    <app-register [ngClass]="{displayed : displayRegister}" (changeDisplay)="ChangeDisplay()">asdfasdf</app-register>
+    <app-login [ngClass]="{displayed : isDisplayLogin}" (changeDisplay)="ChangeDisplay()"></app-login>
+    <app-register [ngClass]="{displayed : isDisplayRegister}" (changeDisplay)="ChangeDisplay()">asdfasdf</app-register>
 </div>
