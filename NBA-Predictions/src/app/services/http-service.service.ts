@@ -20,8 +20,8 @@ export class HttpService {
   players: Player[] = [];
   teamPlayers: Player[] = [];
   teamPlayersKeys: number[] = [];
-  APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
-  // APIURL = "https://localhost:5001/api";
+  // APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
+  APIURL = "https://localhost:5001/api";
 
   constructor(private http: HttpClient, private currentTeamService: CurrentTeamService) { }
 
@@ -38,7 +38,6 @@ export class HttpService {
     return this.teams;
   }
 
-  //TODO Make this into promise 
   PlayerSearch(pageNum: number, pageSizing: number, searchstring: string, sortstring: string, sortorder: string): Player[] {
     this.players = [];
     localStorage.removeItem('playerSearchPages');

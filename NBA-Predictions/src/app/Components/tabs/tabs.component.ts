@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TabsService } from '../../services/tabs.service';
 
 @Component({
   selector: 'app-tabs',
@@ -9,21 +8,18 @@ import { TabsService } from '../../services/tabs.service';
 })
 export class TabsComponent implements OnInit {
 
-  // TODO Fix 'selected-tab' logic for applying styles
   selectedTab: string;
 
-  constructor(private router: Router, private tabsService: TabsService ) {
-    this.selectedTab = this.tabsService.currentTab;
-   }
+  constructor(private router: Router) {
+  }
 
   ngOnInit(): void {
+    this.selectedTab = this.router.url;
+    console.log(this.selectedTab);
   }
 
   Navigate(directory: string) {
-    this.tabsService.currentTab = directory;
-    console.log(this.selectedTab);
     this.router.navigateByUrl('/' + directory);
-   
   }
 
 }
