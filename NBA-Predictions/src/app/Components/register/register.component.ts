@@ -12,7 +12,8 @@ import { User } from 'src/app/modules/user';
 export class RegisterComponent implements OnInit {
 
   invalidInputs: string[] = [];
-  failedRegistration: boolean;
+  isRegistered: boolean;
+  isSuccessful: boolean;
 
   constructor(private userService: UserService, private navigate: NavService) { }
 
@@ -30,7 +31,15 @@ export class RegisterComponent implements OnInit {
       'passwordHash': password
     }
 
-    var promise = this.userService.registerUser(credentials).then(data => {
+    var promise = this.userService.registerUser(credentials).then(response => {
+      this.isRegistered = true;
+      // Successful Registration
+      if (response) {
+        this.isSuccessful = true;
+      }
+      else {
+        this.isSuccessful = false;
+      }
     }, (error) => {
       alert("The API for registration is down!");
     });
@@ -62,7 +71,8 @@ export class RegisterComponent implements OnInit {
 
   ClearErrors() {
     this.invalidInputs = [];
-    this.failedRegistration = false;
+    this.isRegistered = undefined;
+    this.isSuccessful = undefined;
   }
 
   // Emitts an event of (changeDisplay) to parent 

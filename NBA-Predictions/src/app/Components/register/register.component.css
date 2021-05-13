@@ -74,3 +74,9 @@ button{
 .invalid-input{
     border-color: red;
 }
+
+.sign-in{
+    color: blue;
+    padding-left: 0.5vw;
+    cursor: pointer;
+}

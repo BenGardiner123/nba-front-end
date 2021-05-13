@@ -1,9 +1,9 @@
 <div class="container">
     <div class="header">Sign up</div>
     <div class="user-inputs">
-        <div class="primary-error" *ngIf="failedRegistration">
-            <div class="user-created"> Unsuccessful! user already exists try again...</div>
-            <div class="user-not-created centered">User created! click here to
+        <div class="primary-error" *ngIf="isRegistered">
+            <div class="user-created" *ngIf="!isSuccessful"> Unsuccessful! user already exists try again...</div>
+            <div class="user-not-created centered" *ngIf="isSuccessful">User created! click here to
                 <div class="sign-in" (click)="ChangeDisplay()"> Sign In</div>
             </div>
         </div>
