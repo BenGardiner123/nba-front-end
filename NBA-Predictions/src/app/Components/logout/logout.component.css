@@ -1,11 +1,19 @@
+.container{
+    position: absolute;
+    right: 2vw;
+    top: 2vh;
+}
+
+.username{
+    color: #fff;
+    text-align: center;
+}
+
 button{
     font-weight: 500;
     font-size: large;
     border: solid 2px #707070;
     border-radius: 8px;
-    padding: 1vh 4vw;
+    padding: 1vh 3vw;
     cursor: pointer;
-    position: absolute;
-    right: 2vw;
-    top: 2vh;
 }
