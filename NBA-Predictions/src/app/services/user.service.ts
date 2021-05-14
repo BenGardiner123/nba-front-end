@@ -7,8 +7,8 @@ import { Token } from '../modules/token';
   providedIn: 'root'
 })
 export class UserService {
-  // APIURL = "https://localhost:5001/";
-  APIURL = "http://awseb-AWSEB-JC50TYJC3NMV-2042437434.us-east-1.elb.amazonaws.com/"
+  APIURL = "https://localhost:5001/";
+  // APIURL = "http://awseb-AWSEB-JC50TYJC3NMV-2042437434.us-east-1.elb.amazonaws.com/"
 
   // APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
   username: string;

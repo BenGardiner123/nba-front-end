@@ -1,6 +1,6 @@
 export interface Team {
     teamName: string;
-    fav: boolean;
+    isFav: boolean;
     playerCount: number;
     dtrScores: number;
 }

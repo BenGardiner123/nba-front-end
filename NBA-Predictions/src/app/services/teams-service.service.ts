@@ -11,15 +11,19 @@ import { Team } from '../modules/team';
 export class TeamsService {
 
   token = localStorage.getItem('token');
-  // APIURL = "https://localhost:5001/Teams/";
-  APIURL = "http://awseb-AWSEB-JC50TYJC3NMV-2042437434.us-east-1.elb.amazonaws.com/"
+  APIURL = "https://localhost:5001/Teams/";
+  // APIURL = "http://awseb-AWSEB-JC50TYJC3NMV-2042437434.us-east-1.elb.amazonaws.com/"
   // APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
 
   constructor(private http: HttpClient) { }
 
   // Create a new team for a user
-  CreateTeam() {
-
+  CreateTeam(teamName: string): Promise<boolean> {
+    // Send a team name and expect a boolean depending on the success of the http
+    return this.http.post<boolean>(this.APIURL + "addteam", {
+      "token": this.token,
+      "teamName": teamName
+    }).toPromise();
   }
 
   // Gets all teams for a user
@@ -27,10 +31,19 @@ export class TeamsService {
     return this.http.post<Team[]>(this.APIURL + "getteams", token).toPromise();
   }
 
-  // Updates a users specific team 
-  // Requires sending the players keys for all the players of the newly udated team.
-  // Uses api/PlayerSelection
-  UpdateTeam() {
+  DeleteTeam(teamName: string) {
+    this.http.put(this.APIURL + "deleteteam", {
+      "token": this.token,
+      "teamName": teamName
+    }).toPromise();
+  }
 
+  // Takes in a team and toggles its favourites value
+  ToggleFavourite(team: Team) {
+    this.http.put(this.APIURL + "deleteteam", {
+      "token": this.token,
+      "teamName": team.teamName,
+      "isFav": team.isFav
+    }).toPromise();
   }
 }
