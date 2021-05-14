@@ -15,7 +15,6 @@ export class TabsComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedTab = this.router.url;
-    console.log(this.selectedTab);
   }
 
   Navigate(directory: string) {

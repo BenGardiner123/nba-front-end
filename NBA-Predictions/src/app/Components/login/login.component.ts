@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   invalidInputs: string[] = [];
   failedLogin: boolean;
 
-  constructor(private userService: UserService, private navigate: NavService) { }
+  constructor(private userService: UserService, private navService: NavService) { }
 
   ngOnInit(): void {
   }
@@ -33,8 +33,12 @@ export class LoginComponent implements OnInit {
     var promise = this.userService.loginUser(credentials).then(response => {
       localStorage.setItem('token', JSON.stringify(response.token));
       // If username and password dont yeild a correct login
-      if (response.token === 'Incorrect credentials') {
+      if (response.token === 'false') {
         this.failedLogin = true;
+      }
+      // Correct
+      else {
+        this.navService.NavMyTeams();
       }
     }, (error) => {
       alert("The User login is down!");
@@ -56,7 +60,6 @@ export class LoginComponent implements OnInit {
     if (!password.length) {
       this.invalidInputs.push('password');
     }
-    console.log(this.invalidInputs)
     // Invalid
     if (this.invalidInputs.length) {
       return false;

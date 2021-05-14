@@ -4,11 +4,12 @@ import { delay, timeout } from 'rxjs/operators';
 
 import { HttpService } from '../../services/http-service.service';
 import { NavService } from '../../services/nav-service.service'
-import { CurrentTeamService } from '../../services/current-team.service'
+import { TeamsService } from '../../services/teams-service.service'
 
 import { Player } from '../../modules/player';
 import { PlayerEnvelope } from 'src/app/modules/playerEnvelope';
 import { browserRefresh } from '../../app.component';
+
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
@@ -43,8 +44,8 @@ export class ManagePlayersComponent implements OnInit {
   searchString?: string = '';
   playerSelection: PlayerSelections;
 
-  constructor(private httpService: HttpService, private navService: NavService, private currentTeamService: CurrentTeamService) {
-    this.teamName = this.currentTeamService.teamName;
+  constructor(private httpService: HttpService, private navService: NavService, private teamsService: TeamsService) {
+    // this.teamName = this.currentTeamService.teamName;
 
     //detects browser refresh
     this.refreshed = browserRefresh;
@@ -65,8 +66,8 @@ export class ManagePlayersComponent implements OnInit {
       if (this.refreshed === false) {
         this.pages = this.httpService.pages;
         localStorage.setItem('pages', JSON.stringify(this.pages));
-        this.selectedPlayersKeys = this.currentTeamService.playerKeys;
-        this.selectedPlayers = this.currentTeamService.players;
+        // this.selectedPlayersKeys = this.currentTeamService.playerKeys;
+        // this.selectedPlayers = this.currentTeamService.players;
       }
       else if (localStorage.getItem('pages') != null && Number(JSON.parse(localStorage.getItem('pages'))) > 1) {
         this.pages = Number(JSON.parse(localStorage.getItem('pages')));
@@ -243,10 +244,10 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   NavTeamSummary() {
-    this.currentTeamService.playerKeys = this.selectedPlayersKeys;
-    this.currentTeamService.players = this.selectedPlayers;
+    // this.currentTeamService.playerKeys = this.selectedPlayersKeys;
+    // this.currentTeamService.players = this.selectedPlayers;
 
-    this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
+    // this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
 
     localStorage.setItem('playerkeys', JSON.stringify(this.selectedPlayersKeys));
     localStorage.setItem('teamplayers', JSON.stringify(this.selectedPlayers));
@@ -265,7 +266,5 @@ export class ManagePlayersComponent implements OnInit {
 
     localStorage.removeItem('playerkeys');
     localStorage.removeItem('teamplayers');
-
-    this.navService.NavLandingPage();
   }
 }

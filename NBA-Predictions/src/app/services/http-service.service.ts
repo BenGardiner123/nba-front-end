@@ -7,8 +7,8 @@ import { error } from '@angular/compiler/src/util';
 import { PlayerEnvelope } from '../modules/playerEnvelope';
 import { HeaderEnvelope } from '../modules/headerEnvelope';
 import { PlayerSelections } from '../modules/playerSelections';
-import { CurrentTeamService } from './current-team.service';
 import { TeamPlayers } from '../modules/teamPlayers';
+import { TeamsService } from './teams-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class HttpService {
   // APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
   APIURL = "https://localhost:5001/api";
 
-  constructor(private http: HttpClient, private currentTeamService: CurrentTeamService) { }
+  constructor(private http: HttpClient, private teamsService: TeamsService) { }
 
   GetAllTeams(): Team[] {
     this.teams = [];
@@ -124,7 +124,7 @@ export class HttpService {
   getTeamPlayers(token: string, teamname: string, sortstring: string, sorttype: string): Player[] {
     this.teamPlayers = [];
     this.teamPlayersKeys = [];
-    this.currentTeamService.playerKeys = [];
+    // this.currentTeamService.playerKeys = [];
 
     var tPlayers: TeamPlayers = {
       "token": token,
@@ -137,10 +137,10 @@ export class HttpService {
     request.subscribe((response) => {
       response.data.forEach(element => {
         this.teamPlayers.push(element);
-        this.currentTeamService.playerKeys.push(element.player_key);
+        // this.currentTeamService.playerKeys.push(element.player_key);
       });
 
-      localStorage.setItem('playerkeys', JSON.stringify(this.currentTeamService.playerKeys));
+      // localStorage.setItem('playerkeys', JSON.stringify(this.currentTeamService.playerKeys));
       localStorage.setItem('teamplayers', JSON.stringify(this.teamPlayers));
     }, (error) => {
       alert("The get team players API is down!");

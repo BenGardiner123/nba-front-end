@@ -8,10 +8,6 @@ import { Router } from '@angular/router';
 export class NavService {
   constructor(private router: Router) { }
 
-  NavLandingPage() {
-    this.router.navigateByUrl("/Home");
-  }
-
   NavMyTeam() {
     this.router.navigateByUrl("/MyTeams");
   }
@@ -22,6 +18,10 @@ export class NavService {
 
   NavTeamSummary(teamName: string) {
     this.router.navigateByUrl("/TeamSummary");
+  }
+
+  NavMyTeams() {
+    this.router.navigateByUrl("/MyTeams");
   }
 
   NavLogin() {

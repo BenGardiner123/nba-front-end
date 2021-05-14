@@ -1,7 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
 import { NavService } from '../../services/nav-service.service'
-import { CurrentTeamService } from '../../services/current-team.service'
 import { HttpService } from '../../services/http-service.service'
 
 
@@ -15,6 +14,7 @@ import { delay, timeout } from 'rxjs/operators';
   templateUrl: './team-summary.component.html',
   styleUrls: ['./team-summary.component.css']
 })
+
 export class TeamSummaryComponent implements OnInit {
 
   teamName: string;
@@ -24,10 +24,10 @@ export class TeamSummaryComponent implements OnInit {
 
   refreshed: boolean = false;
 
-  constructor(private httpService: HttpService, private navService: NavService, private currentTeamService: CurrentTeamService) {
-    this.teamName = this.currentTeamService.teamName;
-    this.selectedPlayersKeys = this.currentTeamService.playerKeys;
-    this.players = this.currentTeamService.players;
+  constructor(private httpService: HttpService, private navService: NavService) {
+    // this.teamName = this.currentTeamService.teamName;
+    // this.selectedPlayersKeys = this.currentTeamService.playerKeys;
+    // this.players = this.currentTeamService.players;
     //detects browser refresh
     this.refreshed = browserRefresh;
   }
@@ -88,9 +88,9 @@ export class TeamSummaryComponent implements OnInit {
   NavManagePlayers(teamName: string) {
     this.navService.NavManagePlayers(teamName);
     if (this.refreshed === true) {
-      this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
-      this.currentTeamService.playerKeys = JSON.parse(localStorage.getItem('playerkeys'));
-      this.currentTeamService.players = JSON.parse(localStorage.getItem('teamplayers'));
+      // this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
+      // this.currentTeamService.playerKeys = JSON.parse(localStorage.getItem('playerkeys'));
+      // this.currentTeamService.players = JSON.parse(localStorage.getItem('teamplayers'));
     }
   }
 
@@ -106,7 +106,5 @@ export class TeamSummaryComponent implements OnInit {
 
     localStorage.setItem('playerkeys', JSON.stringify([]));
     localStorage.setItem('teamplayers', JSON.stringify([]));
-
-    this.navService.NavLandingPage();
   }
 }

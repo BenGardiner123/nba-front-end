@@ -2,10 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { NavService } from '../../services/nav-service.service';
 import { HttpService } from '../../services/http-service.service';
-import { CurrentTeamService } from '../../services/current-team.service';
-
-import { Team } from '../../modules/team';
-
 
 
 @Component({
