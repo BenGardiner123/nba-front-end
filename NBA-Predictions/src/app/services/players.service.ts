@@ -8,7 +8,8 @@ import { HttpClient } from '@angular/common/http';
 export class PlayersService {
 
   token = localStorage.getItem('token');
-  APIURL = "https://localhost:5001/";
+  // APIURL = "https://localhost:5001/";
+  APIURL = "http://awseb-AWSEB-JC50TYJC3NMV-2042437434.us-east-1.elb.amazonaws.com/"
   // APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
 
   // Gets all players for a set criteria
