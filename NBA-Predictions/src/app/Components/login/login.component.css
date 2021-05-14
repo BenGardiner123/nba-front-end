@@ -1,10 +1,6 @@
-*{
-    color: black;
-}
-
 .container{
-    background-color: rgba(255,255,255, 0.7);
-    min-height: 45vh;
+    background-color: #e9e9e4;
+    min-height: auto;
     width: 30vw;
     margin-top: 3vh;
     outline: none;
@@ -77,7 +73,6 @@ button{
 
 /* Make Account */
 .sign-up-container{
-    font-family: 'Libre Franklin';
     margin-top: 2vh;
 }
 
@@ -86,9 +81,8 @@ button{
 }
 
 .sign-up{
-    font-family: 'Libre Franklin';
     cursor: pointer;
-    color: blue;
+    color: #4788eb;
 }
 
 .sign-up:active{

@@ -1,10 +1,6 @@
-*{
-    color: black;
-}
-
 .container{
-    background-color: rgba(255,255,255, 0.7);
-    min-height: 45vh;
+    background-color: #e9e9e4;
+    min-height: auto;
     width: 30vw;
     margin-top: 3vh;
     outline: none;
@@ -79,4 +75,20 @@ button{
     color: blue;
     padding-left: 0.5vw;
     cursor: pointer;
+}
+
+/* Make Account */
+.sign-in-container{
+    margin-top: 2vh;
+}
+
+.sign-in{
+    cursor: pointer;
+    color: #4788eb;
+}
+
+.sign-in:active{
+    cursor: pointer;
+    user-select: none;
+    color: #fff;
 }
