@@ -62,11 +62,13 @@ export class MyTeamsComponent implements OnInit {
   SelectTeam(team: Team) {
     // If not already selected, select
     if (!this.selectedTeams.includes(team)) {
+      this.teamsService.currentTeam = team.teamName;
       this.selectedTeams.push(team);
       this.highlightedTeam = team;
     }
     // Else deselect
     else {
+      this.teamsService.currentTeam = undefined;
       // Find position in selected teams and remove it 
       let index = this.selectedTeams.indexOf(team);
       this.selectedTeams.splice(index, 1);

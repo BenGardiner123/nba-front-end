@@ -12,11 +12,11 @@ import { PlayerEnvelope } from '../modules/playerEnvelope';
 export class PlayersService {
 
   token = localStorage.getItem('token');
-  APIURL = "https://localhost:5001/api/Players/";
-  // APIURL = "http://awseb-AWSEB-JC50TYJC3NMV-2042437434.us-east-1.elb.amazonaws.com/"
-  // APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
+  APIURL = "https://localhost:5001/Players/";
 
   constructor(private http: HttpClient) { }
+
+  // TODO Error handling 
 
   // Gets all players for a set criteria
   // Used on ManagePlayers
@@ -26,6 +26,12 @@ export class PlayersService {
 
   // Gets all players for a set teamName
   // Used on Teamsummary
+  // TODO Make model for GetPlayersFromTeam
+  // Return
+  // {
+  // pagedData: Player[]
+  // dtr: number
+  // }
   GetPlayersFromTeam(username: string): Promise<Player[]> {
     return this.http.get<Player[]>(this.APIURL + "getPlayersFromTeam").toPromise();
   }

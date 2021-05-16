@@ -11,10 +11,10 @@
             <div class="header">
                 <h1>{{username}}'s Teams</h1>
                 <div class="user-input">
-                    <input type="text" placeholder="Enter a team name..." #input
+                    <input type="text" placeholder="Create a new team..." #input
                         (keydown.enter)="CreateTeam(input.value)" (keydown)="ClearError()"
                         [ngClass]="{'input-error':invalidTeam}">
-                    <button (click)=" CreateTeam(input.value)">{{buttonValue}}</button>
+                    <button (click)=" CreateTeam(input.value)">Create</button>
                     <div *ngIf="invalidTeam" class="error">Invalid Team Name</div>
                 </div>
             </div>

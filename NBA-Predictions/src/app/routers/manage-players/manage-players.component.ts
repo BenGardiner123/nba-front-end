@@ -1,19 +1,18 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { of } from 'rxjs';
-import { delay, timeout } from 'rxjs/operators';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 import { HttpService } from '../../services/http-service.service';
 import { NavService } from '../../services/nav-service.service'
 import { TeamsService } from '../../services/teams-service.service'
+import { PlayersService } from '../../services/players.service'
 
+import { PlayerSelections } from 'src/app/modules/playerSelections';
 import { Player } from '../../modules/player';
 import { PlayerEnvelope } from 'src/app/modules/playerEnvelope';
-import { browserRefresh } from '../../app.component';
+import { Header } from 'src/app/modules/header';
 
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
-import { PlayerSelections } from 'src/app/modules/playerSelections';
 import * as $ from "jquery";
 
 @Component({
@@ -28,66 +27,61 @@ export class ManagePlayersComponent implements OnInit {
   faSortIconDown = faSortDown;
 
   teamName: string;
-  players = [];
-  headers: string[];
+  playersEnvelope: PlayerEnvelope;
+  players: Player[];
+  headers: any[];
+  selectedPlayers: Player[] = [];
+
   pageNum: number = 1;
-  pages: number = 1;
+  pages: number;
   pageSize: number = 10;
   sortString: string = 'FIRSTNAME';
   sortOrder: string = 'ASC';
+  searchString: string = '';
   activeUpSort: string = '';
   activeDownSort: string = '';
   selectedPlayersKeys: number[] = [];
-  selectedPlayers: Player[] = [];
-  refreshed: boolean;
-  playerSearched: boolean = false;
-  searchString?: string = '';
-  playerSelection: PlayerSelections;
 
-  constructor(private httpService: HttpService, private navService: NavService, private teamsService: TeamsService) {
-    // this.teamName = this.currentTeamService.teamName;
-
-    //detects browser refresh
-    this.refreshed = browserRefresh;
+  constructor(
+    private navService: NavService,
+    private playerService: PlayersService,
+    private teamsService: TeamsService) {
   }
 
-  ngOnInit(): void {
-    this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
-    this.headers = this.httpService.GetPlayerHeaders();
-    this.headers.unshift('selected');
-
-    if (this.refreshed === true) {
-      this.selectedPlayers = JSON.parse(localStorage.getItem('teamplayers'));
-      this.selectedPlayersKeys = JSON.parse(localStorage.getItem('playerkeys'));
+  // FIXME
+  // Onit has to wait for everything marked 'await' before executing more code under it 
+  // Though this means  that headers and players arent run parrallel
+  async ngOnInit(): Promise<void> {
+    this.teamName = this.teamsService.currentTeam;
+    this.headers = await this.playerService.GetPlayerHeaders()
+    // Mapping the array of objects containing a single string attribute
+    // Into that of a string array.
+    // I feel like this could be done more efficiently with some map functions im not aware of.
+    for (let i = 0; i < this.headers.length; i++) {
+      this.headers.push(this.headers[0].columN_NAME);
+      this.headers.shift();
     }
+    // Put 'selected' at the front as its not sent through the API.
+    this.headers.unshift('selected');
+    // console.log('ManagePlayers, Onit: ' + this.headers)
 
-    //used an observable to get the pages and localstorage to keep the pages on refresh
-    of(null).pipe(delay(900)).subscribe(() => {
-      if (this.refreshed === false) {
-        this.pages = this.httpService.pages;
-        localStorage.setItem('pages', JSON.stringify(this.pages));
-        // this.selectedPlayersKeys = this.currentTeamService.playerKeys;
-        // this.selectedPlayers = this.currentTeamService.players;
-      }
-      else if (localStorage.getItem('pages') != null && Number(JSON.parse(localStorage.getItem('pages'))) > 1) {
-        this.pages = Number(JSON.parse(localStorage.getItem('pages')));
-        this.teamName = JSON.parse(localStorage.getItem('teamname'));
-      }
+    this.playersEnvelope = await this.playerService.GetPlayers(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
+    this.players = this.playersEnvelope.data;
+    this.pages = this.playersEnvelope.pages;
+    // console.log('ManagePlayers, Onit: ' + this.players)
 
-      // Upped delay to ensure that this happens after the headers are returned.
-      // This part need to be executed after the headers are returned. 
-      // Better alternative is we can have an observer or promise for when the headers are filled.
-      this.OnPageResize();
 
-    })
-  };
-
-  ngOnDestroy() {
-    localStorage.removeItem('pages');
+    // OnPageResize awaits the returns of players and headers before being run
+    this.OnPageResize();
   }
 
+  // OnPageResize listens to when the widow resizes so it can recalculate the width of the columns in the table 
+  // And subsequently stick the first coloumns in place depending on their width.
   @HostListener('window:resize', ['$event'])
   OnPageResize() {
+    // console.log('ManagePlayers, OnPageResize: ' + this.players)
+    // FIXME This Loads after the tables and headers are filled with input
+    // BUT not after the DOM has been filled and a column width is assignned.
     let $headers = $('.header-container').slice(0, 3);
     let $firstColumn = $('.firstColumn');
     let $secondColumn = $('.secondColumn');
@@ -122,71 +116,54 @@ export class ManagePlayersComponent implements OnInit {
     })
   }
 
-
-  Search() {
-    this.pageNum = 1;
-
-    if (this.searchString === '' || this.searchString === null) {
-      alert("No search string was provided");
-      return null;
+  // Called everytime a user changes the value of the search input
+  // Dose a default GetPlayers call if empty
+  CheckInputEmpty(searchValue: string) {
+    console.log('ManagePlayers, CheckInputEmpty: ' + searchValue)
+    if (searchValue == '') {
+      this.searchString = ''
+      this.GetPlayers();
     }
-    this.playerSearched = true;
-    this.players = this.httpService.PlayerSearch(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
+  }
 
-    of(null).pipe(delay(600)).subscribe(() => {
-      this.pages = Number(JSON.parse(localStorage.getItem('playerSearchPages')));
-    });
+  Search(searchValue: string) {
+    // Validation
+    // If the search has only spaces in it
+    if (!searchValue.replace(/\s/g, '').length) {
+      alert("No search string was provided");
+      return;
+    }
+    this.pageNum = 1;
+    this.searchString = searchValue;
+    this.GetPlayers();
+  }
 
+  // Handles the GetPlayers API point (Just keeping it DRY)
+  // Should be called after the global variables have been changed.
+  async GetPlayers() {
+    this.playersEnvelope = await this.playerService.GetPlayers(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
+    this.players = this.playersEnvelope.data;
+    this.pages = this.playersEnvelope.pages;
   }
 
   IncreasePage() {
     if (this.pageNum < this.pages) {
       this.pageNum += 1;
-      if (this.playerSearched === false) {
-        this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
-      }
-      else {
-        this.players = this.httpService.PlayerSearch(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
-      }
+      this.GetPlayers();
     }
   }
 
   DecreasePage() {
     if (this.pageNum > 1) {
       this.pageNum -= 1;
-      if (this.playerSearched === false) {
-        this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
-      }
-      else {
-        this.players = this.httpService.PlayerSearch(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
-      }
+      this.GetPlayers();
     }
   }
 
-  Sort() {
-    if (this.activeUpSort == 'selected') {
-      this.selectedPlayers.forEach(player => {
-        let index = this.players.indexOf(player);
-        this.players.splice(index, 1);
-        this.players.unshift(player);
-      });
-      return;
-    }
-
-    if (this.searchString == '') {
-      this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
-    }
-    else {
-      this.players = this.httpService.PlayerSearch(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
-      of(null).pipe(delay(500)).subscribe(() => {
-        this.pages = Number(JSON.parse(localStorage.getItem('playerSearchPages')));
-      });
-    }
-  }
-
-  UpdateSort(sortElement) {
+  Sort(sortElement) {
     this.sortString = sortElement;
 
+    // Logic for sorting
     // Set to defult if already sorting by selected
     if (sortElement == 'selected' && sortElement == this.activeUpSort) {
       this.activeDownSort = '';
@@ -215,6 +192,16 @@ export class ManagePlayersComponent implements OnInit {
     }
 
 
+    // Logic for filtering the already selected players to the top of the list
+    if (this.activeUpSort == 'selected') {
+      this.selectedPlayers.forEach(player => {
+        let index = this.players.indexOf(player);
+        this.players.splice(index, 1);
+        this.players.unshift(player);
+      });
+      return;
+    }
+    this.GetPlayers();
   }
 
   ManageSelectedPlayers(player: Player) {
@@ -233,38 +220,6 @@ export class ManagePlayersComponent implements OnInit {
     else {
       // Error
     }
-  }
-
-  //to keep track of the value in search input
-  onKeyUp(searchVal: string) {
-    this.searchString = searchVal;
-    if (searchVal === '') {
-      this.players = this.httpService.ViewPlayers(this.pageNum, this.pageSize, this.sortString, this.sortOrder);
-    }
-  }
-
-  NavTeamSummary() {
-    // this.currentTeamService.playerKeys = this.selectedPlayersKeys;
-    // this.currentTeamService.players = this.selectedPlayers;
-
-    // this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
-
-    localStorage.setItem('playerkeys', JSON.stringify(this.selectedPlayersKeys));
-    localStorage.setItem('teamplayers', JSON.stringify(this.selectedPlayers));
-
-    this.navService.NavTeamSummary(this.teamName);
-  }
-
-  SaveTeam() {
-    if (this.selectedPlayersKeys.length != 0) {
-      this.httpService.UpdateTeam(this.teamName, this.selectedPlayersKeys);
-    }
-
-    this.selectedPlayers = [];
-    this.selectedPlayersKeys = [];
-    localStorage.removeItem('teamname');
-
-    localStorage.removeItem('playerkeys');
-    localStorage.removeItem('teamplayers');
+    console.log('ManagePlayers, ManageSelectedPlayers: ' + this.selectedPlayersKeys)
   }
 }

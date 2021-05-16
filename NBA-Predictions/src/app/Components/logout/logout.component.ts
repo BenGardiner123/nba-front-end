@@ -15,7 +15,6 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = this.userService.username;
-    this.username = 'asdfasdf';
   }
 
   Logout() {
