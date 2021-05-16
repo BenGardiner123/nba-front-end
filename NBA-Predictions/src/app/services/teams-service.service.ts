@@ -10,10 +10,9 @@ import { Team } from '../modules/team';
 })
 export class TeamsService {
 
+  currentTeam: string = '';
   token = localStorage.getItem('token');
   APIURL = "https://localhost:5001/Teams/";
-  // APIURL = "http://awseb-AWSEB-JC50TYJC3NMV-2042437434.us-east-1.elb.amazonaws.com/"
-  // APIURL: string = 'http://awseb-AWSEB-1BZF9L6WNGS3Q-1337525334.us-east-1.elb.amazonaws.com/api/';
 
   constructor(private http: HttpClient) { }
 
