@@ -1,0 +1,20 @@
+*{
+    height: 0.5vh;
+}
+
+.progress{
+    width: 100vw;
+    position: absolute;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(234,0,3,1) 50%, rgba(0,0,0,0) 100%);
+    width: 15vw;
+    left: -7.5vw;
+    transform: translate(0);
+    animation: movement 1s 0s infinite;
+}
+
+@keyframes movement {
+    from{transform: translate(0);}
+    to{transform: translate(100vw);}
+}
+

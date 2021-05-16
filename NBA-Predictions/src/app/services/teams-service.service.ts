@@ -26,23 +26,23 @@ export class TeamsService {
   }
 
   // Gets all teams for a user
-  GetAllTeams(token): Promise<Team[]> {
-    return this.http.post<Team[]>(this.APIURL + "getteams", token).toPromise();
+  GetAllTeams(): Promise<Team[]> {
+    return this.http.get<Team[]>(this.APIURL + "getteams/" + this.token).toPromise();
   }
 
   DeleteTeam(teamName: string) {
     this.http.put(this.APIURL + "deleteteam", {
       "token": this.token,
       "teamName": teamName
-    }).toPromise();
+    });
   }
 
-  // Takes in a team and toggles its favourites value
+  // Takes in a team and toggles its favourites value on the backend
   ToggleFavourite(team: Team) {
     this.http.put(this.APIURL + "deleteteam", {
       "token": this.token,
       "teamName": team.teamName,
       "isFav": team.isFav
-    }).toPromise();
+    });
   }
 }

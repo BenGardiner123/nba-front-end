@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Player } from '../modules/player';
 import { Header } from '../modules/header';
 import { PlayerEnvelope } from '../modules/playerEnvelope';
+import { GetPlayersFromTeamResponse } from '../modules/GetPlayersFromTeamResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -26,14 +27,9 @@ export class PlayersService {
 
   // Gets all players for a set teamName
   // Used on Teamsummary
-  // TODO Make model for GetPlayersFromTeam
-  // Return
-  // {
-  // pagedData: Player[]
-  // dtr: number
-  // }
-  GetPlayersFromTeam(username: string): Promise<Player[]> {
-    return this.http.get<Player[]>(this.APIURL + "getPlayersFromTeam").toPromise();
+  // Return Make model for GetPlayersFromTeamReposonse
+  GetPlayersFromTeam(username: string): Promise<GetPlayersFromTeamResponse> {
+    return this.http.get<GetPlayersFromTeamResponse>(this.APIURL + "getPlayersFromTeam").toPromise();
   }
 
   // Used to get headers

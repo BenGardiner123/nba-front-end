@@ -17,6 +17,7 @@ import { TabsComponent } from './Components/tabs/tabs.component';
 import { MyTeamsComponent } from './routers/my-teams/my-teams.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
+import { LoadingComponent } from './Components/loading/loading.component';
 // TODO Import Services 
 
 export function tokenGetter() {
@@ -35,6 +36,7 @@ export function tokenGetter() {
     RegisterComponent,
     TabsComponent,
     MyTeamsComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

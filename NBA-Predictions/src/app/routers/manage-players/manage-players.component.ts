@@ -1,6 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
-import { HttpService } from '../../services/http-service.service';
 import { NavService } from '../../services/nav-service.service'
 import { TeamsService } from '../../services/teams-service.service'
 import { PlayersService } from '../../services/players.service'

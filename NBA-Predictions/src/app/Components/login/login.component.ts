@@ -3,6 +3,7 @@ import { NavService } from 'src/app/services/nav-service.service';
 import { UserService } from 'src/app/services/user.service';
 
 import { User } from 'src/app/modules/user';
+import { LoginResponse } from 'src/app/modules/LoginResponse';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  AttemptUserLogin(username, password) {
+  async AttemptUserLogin(username, password) {
 
     if (!this.CheckInputs(username, password)) {
       return;
@@ -30,20 +31,14 @@ export class LoginComponent implements OnInit {
       'passwordHash': password
     }
 
-    var promise = this.userService.loginUser(credentials).then(response => {
-      localStorage.setItem('token', JSON.stringify(response.token));
-      // If username and password dont yeild a correct login
-      if (response.token === 'false') {
-        this.failedLogin = true;
-      }
-      // Correct
-      else {
-        this.navService.NavMyTeams();
-      }
-    }, (error) => {
-      alert("The User login is down!");
+    let response = await this.userService.loginUser(credentials);
+    localStorage.setItem('token', JSON.stringify(response.token));
+    if (response.token === 'false') {
+      this.failedLogin = true;
     }
-    );
+    else {
+      this.navService.NavMyTeams();
+    }
   }
 
   // Checks if username and password are empty.

@@ -35,16 +35,14 @@ export class MyTeamsComponent implements OnInit {
     private teamsService: TeamsService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.token = JSON.parse(localStorage.getItem('token'));
     this.username = this.userService.username;
-    // this.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjA5NTc0NDIsIlVzZXIiOiIxIn0.DSfXXXHBOt3om01m-w851WCR69TaDvWuVKOVzrfSw2Q"
-    var promise = this.teamsService.GetAllTeams(this.token).then(response => {
-    }, (error) => {
-      console.log(error);
-      alert("GetAllTeams is down!");
-    }
-    );
+    this.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjA5NTc0NDIsIlVzZXIiOiIxIn0.DSfXXXHBOt3om01m-w851WCR69TaDvWuVKOVzrfSw2Q"
+
+    this.usersTeams = await this.teamsService.GetAllTeams();
+    console.log(this.usersTeams)
+
   }
 
   // Occurs when a user clicks 'Select all teams' checkbox

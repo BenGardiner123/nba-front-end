@@ -1,8 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
 import { NavService } from '../../services/nav-service.service'
-import { HttpService } from '../../services/http-service.service'
-
 
 import { Player } from '../../modules/player'
 import { browserRefresh } from '../../app.component';
@@ -24,7 +22,7 @@ export class TeamSummaryComponent implements OnInit {
 
   refreshed: boolean = false;
 
-  constructor(private httpService: HttpService, private navService: NavService) {
+  constructor(private navService: NavService) {
     // this.teamName = this.currentTeamService.teamName;
     // this.selectedPlayersKeys = this.currentTeamService.playerKeys;
     // this.players = this.currentTeamService.players;
@@ -33,7 +31,7 @@ export class TeamSummaryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.headers = this.httpService.GetPlayerHeaders();
+    // this.headers = this.httpService.GetPlayerHeaders();
 
     if (this.refreshed === true) {
       this.teamName = JSON.parse(localStorage.getItem('teamname'));
@@ -82,29 +80,5 @@ export class TeamSummaryComponent implements OnInit {
       $(this).css({ "position": "sticky", "left": coloumnOfsets[1], "z-index": 1 })
 
     })
-  }
-
-  // Move the team into local storage 
-  NavManagePlayers(teamName: string) {
-    this.navService.NavManagePlayers(teamName);
-    if (this.refreshed === true) {
-      // this.currentTeamService.teamName = JSON.parse(localStorage.getItem('teamname'));
-      // this.currentTeamService.playerKeys = JSON.parse(localStorage.getItem('playerkeys'));
-      // this.currentTeamService.players = JSON.parse(localStorage.getItem('teamplayers'));
-    }
-  }
-
-  // Once user clicks on save remove the team and update the database
-  SaveTeam() {
-    if (this.selectedPlayersKeys.length != 0) {
-      this.httpService.UpdateTeam(this.teamName, this.selectedPlayersKeys);
-    }
-
-    this.selectedPlayersKeys = [];
-    this.players = [];
-    localStorage.removeItem('teamname');
-
-    localStorage.setItem('playerkeys', JSON.stringify([]));
-    localStorage.setItem('teamplayers', JSON.stringify([]));
   }
 }
