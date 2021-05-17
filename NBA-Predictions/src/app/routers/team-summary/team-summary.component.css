@@ -138,8 +138,23 @@ input[type=checkbox]{
     font-weight: 500;
 }
 
-#dtr{
-    width: 200px;
+#splitter{
+    width: 400px;
     display: flex;
     flex-direction: row;
+}
+
+#dtrInput{
+    padding-left: 15px;
+    padding-top: 6px;
+    width: 4vw;
+    height: 2vw;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+#dtrHeading{
+    margin-right: 10px;
+    
 }
