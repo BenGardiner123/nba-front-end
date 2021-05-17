@@ -20,6 +20,7 @@ export class TeamSummaryComponent implements OnInit {
   players: Player[] = [];
   getPlayersResponse: GetPlayersFromTeamResponse;
   headers: any[] = [];
+  dtr: number;
 
   constructor(
     private navService: NavService,
@@ -39,6 +40,7 @@ export class TeamSummaryComponent implements OnInit {
     }
 
     this.getPlayersResponse = await this.playerService.GetPlayersFromTeam(this.teamName);
+    this.dtr = this.getPlayersResponse.dtr
     this.players = this.getPlayersResponse.pagedData;
     console.log(this.getPlayersResponse)
 

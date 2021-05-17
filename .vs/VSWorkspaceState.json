@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\NBA-Predictions",
+    "\\NBA-Predictions\\src",
+    "\\NBA-Predictions\\src\\app",
+    "\\NBA-Predictions\\src\\app\\Components",
+    "\\NBA-Predictions\\src\\app\\routers",
+    "\\NBA-Predictions\\src\\app\\routers\\team-summary"
+  ],
+  "SelectedNode": "\\NBA-Predictions\\src\\app\\routers\\team-summary\\team-summary.component.html",
+  "PreviewInSolutionExplorer": false
+}

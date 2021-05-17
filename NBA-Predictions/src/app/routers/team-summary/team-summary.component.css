@@ -137,3 +137,9 @@ input[type=checkbox]{
     font-size: 1.5vw;
     font-weight: 500;
 }
+
+#dtr{
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+}

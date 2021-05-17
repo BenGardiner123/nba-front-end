@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, RequiredValidator, ValidationErrors, Validators } from '@angular/forms';
 import { error } from 'selenium-webdriver';
 import { User } from 'src/app/modules/user';
-import { HttpService } from 'src/app/services/http-service.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
