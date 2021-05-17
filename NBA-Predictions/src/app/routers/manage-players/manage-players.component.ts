@@ -4,7 +4,6 @@ import { NavService } from '../../services/nav-service.service'
 import { TeamsService } from '../../services/teams-service.service'
 import { PlayersService } from '../../services/players.service'
 
-import { PlayerSelections } from 'src/app/modules/playerSelections';
 import { Player } from '../../modules/player';
 import { PlayerEnvelope } from 'src/app/modules/playerEnvelope';
 import { Header } from 'src/app/modules/header';

@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service'
 import { NavService } from '../../services/nav-service.service';
 import { TeamsService } from '../../services/teams-service.service';
+import { PlayersService } from 'src/app/services/players.service';
 
 import { Team } from '../../modules/team';
 
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { PlayersService } from 'src/app/services/players.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 
 
 @Component({
@@ -21,11 +23,13 @@ export class MyTeamsComponent implements OnInit {
   selectedTeams: Team[] = [];
   buttonValue = "View";
   faStarIcon = faStar;
+  faTimesIcon = faTimes;
   usersTeams: Team[] = [];
 
   username: string;
   token: string;
-  invalidTeam: boolean;
+  isInvalidTeam: boolean;
+  isExistingTeam: boolean;
 
 
   constructor(
@@ -38,11 +42,35 @@ export class MyTeamsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.token = JSON.parse(localStorage.getItem('token'));
     this.username = this.userService.username;
-    this.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjA5NTc0NDIsIlVzZXIiOiIxIn0.DSfXXXHBOt3om01m-w851WCR69TaDvWuVKOVzrfSw2Q"
-
-    this.usersTeams = await this.teamsService.GetAllTeams();
-    console.log(this.usersTeams)
-
+    // this.usersTeams = await this.teamsService.GetAllTeams();
+    // console.log(this.usersTeams)
+    // testing
+    this.usersTeams = [
+      {
+        "teamName": "bob",
+        "isFav": true,
+        "playerCount": 4,
+        "dtrScores": -63.920684931552041380
+      },
+      {
+        "teamName": "steve",
+        "isFav": false,
+        "playerCount": 3,
+        "dtrScores": -133.728165600769574711
+      },
+      {
+        "teamName": "test",
+        "isFav": false,
+        "playerCount": 0,
+        "dtrScores": 0.000000000000000000
+      },
+      {
+        "teamName": "test1",
+        "isFav": false,
+        "playerCount": 0,
+        "dtrScores": 0.000000000000000000
+      }
+    ]
   }
 
   // Occurs when a user clicks 'Select all teams' checkbox
@@ -55,6 +83,7 @@ export class MyTeamsComponent implements OnInit {
       this.selectedTeams = [];
     }
     this.highlightedTeam = undefined;
+    this.ReOrderTeams();
   }
 
   SelectTeam(team: Team) {
@@ -74,27 +103,43 @@ export class MyTeamsComponent implements OnInit {
         this.highlightedTeam = undefined;
       }
     }
+    this.ReOrderTeams();
+  }
+
+  // Reorders the selectedTeams list by their dtr
+  ReOrderTeams() {
+    //     while (true) {
+
+    //       // 
+    //       for
+    // break;
+    //     }
   }
 
   // Takes in a team and inverts its favourite: boolean
   ManageFavourites(team: Team) {
-
+    this.teamsService.ToggleFavourite(team);
+    team.isFav = !team.isFav
   }
 
   DeleteTeam(teamName: string) {
     // this.httpService.DeleteTeam(teamName);
   }
 
-  CreateTeam(teamName: string) {
+  async CreateTeam(teamName: string) {
     // Checking that teamname isnt just made of spaces
     if (!teamName.replace(/\s/g, '').length) {
-      this.invalidTeam = true
+      this.isInvalidTeam = true
       return;
     }
-
+    let response: boolean = await this.teamsService.CreateTeam(teamName);
+    if (!response) {
+      // Team Already Exists
+      this.isExistingTeam = true
+    }
   }
 
   ClearError() {
-    this.invalidTeam = false
+    this.isInvalidTeam = false
   }
 }

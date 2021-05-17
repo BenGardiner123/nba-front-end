@@ -28,8 +28,14 @@ export class PlayersService {
   // Gets all players for a set teamName
   // Used on Teamsummary
   // Return Make model for GetPlayersFromTeamReposonse
-  GetPlayersFromTeam(username: string): Promise<GetPlayersFromTeamResponse> {
-    return this.http.get<GetPlayersFromTeamResponse>(this.APIURL + "getPlayersFromTeam").toPromise();
+  GetPlayersFromTeam(teamName: string): Promise<GetPlayersFromTeamResponse> {
+    let request = {
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjExNzY1NzksIlVzZXIiOiIxIn0.HRmuKlr8-BPtWGLbZ8o5vHpL77YAdPLOH12uIwFYiHE",
+      "teamName": "bob",
+      "sortString": "FIRSTNAME",
+      "sortType": "ASC"
+    }
+    return this.http.post<GetPlayersFromTeamResponse>(this.APIURL + "getPlayersFromTeam", request).toPromise();
   }
 
   // Used to get headers

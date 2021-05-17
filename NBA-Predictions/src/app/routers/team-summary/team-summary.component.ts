@@ -1,11 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
 import { NavService } from '../../services/nav-service.service'
+import { TeamsService } from '../../services/teams-service.service'
+import { PlayersService } from '../../services/players.service'
 
-import { Player } from '../../modules/player'
-import { browserRefresh } from '../../app.component';
-import { of } from 'rxjs';
-import { delay, timeout } from 'rxjs/operators';
+import { Player } from '../../modules/player';
+import { Header } from 'src/app/modules/header';
+import { GetPlayersFromTeamResponse } from 'src/app/modules/GetPlayersFromTeamResponse';
 
 @Component({
   selector: 'app-team-summary',
@@ -16,39 +17,34 @@ import { delay, timeout } from 'rxjs/operators';
 export class TeamSummaryComponent implements OnInit {
 
   teamName: string;
-  headers: string[];
-  selectedPlayersKeys: number[] = [];
   players: Player[] = [];
+  getPlayersResponse: GetPlayersFromTeamResponse;
+  headers: any[] = [];
 
-  refreshed: boolean = false;
-
-  constructor(private navService: NavService) {
-    // this.teamName = this.currentTeamService.teamName;
-    // this.selectedPlayersKeys = this.currentTeamService.playerKeys;
-    // this.players = this.currentTeamService.players;
-    //detects browser refresh
-    this.refreshed = browserRefresh;
+  constructor(
+    private navService: NavService,
+    private playerService: PlayersService,
+    private teamsService: TeamsService) {
   }
 
-  ngOnInit(): void {
-    // this.headers = this.httpService.GetPlayerHeaders();
-
-    if (this.refreshed === true) {
-      this.teamName = JSON.parse(localStorage.getItem('teamname'));
-
-      this.selectedPlayersKeys = JSON.parse(localStorage.getItem('playerkeys'));
-      this.players = JSON.parse(localStorage.getItem('teamplayers'));
+  async ngOnInit(): Promise<void> {
+    this.teamName = this.teamsService.currentTeam;
+    this.headers = await this.playerService.GetPlayerHeaders()
+    // Mapping the array of objects containing a single string attribute
+    // Into that of a string array.
+    // I feel like this could be done more efficiently with some map functions im not aware of.
+    for (let i = 0; i < this.headers.length; i++) {
+      this.headers.push(this.headers[0].columN_NAME);
+      this.headers.shift();
     }
 
-    // This is completely wrong but is only being done out of time restrictions
-    of(null).pipe(delay(900)).subscribe(() => {
-      // Delay to ensure that this happens after the headers are returned.
-      // This part need to be executed after the headers are returned. 
-      // Better alternative is we can have an observer or promise for when the headers are filled.
-      this.OnPageResize();
+    this.getPlayersResponse = await this.playerService.GetPlayersFromTeam(this.teamName);
+    this.players = this.getPlayersResponse.pagedData;
+    console.log(this.getPlayersResponse)
 
-    })
 
+    // OnPageResize awaits the returns of players and headers before being run
+    this.OnPageResize();
   }
 
 

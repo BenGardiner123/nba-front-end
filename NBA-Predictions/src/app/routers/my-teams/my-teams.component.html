@@ -13,9 +13,10 @@
                 <div class="user-input">
                     <input type="text" placeholder="Create a new team..." #input
                         (keydown.enter)="CreateTeam(input.value)" (keydown)="ClearError()"
-                        [ngClass]="{'input-error':invalidTeam}">
+                        [ngClass]="{'input-error':isInvalidTeam || isExistingTeam}">
                     <button (click)=" CreateTeam(input.value)">Create</button>
-                    <div *ngIf="invalidTeam" class="error">Invalid Team Name</div>
+                    <div *ngIf="isInvalidTeam" class="error">Invalid Team Name</div>
+                    <div *ngIf="isExistingTeam" class="error">Team Already Exists</div>
                 </div>
             </div>
             <div class="tables">
@@ -33,17 +34,21 @@
                             <th>Favs</th>
                             <th>Team Name</th>
                             <th>Players</th>
+                            <th></th>
                         </tr>
                         <tr *ngFor="let team of usersTeams" (click)="SelectTeam(team)"
                             [ngClass]="{'selected-team': selectedTeams.includes(team), 'highlighted-team': highlightedTeam == team}">
-                            <!-- <fa-icon [icon]="faStarIcon" *ngIf="team.favourite"></fa-icon> -->
                             <td>
-                                favs
-                                <!-- <input type="checkbox" (click)="ManageFavourites(team)"
-                                    [checked]='selectedPlayersKeys.includes(player.player_key)' /> -->
+                                <fa-icon class="is-fav" [icon]="faStarIcon" (click)="ManageFavourites(team)"
+                                    *ngIf="team.isFav"></fa-icon>
+                                <fa-icon class="is-not-fav" [icon]="faStarIcon" (click)="ManageFavourites(team)"
+                                    *ngIf="team.isFav == false"></fa-icon>
                             </td>
                             <td class="team-name">{{team.teamName}}</td>
                             <td>Players</td>
+                            <td class="delete">
+                                <fa-icon [icon]="faTimesIcon"></fa-icon>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -52,8 +57,17 @@
                     <div class="table-header">
                         <div>Leaderboard</div>
                     </div>
-                    <table class="leaderboard-table">
-
+                    <table class="leaderboard-table" *ngIf="selectedTeams.length">
+                        <tr>
+                            <th>Rank</th>
+                            <th>Team Name</th>
+                            <th>DTR</th>
+                        </tr>
+                        <tr *ngFor="let team of selectedTeams">
+                            <td>{{selectedTeams.indexOf(team)}}</td>
+                            <td>{{team.teamName}}</td>
+                            <td>{{team.dtrScores}}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
