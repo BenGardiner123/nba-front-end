@@ -12,8 +12,6 @@ export class TeamsService {
 
   currentTeam: string = '';
   token = localStorage.getItem('token');
-
-  //TODO refactor url
   APIURL = "https://localhost:5001/Teams/";
 
   constructor(private http: HttpClient) { }

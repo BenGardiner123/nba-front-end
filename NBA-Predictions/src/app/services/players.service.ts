@@ -17,7 +17,7 @@ export class PlayersService {
   // private apiURL = environment.apiURL + '/Players' where each service has the "/endpointName" to differentiate
   // and then when we change the production url we only have to do it once in the environment variables.
   
-// TODO refactor connection string
+
   APIURL = "https://localhost:5001/Players/";
 
   constructor(private http: HttpClient) { }

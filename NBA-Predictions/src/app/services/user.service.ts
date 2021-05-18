@@ -7,7 +7,7 @@ import { LoginResponse } from '../modules/LoginResponse';
   providedIn: 'root'
 })
 export class UserService {
-  //TODO refactor url
+
   APIURL = "https://localhost:5001/";
   username: string;
 
