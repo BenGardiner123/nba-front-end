@@ -7,6 +7,8 @@ export const environment = {
   //this is where the single avlue for all the apiURL values is stored..
   //then we use the acutal deployed s3 url in the .prod.ts
   //apiURL:'https://localhost:5001/api'
+
+  //TODO refactor the url 
 }; 
 
 /*
