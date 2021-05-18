@@ -11,7 +11,7 @@ img {
 }
 
 /* Logic to swap to smaller logo when screen is too small */
-@media only screen and (max-width: 1880px) {
+@media only screen and (max-width: 1380px) {
   .large-logo {
     display: none;
   }

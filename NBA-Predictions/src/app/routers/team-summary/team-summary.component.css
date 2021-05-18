@@ -85,6 +85,61 @@ table{
     width: 100%;
 }
 
+.header-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.header-container > :first-child{
+    color: rgb(255, 255, 255);
+    padding-right: 0.5vw;
+    position: relative;
+}
+
+.header-container > :first-child > span{
+    visibility: hidden;
+    background-color: rgb(26, 26, 26);
+    color: #fff;
+    font-size: .8vw;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    z-index: 10; 
+    position: relative;
+    display:none;
+}
+
+.header-container > :first-child:hover > span {
+    visibility: visible;
+    transition-delay: 0.5s;
+    position:absolute;
+    z-index: 10;
+    position: absolute;
+    top:25px;
+    /* left:20px; */
+    display:block;
+    background:rgb(0, 0, 0);
+    color:white;
+    padding:6px;
+  }
+
+  /* creates little arrow */
+  .header-container > :first-child:hover > span:after {
+    right: 50%;
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: rgb(0, 0, 0);
+	border-width: 6px;
+	margin-top: -6px;
+    z-index: 10;
+  }
+
 th{
     background-color: #707070;
     font-weight: 600;
@@ -161,22 +216,48 @@ input[type=checkbox]{
 
 .dtrHeading{
     margin-right: 10px;
+    position: relative;
 }
 
 .dtrHeading .dtrTooltip{
     visibility: hidden;
-    width: 200px;
     background-color: rgb(26, 26, 26);
     color: #fff;
-    font-size: .8vw;
+    font-size: 1.2vw;
     text-align: center;
+    width: 150px;
     border-radius: 6px;
-    padding: 5px 10px;
-    position: absolute;
-    z-index: 1;
+    z-index: 10; 
+    position: relative;
+    display:none;
 }
 
 .dtrHeading:hover .dtrTooltip {
     visibility: visible;
-    transition-delay: 0.5s
+    transition-delay: 0.5s;
+    position:absolute;
+    z-index: 10;
+    position: absolute;
+    top: 25px;
+    left: 50px;
+    display:block;
+    color:white;
+    padding:10px;
+  }
+
+  /* creates little arrow */
+  .dtrHeading:hover .dtrTooltip:after {
+    right: 50%;
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: rgb(0, 0, 0);
+	border-width: 6px;
+	margin-top: -6px;
+    z-index: 10;
   }
