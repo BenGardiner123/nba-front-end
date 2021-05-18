@@ -11,16 +11,18 @@
 
             <div class="header">
                 <div class="heading">
-                   <h1>{{teamName}}</h1>
-                   <div id="splitter">
-                        <h3 id="dtrHeading">Your Teams DTR: </h3>
-                        <h4 id="dtrInput">{{dtr}}</h4> 
-                   </div>
-                    
+                    <h1>{{teamName}}</h1>
+                    <div class="splitter">
+                        <h3 class="dtrHeading">Your Teams DTR:
+                            <span class="dtrTooltip">The DTR is based on the exact statistics particular to the variable team composition and etcetera</span>
+                        </h3>
+                        <h4 class="dtrInput">{{dtr}}</h4>
+                    </div>
+
                 </div>
 
             </div>
-            <div >
+            <div>
 
             </div>
 
@@ -28,6 +30,7 @@
                 <table>
                     <tr>
                         <th *ngFor="let data of headers" class="header-container">
+                            <!-- <div *ngIf="data === 'firstname'"> hi! {{ data.toLowerCase() }} </div> -->
                             {{ data.toLowerCase() }}
                         </th>
                     </tr>

@@ -138,13 +138,13 @@ input[type=checkbox]{
     font-weight: 500;
 }
 
-#splitter{
+.splitter{
     width: 400px;
     display: flex;
     flex-direction: row;
 }
 
-#dtrInput{
+.dtrInput{
     padding-left: 15px;
     padding-top: 6px;
     width: 4vw;
@@ -154,7 +154,24 @@ input[type=checkbox]{
     margin-bottom: 1rem;
 }
 
-#dtrHeading{
+.dtrHeading{
     margin-right: 10px;
-    
 }
+
+.dtrHeading .dtrTooltip{
+    visibility: hidden;
+    width: 200px;
+    background-color: rgb(26, 26, 26);
+    color: #fff;
+    font-size: .8vw;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+}
+
+.dtrHeading:hover .dtrTooltip {
+    visibility: visible;
+    transition-delay: 0.5s
+  }

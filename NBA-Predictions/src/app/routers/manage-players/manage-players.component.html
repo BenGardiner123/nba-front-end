@@ -26,10 +26,101 @@
                         <th *ngFor="let header of headers" (click)="Sort(header)"
                             [ngClass]="{'selected-up':header==activeUpSort}"
                             [ngClass]="{'selected-down':header==activeDownSort}">
+
                             <div class="header-container">
-                                <div>
-                                    {{ header.toLowerCase()}}
+
+                                <!-- tooltips -->
+
+                                <div *ngIf="header === 'FIRSTNAME'">{{ header.toLowerCase() }}
+                                    <span> FIRSTNAME </span>
                                 </div>
+                                <div *ngIf="header === 'LASTNAME'">{{ header.toLowerCase() }}
+                                    <span> LASTNAME </span>
+                                </div>
+                                <div *ngIf="header === 'AGE'">{{ header.toLowerCase() }}
+                                    <span> AGE </span>
+                                </div>
+                                <div *ngIf="header === 'GP'">{{ header.toLowerCase() }}
+                                    <span> Games Played </span>
+                                </div>
+                                <div *ngIf="header === 'MINS'">{{ header.toLowerCase() }}
+                                    <span> Minutes Played </span>
+                                </div>
+                                <div *ngIf="header === 'PLUS_MINUS'">{{ header.toLowerCase() }}
+                                    <span> PLUS_MINUS </span>
+                                </div>
+                                <div *ngIf="header === 'AST'">{{ header.toLowerCase() }}
+                                    <span> Assists </span>
+                                </div>
+                                <div *ngIf="header === 'BLK'">{{ header.toLowerCase() }}
+                                    <span> Blocks </span>
+                                </div>
+                                <div *ngIf="header === 'BLKA'">{{ header.toLowerCase() }}
+                                    <span> Block Average </span>
+                                </div>
+                                <div *ngIf="header === 'OREB'">{{ header.toLowerCase() }}
+                                    <span> Offensive Rebounds </span>
+                                </div>
+                                <div *ngIf="header === 'DREB'">{{ header.toLowerCase() }}
+                                    <span> Defensive Rebounds </span>
+                                </div>
+                                <div *ngIf="header === 'FG_PCT'">{{ header.toLowerCase() }}
+                                    <span> FG_PCT </span>
+                                </div>
+                                <div *ngIf="header === 'FG3_PCT'">{{ header.toLowerCase() }}
+                                    <span> hello1 </span>
+                                </div>
+                                <div *ngIf="header === 'FG3A'">{{ header.toLowerCase() }}
+                                    <span> hello2 </span>
+                                </div>
+                                <div *ngIf="header === 'FG3M'">{{ header.toLowerCase() }}
+                                    <span> hello3 </span>
+                                </div>
+                                <div *ngIf="header === 'FGA'">{{ header.toLowerCase() }}
+                                    <span> hello1 </span>
+                                </div>
+                                <div *ngIf="header === 'FGM'">{{ header.toLowerCase() }}
+                                    <span> hello2 </span>
+                                </div>
+                                <div *ngIf="header === 'FT_PCT'">{{ header.toLowerCase() }}
+                                    <span> hello3 </span>
+                                </div>
+                                <div *ngIf="header === 'FTA'">{{ header.toLowerCase() }}
+                                    <span> hello1 </span>
+                                </div>
+                                <div *ngIf="header === 'FTM'">{{ header.toLowerCase() }}
+                                    <span> hello2 </span>
+                                </div>
+                                <div *ngIf="header === 'W'">{{ header.toLowerCase() }}
+                                    <span> hello3 </span>
+                                </div>
+                                <div *ngIf="header === 'L'">{{ header.toLowerCase() }}
+                                    <span> hello1 </span>
+                                </div>
+                                <div *ngIf="header === 'W_PCT'">{{ header.toLowerCase() }}
+                                    <span> hello2 </span>
+                                </div>
+                                <div *ngIf="header === 'PF'">{{ header.toLowerCase() }}
+                                    <span> hello3 </span>
+                                </div>
+                                <div *ngIf="header === 'PFD'">{{ header.toLowerCase() }}
+                                    <span> hello1 </span>
+                                </div>
+                                <div *ngIf="header === 'REB'">{{ header.toLowerCase() }}
+                                    <span> hello2 </span>
+                                </div>
+                                <div *ngIf="header === 'TOV'">{{ header.toLowerCase() }}
+                                    <span> hello3 </span>
+                                </div>
+                                <div *ngIf="header === 'STL'">{{ header.toLowerCase() }}
+                                    <span> hello1 </span>
+                                </div>
+                                <div *ngIf="header === 'PTS'">{{ header.toLowerCase() }}
+                                    <span> hello2 </span>
+                                </div>
+
+                                <!-- end tooltips -->
+
                                 <span id="default">
                                     <fa-icon [icon]="faSortIcon"></fa-icon>
                                 </span>
@@ -43,7 +134,7 @@
                         </th>
                     </tr>
                     <tr *ngFor="let player of players" (click)="ManageSelectedPlayers(player)"
-                        [ngClass]="{'selected-row': selectedPlayersKeys.includes(player.player_key), 'deselected-row': !selectedPlayersKeys.includes(player.player_key)}">
+                        [ngClass]="{'selected-row': selectedPlayersKeys.includes(player.player_key), 'deselected-row': selectedPlayersKeys.includes(player.player_key)}">
                         <td class="firstColumn">
                             <input type="checkbox" [checked]='selectedPlayersKeys.includes(player.player_key)' />
                         </td>

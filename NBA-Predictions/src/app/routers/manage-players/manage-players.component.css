@@ -35,11 +35,13 @@ button{
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    
 }
 
 .header h1{
     font-size: 3vw;
     padding-bottom: 4vh;
+
 }
 
 .user-input{
@@ -88,14 +90,59 @@ table{
 
 .header-container{
     display: flex;
-    color: #fff;
+
 }
 
 .header-container > :first-child{
-    color: #fff;
+    color: rgb(255, 255, 255);
     padding-right: 0.5vw;
+    position: relative;
 }
 
+.header-container > :first-child > span{
+    visibility: hidden;
+    background-color: rgb(26, 26, 26);
+    color: #fff;
+    font-size: .8vw;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    z-index: 10; 
+    position: relative;
+    display:none;
+}
+
+.header-container > :first-child:hover > span {
+    visibility: visible;
+    transition-delay: 0.5s;
+    position:absolute;
+    z-index: 10;
+    position: absolute;
+    top:20px;
+    /* left:20px; */
+    display:block;
+    background:rgb(0, 0, 0);
+    color:white;
+    padding:6px;
+  }
+
+  .header-container > :first-child:hover > span:after {
+    right: 50%;
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: rgb(0, 0, 0);
+	border-width: 6px;
+	margin-top: -6px;
+    z-index: 10;
+  }
+
+/* // gr */
 
 th{
     background-color: #707070;
