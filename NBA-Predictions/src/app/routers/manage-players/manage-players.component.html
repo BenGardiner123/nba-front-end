@@ -30,7 +30,7 @@
                             <div class="header-container">
 
                                 <!-- tooltips -->
-
+                                <div *ngIf="header === 'selected'">{{ header.toLowerCase() }} </div>
                                 <div *ngIf="header === 'FIRSTNAME'">{{ header.toLowerCase() }}
                                     <span> FIRSTNAME </span>
                                 </div>
@@ -134,7 +134,7 @@
                         </th>
                     </tr>
                     <tr *ngFor="let player of players" (click)="ManageSelectedPlayers(player)"
-                        [ngClass]="{'selected-row': selectedPlayersKeys.includes(player.player_key), 'deselected-row': selectedPlayersKeys.includes(player.player_key)}">
+                        [ngClass]="{'selected-row': selectedPlayersKeys.includes(player.player_key), 'deselected-row': !selectedPlayersKeys.includes(player.player_key)}">
                         <td class="firstColumn">
                             <input type="checkbox" [checked]='selectedPlayersKeys.includes(player.player_key)' />
                         </td>
