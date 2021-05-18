@@ -4,22 +4,29 @@
 
 img {
   top: 2vh;
-  left: 2vw;
+  left: 1vw;
   position: absolute;
   max-width: 20vh;
   max-height: 20vh;
 }
 
-/* Logic to swap between the two logos when a screen is too small */
-@media (max-width: 1451px) {
+/* Logic to swap to smaller logo when screen is too small */
+@media only screen and (max-width: 1880px) {
   .large-logo {
     display: none;
   }
-}
-
-@media (min-width: 500px) {
   .small-logo {
     display: block;
-    height: 132px;
+    max-height: 14vh;
+  }
+}
+
+/* Logic to remove logo when screen is very small */
+@media  only screen and (max-width: 600px) {
+  .large-logo {
+    display: none;
+  }
+  .small-logo {
+    display: none;
   }
 }

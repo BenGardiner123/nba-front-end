@@ -25,7 +25,7 @@ button{
     width: 70vw;
     min-width: 450.5px;
     height: 77vh;
-    padding: 3vh 3vw 1vh 3vw;
+    padding: 4vh 3vw 1vh 3vw;
     border-radius: 0 0 5px 5px;
 }
 
@@ -40,19 +40,20 @@ button{
 
 .header h1{
     font-size: 3vw;
-    padding-bottom: 2vh;
+    padding-bottom: 4vh;
 }
 
 .user-input{
-    padding-bottom: 2vh;
+    padding-bottom: 4vh;
 }
 
 .user-input *{
     margin-left: 1vw;
-    padding: 0.50vw;
+    padding: 0.8vh 1vw;
 }
 
 input{
+    font-size: 1rem;
     width: 20vw;
     outline: none;
     border: none;
@@ -64,8 +65,9 @@ input{
 }
 
 .user-input button{
+    font-size: 1rem;
     margin-left: 0.7vw;
-    padding: 1vh;
+    padding: 0.6vh 1.2vw 0.6vh 1.2vw;
 }
 
 /* TABLE */
@@ -141,7 +143,7 @@ input[type=checkbox]{
 
 /*  DTR  */
 
-.splitter{
+.DTRCont{
     width: 400px;
     display: flex;
     flex-direction: row;

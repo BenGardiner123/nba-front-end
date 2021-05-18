@@ -25,7 +25,7 @@ button{
     width: 70vw;
     min-width: 450.5px;
     height: 77vh;
-    padding: 3vh 3vw 1vh 3vw;
+    padding: 4vh 3vw 1vh 3vw;
     border-radius: 0 0 5px 5px;
 }
 
@@ -85,13 +85,8 @@ table{
     width: 100%;
 }
 
-/* table tr td:nth-child(3),th:nth-child(3){
-    border-right: #707070 5px solid;
-} */
-
 .header-container{
     display: flex;
-
 }
 
 .header-container > :first-child{
@@ -152,11 +147,11 @@ th{
     text-align: left;
     cursor: pointer;
     user-select: none;
-    padding: 1vh .6vw;
+    padding: 1.2vh .6vw;
 }
 
 td{
-    padding : 0.47vh 0.6vw;
+    padding : 1.2vh 0.6vw;
 }
 
 tr.deselected-row:nth-child(even) td{
