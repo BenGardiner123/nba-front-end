@@ -23,6 +23,7 @@ button{
     align-items: center;
     flex-direction: column;
     width: 70vw;
+    min-width: 450.5px;
     height: 77vh;
     padding: 3vh 3vw 1vh 3vw;
     border-radius: 0 0 5px 5px;
