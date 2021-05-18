@@ -8,7 +8,7 @@
 }
 
 button{
-    border: none;
+    border: 2px solid #707070;
     outline: none;
     background-color: #d9d9d9;
     border-radius: 5px;
@@ -36,13 +36,11 @@ button{
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    
 }
 
 .header h1{
     font-size: 3vw;
     padding-bottom: 4vh;
-
 }
 
 .user-input{
@@ -51,10 +49,11 @@ button{
 
 .user-input *{
     margin-left: 1vw;
-    padding: 0.50vw;
+    padding: 0.8vh 1vw;
 }
 
 input{
+    font-size: 1rem;
     width: 20vw;
     outline: none;
     border: none;
@@ -66,8 +65,9 @@ input{
 }
 
 .user-input button{
+    font-size: 1rem;
     margin-left: 0.7vw;
-    padding: 1vh;
+    padding: 0.6vh 1.2vw 0.6vh 1.2vw;
 }
 
 /* TABLE */
@@ -252,17 +252,17 @@ fa-icon{
 
 .arrow-divs > .material-icons{
     transform: scale(1.5);
-    padding-right: .6vw;
+    padding: 0.8vh 0.8vw 0.8vh 0.5vw;
 }
 
-.footer button{
+/* .footer button{
     font-weight: 600;
     font-size: 1.5vw;
     border: solid 2px #707070;
     border-radius: 8px;
     padding: 2vh 6vw;
     cursor: pointer;
-}
+} */
 
 .team-size{
     display: flex;

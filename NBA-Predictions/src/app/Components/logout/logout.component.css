@@ -15,6 +15,6 @@ button{
     font-size: large;
     border: solid 2px #707070;
     border-radius: 8px;
-    padding: 1vh 3vw;
+    padding: 10px 20px 10px 20px;
     cursor: pointer;
 }

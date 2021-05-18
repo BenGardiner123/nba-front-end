@@ -45,7 +45,7 @@ button{
 
 .user-input *{
     margin-left: 1vw;
-    padding: 1vh 1vw;
+    padding: 0.8vh 1vw;
 }
 
 input{
@@ -63,6 +63,7 @@ input{
 .user-input button{
     font-size: 1rem;
     margin-left: 0.7vw;
+    padding: 0.6vh 1.2vw 0.6vh 1.2vw;
 }
 
 /* Table Header */
