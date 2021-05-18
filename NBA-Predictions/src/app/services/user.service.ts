@@ -14,7 +14,7 @@ export class UserService {
 
   registerUser(credentials: User): Promise<boolean> {
     this.username = credentials.username;
-    return this.http.post<boolean>(this.APIURL + "register", credentials).toPromise();
+    return this.http.post<boolean>(this.APIURL + "Register", credentials).toPromise();
   }
 
   loginUser(credentials: User): Promise<LoginResponse> {
