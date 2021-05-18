@@ -1,22 +1,25 @@
-.small-logo{
-    display: none;
+.small-logo {
+  display: none;
 }
 
-img{
-    top: 2vh;
-    left: 2vw;
-    position: absolute;
-    max-width: 20vh;
-    max-height: 20vh;
+img {
+  top: 2vh;
+  left: 2vw;
+  position: absolute;
+  max-width: 20vh;
+  max-height: 20vh;
 }
 
 /* Logic to swap between the two logos when a screen is too small */
-@media only screen and (max-width: 1000px){
-    .large-logo{
-      display: none;
-    }
- 
-    .small-logo{
-      display: block;
-    }
- }
+@media (max-width: 1451px) {
+  .large-logo {
+    display: none;
+  }
+}
+
+@media (min-width: 500px) {
+  .small-logo {
+    display: block;
+    height: 132px;
+  }
+}
