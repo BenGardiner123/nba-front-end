@@ -1,7 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NavService } from 'src/app/services/nav-service.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { UserService } from 'src/app/services/user.service';
 
+import { LoginResponse } from 'src/app/modules/LoginResponse';
 import { User } from 'src/app/modules/user';
 
 @Component({
@@ -15,12 +17,15 @@ export class RegisterComponent implements OnInit {
   isRegistered: boolean;
   isSuccessful: boolean;
 
-  constructor(private userService: UserService, private navigate: NavService) { }
+  constructor(
+    private userService: UserService,
+    private navigate: NavService,
+    private loadingService: LoadingService) { }
 
   ngOnInit(): void {
   }
 
-  AttemptUserLogin(username, password) {
+  async AttemptUserRegister(username, password) {
 
     if (!this.CheckInputs(username, password)) {
       return;
@@ -31,18 +36,19 @@ export class RegisterComponent implements OnInit {
       'passwordHash': password
     }
 
-    var promise = this.userService.registerUser(credentials).then(response => {
-      this.isRegistered = true;
-      // Successful Registration
-      if (response) {
-        this.isSuccessful = true;
-      }
-      else {
-        this.isSuccessful = false;
-      }
-    }, (error) => {
-      alert("The API for registration is down!");
-    });
+    this.loadingService.ToggleLoading()
+    var response = await this.userService.registerUser(credentials)
+    this.isRegistered = true;
+    // Successful Registration
+    if (response) {
+      this.isSuccessful = true;
+    }
+    else {
+      this.isSuccessful = false;
+    }
+
+    this.loadingService.ToggleLoading()
+
   }
 
   // Checks if username and password are empty.

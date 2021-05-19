@@ -14,12 +14,12 @@
         <div *ngIf="invalidInputs.includes('username')" class="secondary-error">Username is invalid</div>
 
         <input #password type="password" placeholder="Password..." (keydown)="ClearErrors()"
-            (keydown.enter)="AttemptUserLogin(username.value,password.value)"
+            (keydown.enter)="AttemptUserRegister(username.value,password.value)"
             [ngClass]="{'invalid-input':invalidInputs.includes(password.value)}">
 
         <div *ngIf="invalidInputs.includes('password')" class="secondary-error">Password is invalid</div>
         <div class="centered">
-            <button (click)="AttemptUserLogin(username.value,password.value)">Create</button>
+            <button (click)="AttemptUserRegister(username.value,password.value)">Create</button>
         </div>
         <div class="sign-in-container centered">
             Already have an account?

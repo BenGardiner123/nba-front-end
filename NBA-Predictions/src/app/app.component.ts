@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+import { LoadingService } from './services/loading.service'
+
 export let browserRefresh = false;
 
 @Component({
@@ -12,13 +14,16 @@ export let browserRefresh = false;
 export class AppComponent {
   title = 'NBA-Predictions';
   subscription: Subscription;
-  loading: boolean = false;
+  isLoading: boolean;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private loadingService: LoadingService) {
     this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         browserRefresh = !router.navigated;
       }
+    });
+    this.loadingService.isLoading.subscribe(nextValue => {
+      this.isLoading = nextValue
     });
   }
 }

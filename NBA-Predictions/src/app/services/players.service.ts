@@ -29,13 +29,13 @@ export class PlayersService {
   // Used on Teamsummary
   // Return Make model for GetPlayersFromTeamReposonse
   GetPlayersFromTeam(teamName: string): Promise<GetPlayersFromTeamResponse> {
-    let request = {
-      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjExNzY1NzksIlVzZXIiOiIxIn0.HRmuKlr8-BPtWGLbZ8o5vHpL77YAdPLOH12uIwFYiHE",
+    let body = {
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjEyMzYxMTIsIlVzZXIiOiIxIn0.qvnQcpQNvfge1OY_qB-r3MKzTaVd-lgxu8zFudasJdY",
       "teamName": "bob",
       "sortString": "FIRSTNAME",
       "sortType": "ASC"
     }
-    return this.http.post<GetPlayersFromTeamResponse>(this.APIURL + "getPlayersFromTeam", request).toPromise();
+    return this.http.post<GetPlayersFromTeamResponse>(this.APIURL + "getPlayersFromTeam", body).toPromise();
   }
 
   // Used to get headers

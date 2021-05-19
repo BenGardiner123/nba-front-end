@@ -12,9 +12,9 @@
                 <h1>{{username}}'s Teams</h1>
                 <div class="user-input">
                     <input type="text" placeholder="Create a new team..." #input
-                        (keydown.enter)="CreateTeam(input.value)" (keydown)="ClearError()"
-                        [ngClass]="{'input-error':isInvalidTeam || isExistingTeam}">
-                    <button (click)=" CreateTeam(input.value)">Create</button>
+                        (keydown.enter)="CreateTeam(input.value)" (keydown.enter)="input.value = ''"
+                        (keydown)="ClearError()" [ngClass]="{'input-error':isInvalidTeam || isExistingTeam}">
+                    <button (click)=" CreateTeam(input.value)" (click)="input.value = ''">Create</button>
                     <div *ngIf="isInvalidTeam" class="error">Invalid Team Name</div>
                     <div *ngIf="isExistingTeam" class="error">Team Already Exists</div>
                 </div>
@@ -40,14 +40,14 @@
                             [ngClass]="{'selected-team': selectedTeams.includes(team), 'highlighted-team': highlightedTeam == team}">
                             <td>
                                 <fa-icon class="is-fav" [icon]="faStarIcon" (click)="ManageFavourites(team)"
-                                    *ngIf="team.isFav"></fa-icon>
+                                    (click)="SelectTeam(team)" *ngIf="team.isFav"></fa-icon>
                                 <fa-icon class="is-not-fav" [icon]="faStarIcon" (click)="ManageFavourites(team)"
-                                    *ngIf="team.isFav == false"></fa-icon>
+                                    (click)="SelectTeam(team)" *ngIf="team.isFav == false"></fa-icon>
                             </td>
                             <td class="team-name">{{team.teamName}}</td>
-                            <td>Players</td>
+                            <td>{{team.playerCount}}/15</td>
                             <td class="delete">
-                                <fa-icon [icon]="faTimesIcon"></fa-icon>
+                                <fa-icon [icon]="faTimesIcon" (click)="DeleteTeam(team)"></fa-icon>
                             </td>
                         </tr>
                     </table>

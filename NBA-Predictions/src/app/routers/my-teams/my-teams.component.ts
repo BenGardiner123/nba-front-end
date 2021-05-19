@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from '../../services/user.service'
 import { NavService } from '../../services/nav-service.service';
 import { TeamsService } from '../../services/teams-service.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { PlayersService } from 'src/app/services/players.service';
 
 import { Team } from '../../modules/team';
@@ -33,44 +33,19 @@ export class MyTeamsComponent implements OnInit {
 
 
   constructor(
-    private userService: UserService,
     private navService: NavService,
     private playerService: PlayersService,
-    private teamsService: TeamsService) {
+    private teamsService: TeamsService,
+    private loadingService: LoadingService) {
   }
 
   async ngOnInit(): Promise<void> {
-    this.token = JSON.parse(localStorage.getItem('token'));
-    this.username = this.userService.username;
-    // this.usersTeams = await this.teamsService.GetAllTeams();
-    // console.log(this.usersTeams)
-    // testing
-    this.usersTeams = [
-      {
-        "teamName": "bob",
-        "isFav": true,
-        "playerCount": 4,
-        "dtrScores": -63.920684931552041380
-      },
-      {
-        "teamName": "steve",
-        "isFav": false,
-        "playerCount": 3,
-        "dtrScores": -133.728165600769574711
-      },
-      {
-        "teamName": "test",
-        "isFav": false,
-        "playerCount": 0,
-        "dtrScores": 0.000000000000000000
-      },
-      {
-        "teamName": "test1",
-        "isFav": false,
-        "playerCount": 0,
-        "dtrScores": 0.000000000000000000
-      }
-    ]
+    this.loadingService.ToggleLoading()
+    this.token = localStorage.getItem('token');
+    this.username = localStorage.getItem('username');
+    this.usersTeams = await this.teamsService.GetAllTeams();
+    this.loadingService.ToggleLoading()
+    this.teamsService.currentTeam = '';
   }
 
   // Occurs when a user clicks 'Select all teams' checkbox
@@ -108,38 +83,53 @@ export class MyTeamsComponent implements OnInit {
 
   // Reorders the selectedTeams list by their dtr
   ReOrderTeams() {
-    //     while (true) {
-
-    //       // 
-    //       for
-    // break;
-    //     }
+    this.selectedTeams.sort((a, b) => (a.dtrScores > b.dtrScores) ? 1 : -1);
   }
 
   // Takes in a team and inverts its favourite: boolean
   ManageFavourites(team: Team) {
+    this.loadingService.ToggleLoading()
     this.teamsService.ToggleFavourite(team);
+    this.loadingService.ToggleLoading()
     team.isFav = !team.isFav
   }
 
-  DeleteTeam(teamName: string) {
-    // this.httpService.DeleteTeam(teamName);
+  async DeleteTeam(team: Team) {
+    this.loadingService.ToggleLoading()
+    await this.teamsService.DeleteTeam(team.teamName);
+    this.loadingService.ToggleLoading()
+    // Deleting team locally 
+    let index = this.usersTeams.indexOf(team);
+    this.usersTeams.splice(index, 1);
   }
 
   async CreateTeam(teamName: string) {
+    // Clearing error messages
+    this.ClearError();
     // Checking that teamname isnt just made of spaces
     if (!teamName.replace(/\s/g, '').length) {
       this.isInvalidTeam = true
       return;
     }
+    this.loadingService.ToggleLoading()
     let response: boolean = await this.teamsService.CreateTeam(teamName);
+    this.loadingService.ToggleLoading()
     if (!response) {
       // Team Already Exists
       this.isExistingTeam = true
+      return;
     }
+    // Adding team locally 
+    this.usersTeams.push({
+      "teamName": teamName,
+      "isFav": false,
+      "playerCount": 0,
+      "dtrScores": 0
+    })
   }
 
   ClearError() {
     this.isInvalidTeam = false
+    this.isExistingTeam = false
   }
 }

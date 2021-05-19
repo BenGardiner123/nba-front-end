@@ -18,6 +18,8 @@ export class TeamsService {
 
   // Create a new team for a user
   CreateTeam(teamName: string): Promise<boolean> {
+    this.token = JSON.parse(localStorage.getItem('token'));
+
     // Send a team name and expect a boolean depending on the success of the http
     let request = {
       "token": this.token,
@@ -28,6 +30,7 @@ export class TeamsService {
 
   // Gets all teams for a user
   GetAllTeams(): Promise<Team[]> {
+    this.token = JSON.parse(localStorage.getItem('token'));
     return this.http.post<Team[]>(this.APIURL + "getteams", {
       "token": this.token
     }).toPromise();
@@ -35,6 +38,7 @@ export class TeamsService {
   }
 
   DeleteTeam(teamName: string) {
+    this.token = JSON.parse(localStorage.getItem('token'));
     this.http.put(this.APIURL + "deleteteam", {
       "token": this.token,
       "teamName": teamName
@@ -43,6 +47,8 @@ export class TeamsService {
 
   // Takes in a team and toggles its favourites value on the backend
   ToggleFavourite(team: Team) {
+    this.token = JSON.parse(localStorage.getItem('token'));
+
     this.http.put(this.APIURL + "deleteteam", {
       "token": this.token,
       "teamName": team.teamName,

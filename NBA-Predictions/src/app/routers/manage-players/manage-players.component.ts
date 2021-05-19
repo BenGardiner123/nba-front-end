@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 
 import { NavService } from '../../services/nav-service.service'
 import { TeamsService } from '../../services/teams-service.service'
+import { LoadingService } from 'src/app/services/loading.service';
 import { PlayersService } from '../../services/players.service'
 
 import { Player } from '../../modules/player';
@@ -43,13 +44,16 @@ export class ManagePlayersComponent implements OnInit {
   constructor(
     private navService: NavService,
     private playerService: PlayersService,
-    private teamsService: TeamsService) {
+    private teamsService: TeamsService,
+    private loadingService: LoadingService) {
   }
 
   // FIXME
   // Onit has to wait for everything marked 'await' before executing more code under it 
   // Though this means  that headers and players arent run parrallel
   async ngOnInit(): Promise<void> {
+    this.loadingService.ToggleLoading()
+
     this.teamName = this.teamsService.currentTeam;
     this.headers = await this.playerService.GetPlayerHeaders()
     // Mapping the array of objects containing a single string attribute
@@ -61,13 +65,12 @@ export class ManagePlayersComponent implements OnInit {
     }
     // Put 'selected' at the front as its not sent through the API.
     this.headers.unshift('selected');
-    // console.log('ManagePlayers, Onit: ' + this.headers)
 
     this.playersEnvelope = await this.playerService.GetPlayers(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
     this.players = this.playersEnvelope.data;
     this.pages = this.playersEnvelope.pages;
-    // console.log('ManagePlayers, Onit: ' + this.players)
 
+    this.loadingService.ToggleLoading()
 
     // OnPageResize awaits the returns of players and headers before being run
     this.OnPageResize();
@@ -117,7 +120,6 @@ export class ManagePlayersComponent implements OnInit {
   // Called everytime a user changes the value of the search input
   // Dose a default GetPlayers call if empty
   CheckInputEmpty(searchValue: string) {
-    console.log('ManagePlayers, CheckInputEmpty: ' + searchValue)
     if (searchValue == '') {
       this.searchString = ''
       this.GetPlayers();
@@ -139,9 +141,11 @@ export class ManagePlayersComponent implements OnInit {
   // Handles the GetPlayers API point (Just keeping it DRY)
   // Should be called after the global variables have been changed.
   async GetPlayers() {
+    this.loadingService.ToggleLoading()
     this.playersEnvelope = await this.playerService.GetPlayers(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
     this.players = this.playersEnvelope.data;
     this.pages = this.playersEnvelope.pages;
+    this.loadingService.ToggleLoading()
   }
 
   IncreasePage() {
@@ -218,6 +222,5 @@ export class ManagePlayersComponent implements OnInit {
     else {
       // Error
     }
-    console.log('ManagePlayers, ManageSelectedPlayers: ' + this.selectedPlayersKeys)
   }
 }

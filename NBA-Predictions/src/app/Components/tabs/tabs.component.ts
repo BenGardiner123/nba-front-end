@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { TeamsService } from "../../services/teams-service.service";
+
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.component.html',
@@ -9,8 +11,9 @@ import { Router } from '@angular/router';
 export class TabsComponent implements OnInit {
 
   selectedTab: string;
+  currentTeam: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private teamsService: TeamsService) {
   }
 
   ngOnInit(): void {
@@ -18,7 +21,14 @@ export class TabsComponent implements OnInit {
   }
 
   Navigate(directory: string) {
-    this.router.navigateByUrl('/' + directory);
+    this.currentTeam = this.teamsService.currentTeam;
+    // Stops navigation if a team isnt selected in the MyTeams tab
+    if (this.selectedTab === '/MyTeams' && this.currentTeam == '') {
+      alert('Please select a team');
+    }
+    else {
+      this.router.navigateByUrl('/' + directory);
+    }
   }
 
 }

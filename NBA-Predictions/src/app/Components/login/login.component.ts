@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NavService } from 'src/app/services/nav-service.service';
 import { UserService } from 'src/app/services/user.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 import { User } from 'src/app/modules/user';
 import { LoginResponse } from 'src/app/modules/LoginResponse';
@@ -15,7 +16,10 @@ export class LoginComponent implements OnInit {
   invalidInputs: string[] = [];
   failedLogin: boolean;
 
-  constructor(private userService: UserService, private navService: NavService) { }
+  constructor(
+    private userService: UserService,
+    private navService: NavService,
+    private loadingService: LoadingService) { }
 
   ngOnInit(): void {
   }
@@ -31,14 +35,18 @@ export class LoginComponent implements OnInit {
       'passwordHash': password
     }
 
+    this.loadingService.ToggleLoading()
     let response = await this.userService.loginUser(credentials);
     localStorage.setItem('token', JSON.stringify(response.token));
     if (response.token === 'false') {
       this.failedLogin = true;
     }
     else {
+      localStorage.setItem('username', credentials.username);
       this.navService.NavMyTeams();
     }
+    this.loadingService.ToggleLoading()
+
   }
 
   // Checks if username and password are empty.
