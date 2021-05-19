@@ -98,15 +98,16 @@ table{
 
 .header-container > :first-child > span{
     visibility: hidden;
-    background-color: rgb(26, 26, 26);
-    color: #fff;
-    font-size: .8vw;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 10px;
-    z-index: 10; 
     position: relative;
     display:none;
+    background-color: rgb(26, 26, 26);
+    color: #fff;
+    font-size: 12px;
+    width: 200%;
+    text-align: center;
+    border-radius: 6px;
+    padding: 50px;
+    z-index: 10; 
 }
 
 .header-container > :first-child:hover > span {
@@ -116,7 +117,7 @@ table{
     z-index: 10;
     position: absolute;
     top:25px;
-    /* left:20px; */
+    left:-10px;
     display:block;
     background:rgb(0, 0, 0);
     color:white;
@@ -232,7 +233,6 @@ fa-icon{
     padding: 0.3vw;
 }
 
-
 .arrow-divs{
     background-color: #d9d9d9;
     border: solid 2px #707070;
@@ -249,7 +249,7 @@ fa-icon{
 
 .arrow-divs > .material-icons{
     transform: scale(1.5);
-    padding: 8px 0.8vw 8px 0.5vw;
+    padding: 8px 8px 8px 5px;
 }
 
 /* .footer button{

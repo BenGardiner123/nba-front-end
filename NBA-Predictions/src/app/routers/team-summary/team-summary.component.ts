@@ -79,4 +79,13 @@ export class TeamSummaryComponent implements OnInit {
 
     })
   }
+
+  // function to allow for horizontal scrolling of table using mousewheel
+  scroll(event: WheelEvent): void {
+    if (event.deltaY > 0) document.getElementById('tablecont')!.scrollLeft += 40;
+    else document.getElementById('tablecont')!.scrollLeft -= 40;
+    event.preventDefault();
+  }
+
+
 }

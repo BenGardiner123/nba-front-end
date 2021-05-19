@@ -85,6 +85,7 @@ table{
     width: 100%;
 }
 
+
 .header-container{
     display: flex;
     flex-direction: row;
@@ -98,15 +99,16 @@ table{
 
 .header-container > :first-child > span{
     visibility: hidden;
-    background-color: rgb(26, 26, 26);
-    color: #fff;
-    font-size: .8vw;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 10px;
-    z-index: 10; 
     position: relative;
     display:none;
+    background-color: rgb(26, 26, 26);
+    color: #fff;
+    font-size: 12px;
+    width: 200%;
+    text-align: center;
+    border-radius: 6px;
+    padding: 50px;
+    z-index: 10; 
 }
 
 .header-container > :first-child:hover > span {
@@ -116,7 +118,7 @@ table{
     z-index: 10;
     position: absolute;
     top:25px;
-    /* left:20px; */
+    left:-10px;
     display:block;
     background:rgb(0, 0, 0);
     color:white;
@@ -199,12 +201,14 @@ input[type=checkbox]{
 /*  DTR  */
 
 .DTRCont{
-    width: 400px;
+    width: 300px;
+    text-align: right;
+    margin-bottom: 2.5vh;
     display: flex;
     flex-direction: row;
 }
 
-.dtrInput{
+/* .dtrInput{
     padding-left: 15px;
     padding-top: 6px;
     width: 4vw;
@@ -212,18 +216,19 @@ input[type=checkbox]{
     background-color: #fff;
     border-radius: 5px;
     margin-bottom: 1rem;
-}
+} */
 
-.dtrHeading{
-    margin-right: 10px;
+.DTRtext{
+    margin-right: 8px;
+    margin-left: 8px;
     position: relative;
 }
 
-.dtrHeading .dtrTooltip{
+.DTRtext .dtrTooltip{
     visibility: hidden;
     background-color: rgb(26, 26, 26);
     color: #fff;
-    font-size: 1.2vw;
+    font-size: 12px;
     text-align: center;
     width: 150px;
     border-radius: 6px;
@@ -232,21 +237,21 @@ input[type=checkbox]{
     display:none;
 }
 
-.dtrHeading:hover .dtrTooltip {
+.DTRtext:hover .dtrTooltip {
     visibility: visible;
     transition-delay: 0.5s;
     position:absolute;
     z-index: 10;
     position: absolute;
     top: 25px;
-    left: 50px;
+    left: -45px;
     display:block;
     color:white;
     padding:10px;
   }
 
   /* creates little arrow */
-  .dtrHeading:hover .dtrTooltip:after {
+  .DTRtext:hover .dtrTooltip:after {
     right: 50%;
 	bottom: 100%;
 	border: solid transparent;

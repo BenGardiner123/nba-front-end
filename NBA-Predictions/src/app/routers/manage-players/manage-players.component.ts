@@ -13,6 +13,8 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 import * as $ from "jquery";
 
+// import {ScrollingModule} from '@angular/cdk/scrolling';
+
 @Component({
   selector: 'app-manage-players',
   templateUrl: './manage-players.component.html',
@@ -122,6 +124,13 @@ export class ManagePlayersComponent implements OnInit {
       this.searchString = ''
       this.GetPlayers();
     }
+  }
+
+  // function to allow for horizontal scrolling of table using mousewheel
+  scroll(event: WheelEvent): void {
+    if (event.deltaY > 0) document.getElementById('tablecont')!.scrollLeft += 40;
+    else document.getElementById('tablecont')!.scrollLeft -= 40;
+      event.preventDefault();
   }
 
   Search(searchValue: string) {
