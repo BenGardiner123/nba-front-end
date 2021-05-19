@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, PreloadAllModules  } from '@angular/router';
 import { AuthenticationGuard } from './guards/authentication.guard';
 
 import { MyTeamsComponent } from './routers/my-teams/my-teams.component'
@@ -12,7 +12,7 @@ const routes: Routes = [
   // , canActivate: [AuthenticationGuard]},
   { path: "MyTeams", component: MyTeamsComponent },
   // , canActivate: [AuthenticationGuard]},
-  { path: "ManagePlayers", component: ManagePlayersComponent },
+  { path: "ManagePlayers", component: ManagePlayersComponent},
   // , canActivate: [AuthenticationGuard]},
   { path: "TeamSummary", component: TeamSummaryComponent },
   // , canActivate: [AuthenticationGuard]},
@@ -22,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

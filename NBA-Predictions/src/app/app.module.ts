@@ -18,6 +18,10 @@ import { MyTeamsComponent } from './routers/my-teams/my-teams.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { LoadingComponent } from './Components/loading/loading.component';
+import { NavService } from './services/nav-service.service';
+import { PlayersService } from './services/players.service';
+import { TeamsService } from './services/teams-service.service';
+import { UserService } from './services/user.service';
 // TODO Import Services 
 
 export function tokenGetter() {
@@ -55,7 +59,11 @@ export function tokenGetter() {
 
   ],
   providers: [
-    // TODO Add services to providers list
+   NavService, 
+   PlayersService, 
+   TeamsService, 
+   UserService, 
+   
   ],
   bootstrap: [AppComponent]
 })

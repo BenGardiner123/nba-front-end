@@ -12,6 +12,7 @@ import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 import * as $ from "jquery";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-manage-players',
@@ -43,13 +44,13 @@ export class ManagePlayersComponent implements OnInit {
   constructor(
     private navService: NavService,
     private playerService: PlayersService,
-    private teamsService: TeamsService) {
+    private teamsService: TeamsService, 
+   ) {
   }
 
-  // FIXME
-  // Onit has to wait for everything marked 'await' before executing more code under it 
-  // Though this means  that headers and players arent run parrallel
+  
   async ngOnInit(): Promise<void> {
+  
     this.teamName = this.teamsService.currentTeam;
     this.headers = await this.playerService.GetPlayerHeaders()
     // Mapping the array of objects containing a single string attribute
