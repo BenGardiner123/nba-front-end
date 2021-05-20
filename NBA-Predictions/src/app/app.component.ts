@@ -22,8 +22,5 @@ export class AppComponent {
         browserRefresh = !router.navigated;
       }
     });
-    this.loadingService.isLoading.subscribe(nextValue => {
-      this.isLoading = nextValue
-    });
   }
 }

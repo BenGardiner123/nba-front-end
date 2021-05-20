@@ -48,11 +48,8 @@ export class ManagePlayersComponent implements OnInit {
     private loadingService: LoadingService) {
   }
 
-  // FIXME
-  // Onit has to wait for everything marked 'await' before executing more code under it 
-  // Though this means  that headers and players arent run parrallel
   async ngOnInit(): Promise<void> {
-    this.loadingService.ToggleLoading()
+    this.loadingService.StartLoading()
 
     this.teamName = this.teamsService.currentTeam;
     this.headers = await this.playerService.GetPlayerHeaders()
@@ -70,19 +67,16 @@ export class ManagePlayersComponent implements OnInit {
     this.players = this.playersEnvelope.data;
     this.pages = this.playersEnvelope.pages;
 
-    this.loadingService.ToggleLoading()
+    this.loadingService.StopLoading()
 
     // OnPageResize awaits the returns of players and headers before being run
-    this.OnPageResize();
+    this.FreezeColumns();
   }
 
   // OnPageResize listens to when the widow resizes so it can recalculate the width of the columns in the table 
   // And subsequently stick the first coloumns in place depending on their width.
   @HostListener('window:resize', ['$event'])
-  OnPageResize() {
-    // console.log('ManagePlayers, OnPageResize: ' + this.players)
-    // FIXME This Loads after the tables and headers are filled with input
-    // BUT not after the DOM has been filled and a column width is assignned.
+  FreezeColumns() {
     let $headers = $('.header-container').slice(0, 3);
     let $firstColumn = $('.firstColumn');
     let $secondColumn = $('.secondColumn');
@@ -141,11 +135,12 @@ export class ManagePlayersComponent implements OnInit {
   // Handles the GetPlayers API point (Just keeping it DRY)
   // Should be called after the global variables have been changed.
   async GetPlayers() {
-    this.loadingService.ToggleLoading()
+    this.loadingService.StartLoading()
     this.playersEnvelope = await this.playerService.GetPlayers(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
     this.players = this.playersEnvelope.data;
     this.pages = this.playersEnvelope.pages;
-    this.loadingService.ToggleLoading()
+    this.loadingService.StopLoading()
+    // this.FreezeColumns();
   }
 
   IncreasePage() {

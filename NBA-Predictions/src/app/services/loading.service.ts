@@ -10,7 +10,11 @@ export class LoadingService {
 
   constructor() { }
 
-  ToggleLoading(): void {
-    this.isLoading.next(!this.isLoading.value);
+  StartLoading(): void {
+    this.isLoading.next(true);
+  }
+
+  StopLoading(): void {
+    this.isLoading.next(false);
   }
 }

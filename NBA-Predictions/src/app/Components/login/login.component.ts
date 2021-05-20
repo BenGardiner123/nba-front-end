@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       'passwordHash': password
     }
 
-    this.loadingService.ToggleLoading()
+    this.loadingService.StartLoading()
     let response = await this.userService.loginUser(credentials);
     localStorage.setItem('token', JSON.stringify(response.token));
     if (response.token === 'false') {
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('username', credentials.username);
       this.navService.NavMyTeams();
     }
-    this.loadingService.ToggleLoading()
+    this.loadingService.StopLoading()
 
   }
 

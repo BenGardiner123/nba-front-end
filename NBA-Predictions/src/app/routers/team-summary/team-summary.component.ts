@@ -2,11 +2,13 @@ import { Component, OnInit, HostListener } from '@angular/core';
 
 import { NavService } from '../../services/nav-service.service'
 import { TeamsService } from '../../services/teams-service.service'
+import { LoadingService } from 'src/app/services/loading.service';
 import { PlayersService } from '../../services/players.service'
 
 import { Player } from '../../modules/player';
 import { Header } from 'src/app/modules/header';
 import { GetPlayersFromTeamResponse } from 'src/app/modules/GetPlayersFromTeamResponse';
+import { LoadingComponent } from 'src/app/Components/loading/loading.component';
 
 @Component({
   selector: 'app-team-summary',
@@ -25,10 +27,12 @@ export class TeamSummaryComponent implements OnInit {
   constructor(
     private navService: NavService,
     private playerService: PlayersService,
+    private loadingService: LoadingService,
     private teamsService: TeamsService) {
   }
 
   async ngOnInit(): Promise<void> {
+    this.loadingService.StartLoading()
     this.teamName = this.teamsService.currentTeam;
     this.headers = await this.playerService.GetPlayerHeaders()
     // Mapping the array of objects containing a single string attribute
@@ -42,6 +46,7 @@ export class TeamSummaryComponent implements OnInit {
     this.getPlayersResponse = await this.playerService.GetPlayersFromTeam(this.teamName);
     this.players = this.getPlayersResponse.pagedData;
     this.dtr = this.getPlayersResponse.dtr;
+    this.loadingService.StopLoading()
 
 
     // OnPageResize awaits the returns of players and headers before being run

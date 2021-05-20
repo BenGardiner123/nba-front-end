@@ -31,6 +31,7 @@ export class TeamsService {
   // Gets all teams for a user
   GetAllTeams(): Promise<Team[]> {
     this.token = JSON.parse(localStorage.getItem('token'));
+    console.log(this.token)
     return this.http.post<Team[]>(this.APIURL + "getteams", {
       "token": this.token
     }).toPromise();
@@ -39,10 +40,12 @@ export class TeamsService {
 
   DeleteTeam(teamName: string) {
     this.token = JSON.parse(localStorage.getItem('token'));
-    this.http.put(this.APIURL + "deleteteam", {
+    let body = {
       "token": this.token,
       "teamName": teamName
-    });
+    }
+    console.log(body)
+    this.http.put(this.APIURL + "deleteteam", body);
   }
 
   // Takes in a team and toggles its favourites value on the backend

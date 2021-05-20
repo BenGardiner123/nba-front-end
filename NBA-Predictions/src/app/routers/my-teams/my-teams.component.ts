@@ -9,6 +9,7 @@ import { Team } from '../../modules/team';
 
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faThemeisle } from '@fortawesome/free-brands-svg-icons';
 
 
 
@@ -40,24 +41,24 @@ export class MyTeamsComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.loadingService.ToggleLoading()
+    this.loadingService.StartLoading()
     this.token = localStorage.getItem('token');
     this.username = localStorage.getItem('username');
     this.usersTeams = await this.teamsService.GetAllTeams();
-    this.loadingService.ToggleLoading()
+    this.loadingService.StopLoading()
     this.teamsService.currentTeam = '';
   }
 
   // Occurs when a user clicks 'Select all teams' checkbox
   SelectAllTeams(isChecked) {
     if (isChecked) {
-      this.selectedTeams = this.usersTeams;
+      this.selectedTeams = [...this.usersTeams];
     }
     // Everything already selected
     else {
       this.selectedTeams = [];
     }
-    this.highlightedTeam = undefined;
+    this.highlightedTeam = null;
     this.ReOrderTeams();
   }
 
@@ -70,13 +71,13 @@ export class MyTeamsComponent implements OnInit {
     }
     // Else deselect
     else {
-      this.teamsService.currentTeam = undefined;
       // Find position in selected teams and remove it 
       let index = this.selectedTeams.indexOf(team);
       this.selectedTeams.splice(index, 1);
       if (team === this.highlightedTeam) {
-        this.highlightedTeam = undefined;
+        this.highlightedTeam = null;
       }
+      // this.usersTeams.push(team)
     }
     this.ReOrderTeams();
   }
@@ -88,16 +89,16 @@ export class MyTeamsComponent implements OnInit {
 
   // Takes in a team and inverts its favourite: boolean
   ManageFavourites(team: Team) {
-    this.loadingService.ToggleLoading()
+    this.loadingService.StartLoading()
     this.teamsService.ToggleFavourite(team);
-    this.loadingService.ToggleLoading()
+    this.loadingService.StopLoading()
     team.isFav = !team.isFav
   }
 
-  async DeleteTeam(team: Team) {
-    this.loadingService.ToggleLoading()
-    await this.teamsService.DeleteTeam(team.teamName);
-    this.loadingService.ToggleLoading()
+  DeleteTeam(team: Team) {
+    this.loadingService.StartLoading()
+    this.teamsService.DeleteTeam(team.teamName);
+    this.loadingService.StopLoading()
     // Deleting team locally 
     let index = this.usersTeams.indexOf(team);
     this.usersTeams.splice(index, 1);
@@ -111,9 +112,9 @@ export class MyTeamsComponent implements OnInit {
       this.isInvalidTeam = true
       return;
     }
-    this.loadingService.ToggleLoading()
+    this.loadingService.StartLoading()
     let response: boolean = await this.teamsService.CreateTeam(teamName);
-    this.loadingService.ToggleLoading()
+    this.loadingService.StopLoading()
     if (!response) {
       // Team Already Exists
       this.isExistingTeam = true

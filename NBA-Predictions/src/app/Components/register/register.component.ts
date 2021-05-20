@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
       'passwordHash': password
     }
 
-    this.loadingService.ToggleLoading()
+    this.loadingService.StartLoading()
     var response = await this.userService.registerUser(credentials)
     this.isRegistered = true;
     // Successful Registration
@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
       this.isSuccessful = false;
     }
 
-    this.loadingService.ToggleLoading()
+    this.loadingService.StopLoading()
 
   }
 
