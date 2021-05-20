@@ -31,20 +31,20 @@ export class TeamsService {
   // Gets all teams for a user
   GetAllTeams(): Promise<Team[]> {
     this.token = JSON.parse(localStorage.getItem('token'));
-    console.log(this.token)
     return this.http.post<Team[]>(this.APIURL + "getteams", {
       "token": this.token
     }).toPromise();
-    // return this.http.get<Team[]>(this.APIURL + "getteams/" + this.token).toPromise();
   }
 
+  // FIXME Dosent work 
+  // Not getting a 404 error so its going to the end point 
+  // And the token appears correctly
   DeleteTeam(teamName: string) {
     this.token = JSON.parse(localStorage.getItem('token'));
     let body = {
       "token": this.token,
       "teamName": teamName
     }
-    console.log(body)
     this.http.put(this.APIURL + "deleteteam", body);
   }
 
