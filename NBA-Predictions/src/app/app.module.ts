@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,8 @@ import { MyTeamsComponent } from './routers/my-teams/my-teams.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { LoadingComponent } from './Components/loading/loading.component';
+
+import { AuthInterceptor } from './services/auth.interceptor';
 // TODO Import Services 
 
 export function tokenGetter() {
@@ -48,13 +50,18 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:5001"],
+        allowedDomains: ["localhost:5001"], //you can add other domains here as well
         disallowedRoutes: []
       }
     })
 
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
     // TODO Add services to providers list
   ],
   bootstrap: [AppComponent]
