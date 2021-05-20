@@ -20,8 +20,8 @@
 
             </div>
 
-          
-              
+
+
             <div class="table-container" id="tablecont" (wheel)="scroll($event)">
                 <table>
                     <tr>
@@ -34,10 +34,8 @@
                                 <!-- tooltips -->
                                 <div *ngIf="header === 'selected'">{{ header.toLowerCase() }} </div>
                                 <div *ngIf="header === 'FIRSTNAME'">{{ header.toLowerCase() }}
-                                    <!-- <span> FIRSTNAME </span> -->
                                 </div>
                                 <div *ngIf="header === 'LASTNAME'">{{ header.toLowerCase() }}
-                                    <!-- <span> LASTNAME </span> -->
                                 </div>
                                 <div *ngIf="header === 'AGE'">{{ header.toLowerCase() }}
                                     <span> Players age </span>
@@ -49,9 +47,12 @@
                                     <span> Minutes Played </span>
                                 </div>
                                 <div *ngIf="header === 'PLUS_MINUS'">{{ header.toLowerCase() }}
-                                    <span> The stat "Plus/Minus" reflects how the team did while that player is on the court. 
-                                        If a player has a +5 PM, it means his team outscored the opponent by 5 points while he was on the court. 
-                                        If he has a -3, then the opposing team outscored his team by 3 points while he was on the court. </span>
+                                    <span> The stat "Plus/Minus" reflects how the team did while that player is on the
+                                        court.
+                                        If a player has a +5 PM, it means his team outscored the opponent by 5 points
+                                        while he was on the court.
+                                        If he has a -3, then the opposing team outscored his team by 3 points while he
+                                        was on the court. </span>
                                 </div>
                                 <div *ngIf="header === 'AST'">{{ header.toLowerCase() }}
                                     <span> Assists </span>

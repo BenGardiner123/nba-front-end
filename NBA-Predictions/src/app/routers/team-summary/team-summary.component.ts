@@ -81,6 +81,7 @@ export class TeamSummaryComponent implements OnInit {
   }
 
   // function to allow for horizontal scrolling of table using mousewheel
+  // https://stackoverflow.com/questions/59468926/horizontal-scroll-in-typescript
   scroll(event: WheelEvent): void {
     if (event.deltaY > 0) document.getElementById('tablecont')!.scrollLeft += 40;
     else document.getElementById('tablecont')!.scrollLeft -= 40;

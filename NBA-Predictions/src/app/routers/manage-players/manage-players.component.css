@@ -39,7 +39,7 @@ button{
 }
 
 .header h1{
-    font-size: 3vw;
+    font-size: clamp(2rem, 3vw, 4rem);
     padding-bottom: 4vh;
 }
 
