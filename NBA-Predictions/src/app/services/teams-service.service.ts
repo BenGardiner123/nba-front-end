@@ -36,26 +36,23 @@ export class TeamsService {
     }).toPromise();
   }
 
-  // FIXME Dosent work 
-  // Not getting a 404 error so its going to the end point 
-  // And the token appears correctly
   DeleteTeam(teamName: string) {
     this.token = JSON.parse(localStorage.getItem('token'));
     let body = {
       "token": this.token,
       "teamName": teamName
     }
-    this.http.put(this.APIURL + "deleteteam", body);
+    this.http.put(this.APIURL + "deleteteam", body).toPromise();
   }
 
   // Takes in a team and toggles its favourites value on the backend
   ToggleFavourite(team: Team) {
     this.token = JSON.parse(localStorage.getItem('token'));
 
-    this.http.put(this.APIURL + "deleteteam", {
+    this.http.put(this.APIURL + "setfavourites", {
       "token": this.token,
       "teamName": team.teamName,
       "isFav": team.isFav
-    });
+    }).toPromise();
   }
 }
