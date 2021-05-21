@@ -20,6 +20,10 @@ import { RegisterComponent } from './Components/register/register.component';
 import { LoadingComponent } from './Components/loading/loading.component';
 
 import { AuthInterceptor } from './services/auth.interceptor';
+import { NavService } from './services/nav-service.service';
+import { PlayersService } from './services/players.service';
+import { TeamsService } from './services/teams-service.service';
+import { UserService } from './services/user.service';
 // TODO Import Services 
 
 export function tokenGetter() {
@@ -61,8 +65,13 @@ export function tokenGetter() {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
     // TODO Add services to providers list
+    NavService,
+    PlayersService,
+    TeamsService,
+    UserService,
+
   ],
   bootstrap: [AppComponent]
 })

@@ -13,6 +13,7 @@ import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 import * as $ from "jquery";
+import { ActivatedRoute } from '@angular/router';
 
 // import {ScrollingModule} from '@angular/cdk/scrolling';
 
@@ -127,7 +128,7 @@ export class ManagePlayersComponent implements OnInit {
   scroll(event: WheelEvent): void {
     if (event.deltaY > 0) document.getElementById('tablecont')!.scrollLeft += 40;
     else document.getElementById('tablecont')!.scrollLeft -= 40;
-      event.preventDefault();
+    event.preventDefault();
   }
 
   Search(searchValue: string) {
@@ -208,7 +209,7 @@ export class ManagePlayersComponent implements OnInit {
       return;
     }
     this.GetPlayers();
-    
+
   }
 
   ManageSelectedPlayers(player: Player) {

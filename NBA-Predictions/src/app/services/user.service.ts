@@ -7,6 +7,7 @@ import { LoginResponse } from '../modules/LoginResponse';
   providedIn: 'root'
 })
 export class UserService {
+
   APIURL = "https://localhost:5001/";
 
   constructor(private http: HttpClient) { }
