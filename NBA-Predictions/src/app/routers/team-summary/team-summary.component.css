@@ -223,8 +223,45 @@ input[type=checkbox]{
     position: relative;
 }
 
-#dtrHeading{
-    padding-top: 6px;
-    margin-right: 15px;
-    
+.DTRtext .dtrTooltip{
+    visibility: hidden;
+    background-color: rgb(26, 26, 26);
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    width: 180px;
+    border-radius: 6px;
+    z-index: 10; 
+    position: relative;
+    display:none;
 }
+
+.DTRtext:hover .dtrTooltip {
+    visibility: visible;
+    transition-delay: 0.5s;
+    position:absolute;
+    z-index: 10;
+    position: absolute;
+    top: 25px;
+    left: -45px;
+    display:block;
+    color:white;
+    padding:10px;
+  }
+
+  /* creates little arrow */
+  .DTRtext:hover .dtrTooltip:after {
+    right: 50%;
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: rgb(0, 0, 0);
+	border-width: 6px;
+	margin-top: -6px;
+    z-index: 10;
+  }

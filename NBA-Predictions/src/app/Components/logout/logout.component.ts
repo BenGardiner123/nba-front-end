@@ -8,12 +8,9 @@ import { NavService } from '../../services/nav-service.service';
 })
 export class LogoutComponent implements OnInit {
 
-  username: string;
-
   constructor(private navService: NavService) { }
 
   ngOnInit(): void {
-    this.username = localStorage.getItem('username')
   }
 
   Logout() {
