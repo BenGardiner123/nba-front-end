@@ -23,8 +23,9 @@ button{
     align-items: center;
     flex-direction: column;
     width: 70vw;
+    min-width: 450.5px;
     height: 77vh;
-    padding: 3vh 3vw 1vh 3vw;
+    padding: 4vh 3vw 1vh 3vw;
     border-radius: 0 0 5px 5px;
 }
 
@@ -38,20 +39,21 @@ button{
 }
 
 .header h1{
-    font-size: 3vw;
-    padding-bottom: 2vh;
+    font-size: clamp(2rem, 3vw, 4rem);
+    padding-bottom: 4vh;
 }
 
 .user-input{
-    padding-bottom: 2vh;
+    padding-bottom: 4vh;
 }
 
 .user-input *{
     margin-left: 1vw;
-    padding: 0.50vw;
+    padding: 0.8vh 1vw;
 }
 
 input{
+    font-size: 1rem;
     width: 20vw;
     outline: none;
     border: none;
@@ -63,8 +65,9 @@ input{
 }
 
 .user-input button{
+    font-size: 1rem;
     margin-left: 0.7vw;
-    padding: 1vh;
+    padding: 0.6vh 1.2vw 0.6vh 1.2vw;
 }
 
 /* TABLE */
@@ -81,6 +84,62 @@ table{
     border-collapse: collapse;
     width: 100%;
 }
+
+.header-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.header-container > :first-child{
+    color: rgb(255, 255, 255);
+    padding-right: 0.5vw;
+    position: relative;
+}
+
+.header-container > :first-child > span{
+    visibility: hidden;
+    position: relative;
+    display:none;
+    background-color: rgb(26, 26, 26);
+    color: #fff;
+    font-size: 12px;
+    width: 200%;
+    text-align: center;
+    border-radius: 6px;
+    padding: 50px;
+    z-index: 10; 
+}
+
+.header-container > :first-child:hover > span {
+    visibility: visible;
+    transition-delay: 0.5s;
+    position:absolute;
+    z-index: 10;
+    position: absolute;
+    top:25px;
+    left:-10px;
+    display:block;
+    background:rgb(0, 0, 0);
+    color:white;
+    padding:6px;
+  }
+
+  /* creates little arrow */
+  .header-container > :first-child:hover > span:after {
+    right: 50%;
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: rgb(0, 0, 0);
+	border-width: 6px;
+	margin-top: -6px;
+    z-index: 10;
+  }
 
 th{
     background-color: #707070;
@@ -134,6 +193,75 @@ input[type=checkbox]{
     justify-content: center;
     align-items: center;
     color: #707070;
-    font-size: 1.5vw;
+    font-size: large;
     font-weight: 500;
 }
+
+/*  DTR  */
+
+.DTRCont{
+    width: 300px;
+    text-align: right;
+    margin-bottom: 2.5vh;
+    display: flex;
+    flex-direction: row;
+}
+
+/* .dtrInput{
+    padding-left: 15px;
+    padding-top: 6px;
+    width: 4vw;
+    height: 2vw;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+} */
+
+.DTRtext{
+    margin-right: 8px;
+    margin-left: 8px;
+    position: relative;
+}
+
+.DTRtext .dtrTooltip{
+    visibility: hidden;
+    background-color: rgb(26, 26, 26);
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    width: 180px;
+    border-radius: 6px;
+    z-index: 10; 
+    position: relative;
+    display:none;
+}
+
+.DTRtext:hover .dtrTooltip {
+    visibility: visible;
+    transition-delay: 0.5s;
+    position:absolute;
+    z-index: 10;
+    position: absolute;
+    top: 25px;
+    left: -45px;
+    display:block;
+    color:white;
+    padding:10px;
+  }
+
+  /* creates little arrow */
+  .DTRtext:hover .dtrTooltip:after {
+    right: 50%;
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: rgb(0, 0, 0);
+	border-width: 6px;
+	margin-top: -6px;
+    z-index: 10;
+  }

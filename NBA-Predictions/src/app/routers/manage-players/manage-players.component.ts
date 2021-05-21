@@ -14,6 +14,8 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 import * as $ from "jquery";
 
+// import {ScrollingModule} from '@angular/cdk/scrolling';
+
 @Component({
   selector: 'app-manage-players',
   templateUrl: './manage-players.component.html',
@@ -112,12 +114,20 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   // Called everytime a user changes the value of the search input
-  // Dose a default GetPlayers call if empty
+  // Does a default GetPlayers call if empty
   CheckInputEmpty(searchValue: string) {
     if (searchValue == '') {
       this.searchString = ''
       this.GetPlayers();
     }
+  }
+
+  // function to allow for horizontal scrolling of table using mousewheel
+  // https://stackoverflow.com/questions/59468926/horizontal-scroll-in-typescript
+  scroll(event: WheelEvent): void {
+    if (event.deltaY > 0) document.getElementById('tablecont')!.scrollLeft += 40;
+    else document.getElementById('tablecont')!.scrollLeft -= 40;
+      event.preventDefault();
   }
 
   Search(searchValue: string) {
@@ -188,7 +198,6 @@ export class ManagePlayersComponent implements OnInit {
       this.sortOrder = 'ASC';
     }
 
-
     // Logic for filtering the already selected players to the top of the list
     if (this.activeUpSort == 'selected') {
       this.selectedPlayers.forEach(player => {
@@ -199,6 +208,7 @@ export class ManagePlayersComponent implements OnInit {
       return;
     }
     this.GetPlayers();
+    
   }
 
   ManageSelectedPlayers(player: Player) {

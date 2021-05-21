@@ -1,13 +1,18 @@
 .container{
     position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     right: 2vw;
     top: 2vh;
 }
 
 .username{
+    font-weight: 500;
+    font-size: large;
     color: #fff;
     text-align: center;
-    margin-bottom: 0.5vh;
+    padding: 10px;
 }
 
 button{
@@ -15,6 +20,6 @@ button{
     font-size: large;
     border: solid 2px #707070;
     border-radius: 8px;
-    padding: 1vh 3vw;
+    padding: 10px 20px 10px 20px;
     cursor: pointer;
 }

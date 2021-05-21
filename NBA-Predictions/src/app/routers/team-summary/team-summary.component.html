@@ -11,15 +11,132 @@
 
             <div class="header">
                 <div class="heading">
-                    <h1>{{teamName}}</h1>
+                    <h1>teamname {{teamName}}</h1>
                 </div>
+
+                <div class="DTRCont">
+                    <h3>{{teamName}}'s</h3>
+                    <h3 class="DTRtext"> DTR
+                        <span class="dtrTooltip">The Dream Team Rating is an algorithm developed by the Swinburne
+                            Student Developement
+                            team. <br> <br>
+                            It aims to rank NBA teams based on the statistics of the players that makeup that team.
+                            It is able to predict correctly with a 90% success rate.
+                            <!-- <br> <br> (PlusMinus X Points) / (Minutes / Games Played) -->
+                        </span>
+                    </h3>
+                    <h3>score is</h3>
+
+                    <h4 class="DTRtext">{{dtr}}</h4>
+                </div>
+
+            </div>
+            <div>
+
             </div>
 
-            <div class="table-container">
-                <table>
+            <div class="table-container" id="tablecont" (wheel)="scroll($event)">
+                <table mdbTable mdbTableScroll scrollY="true">
                     <tr>
-                        <th *ngFor="let data of headers" class="header-container">
-                            {{ data.toLowerCase() }}
+                        <th *ngFor="let header of headers">
+
+                            <div class="header-container">
+
+                                <!-- tooltips -->
+                                <div *ngIf="header === 'selected'">{{ header.toLowerCase() }} </div>
+                                <div *ngIf="header === 'FIRSTNAME'">{{ header.toLowerCase() }}
+                                </div>
+                                <div *ngIf="header === 'LASTNAME'">{{ header.toLowerCase() }}
+                                </div>
+                                <div *ngIf="header === 'AGE'">{{ header.toLowerCase() }}
+                                    <span> Players age </span>
+                                </div>
+                                <div *ngIf="header === 'GP'">{{ header.toLowerCase() }}
+                                    <span> Games Played </span>
+                                </div>
+                                <div *ngIf="header === 'MINS'">{{ header.toLowerCase() }}
+                                    <span> Minutes Played </span>
+                                </div>
+                                <div *ngIf="header === 'PLUS_MINUS'">{{ header.toLowerCase() }}
+                                    <span> The stat "Plus/Minus" reflects how the team did while that player is on the
+                                        court.
+                                        If a player has a +5 PM, it means his team outscored the opponent by 5 points
+                                        while he was on the court.
+                                        If he has a -3, then the opposing team outscored his team by 3 points while he
+                                        was on the court. </span>
+                                </div>
+                                <div *ngIf="header === 'AST'">{{ header.toLowerCase() }}
+                                    <span> Assists </span>
+                                </div>
+                                <div *ngIf="header === 'BLK'">{{ header.toLowerCase() }}
+                                    <span> Blocks </span>
+                                </div>
+                                <div *ngIf="header === 'BLKA'">{{ header.toLowerCase() }}
+                                    <span> Block Attempts </span>
+                                </div>
+                                <div *ngIf="header === 'OREB'">{{ header.toLowerCase() }}
+                                    <span> Offensive Rebounds </span>
+                                </div>
+                                <div *ngIf="header === 'DREB'">{{ header.toLowerCase() }}
+                                    <span> Defensive Rebounds </span>
+                                </div>
+                                <div *ngIf="header === 'FG_PCT'">{{ header.toLowerCase() }}
+                                    <span> Field Goal Percentage </span>
+                                </div>
+                                <div *ngIf="header === 'FG3_PCT'">{{ header.toLowerCase() }}
+                                    <span> 3-Point Field Goal Percentage </span>
+                                </div>
+                                <div *ngIf="header === 'FG3A'">{{ header.toLowerCase() }}
+                                    <span> 3-Point Field Goal Attempts </span>
+                                </div>
+                                <div *ngIf="header === 'FG3M'">{{ header.toLowerCase() }}
+                                    <span> 3-Point Field Goal Made </span>
+                                </div>
+                                <div *ngIf="header === 'FGA'">{{ header.toLowerCase() }}
+                                    <span> Field Goals Attempts </span>
+                                </div>
+                                <div *ngIf="header === 'FGM'">{{ header.toLowerCase() }}
+                                    <span> Field Goals Made </span>
+                                </div>
+                                <div *ngIf="header === 'FT_PCT'">{{ header.toLowerCase() }}
+                                    <span> Free Throw Percentage </span>
+                                </div>
+                                <div *ngIf="header === 'FTA'">{{ header.toLowerCase() }}
+                                    <span> Free Throw Attempts </span>
+                                </div>
+                                <div *ngIf="header === 'FTM'">{{ header.toLowerCase() }}
+                                    <span> Free Throws Made </span>
+                                </div>
+                                <div *ngIf="header === 'W'">{{ header.toLowerCase() }}
+                                    <span> Wins </span>
+                                </div>
+                                <div *ngIf="header === 'L'">{{ header.toLowerCase() }}
+                                    <span> Losses </span>
+                                </div>
+                                <div *ngIf="header === 'W_PCT'">{{ header.toLowerCase() }}
+                                    <span> Win Percentage </span>
+                                </div>
+                                <div *ngIf="header === 'PF'">{{ header.toLowerCase() }}
+                                    <span> Personal Fouls </span>
+                                </div>
+                                <div *ngIf="header === 'PFD'">{{ header.toLowerCase() }}
+                                    <span> Personal Fouls Drawn </span>
+                                </div>
+                                <div *ngIf="header === 'REB'">{{ header.toLowerCase() }}
+                                    <span> Rebounds </span>
+                                </div>
+                                <div *ngIf="header === 'TOV'">{{ header.toLowerCase() }}
+                                    <span> Turnovers </span>
+                                </div>
+                                <div *ngIf="header === 'STL'">{{ header.toLowerCase() }}
+                                    <span> Steals </span>
+                                </div>
+                                <div *ngIf="header === 'PTS'">{{ header.toLowerCase() }}
+                                    <span> Points </span>
+                                </div>
+                                <!-- end tooltips -->
+
+                            </div>
                         </th>
                     </tr>
                     <tr *ngFor="let player of players">

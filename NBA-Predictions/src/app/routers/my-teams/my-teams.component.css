@@ -23,8 +23,9 @@ button{
     align-items: center;
     flex-direction: column;
     width: 70vw;
+    min-width: 450.5px;
     height: 77vh;
-    padding: 5vh 5vw 5vh 5vw;
+    padding: 4vh 3vw 1vh 3vw;
     border-radius: 0 0 5px 5px;
 }
 
@@ -32,19 +33,23 @@ button{
 
 .header{
     display: flex;
-    align-items: top;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
 }
 
 .header h1{
-    font-size: 2.5vw;
-    padding-bottom: 5vh;
+    font-size: clamp(2rem, 3vw, 4rem);
+    padding-bottom: 4vh;
+}
+
+.user-input{
+    padding-bottom: 4vh;
 }
 
 .user-input *{
     margin-left: 1vw;
-    padding: 1vh 1vw;
+    padding: 0.8vh 1vw;
 }
 
 input{
@@ -62,6 +67,7 @@ input{
 .user-input button{
     font-size: 1rem;
     margin-left: 0.7vw;
+    padding: 0.6vh 1.2vw 0.6vh 1.2vw;
 }
 
 /* Table Header */

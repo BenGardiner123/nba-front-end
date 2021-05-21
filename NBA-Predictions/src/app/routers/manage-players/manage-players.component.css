@@ -8,7 +8,7 @@
 }
 
 button{
-    border: none;
+    border: 2px solid #707070;
     outline: none;
     background-color: #d9d9d9;
     border-radius: 5px;
@@ -23,8 +23,9 @@ button{
     align-items: center;
     flex-direction: column;
     width: 70vw;
+    min-width: 450.5px;
     height: 77vh;
-    padding: 3vh 3vw 1vh 3vw;
+    padding: 4vh 3vw 1vh 3vw;
     border-radius: 0 0 5px 5px;
 }
 
@@ -38,7 +39,7 @@ button{
 }
 
 .header h1{
-    font-size: 3vw;
+    font-size: clamp(2rem, 3vw, 4rem);
     padding-bottom: 4vh;
 }
 
@@ -48,10 +49,11 @@ button{
 
 .user-input *{
     margin-left: 1vw;
-    padding: 0.50vw;
+    padding: 0.8vh 1vw;
 }
 
 input{
+    font-size: 1rem;
     width: 20vw;
     outline: none;
     border: none;
@@ -63,8 +65,9 @@ input{
 }
 
 .user-input button{
+    font-size: 1rem;
     margin-left: 0.7vw;
-    padding: 1vh;
+    padding: 0.6vh 1.2vw 0.6vh 1.2vw;
 }
 
 /* TABLE */
@@ -82,20 +85,63 @@ table{
     width: 100%;
 }
 
-/* table tr td:nth-child(3),th:nth-child(3){
-    border-right: #707070 5px solid;
-} */
-
 .header-container{
     display: flex;
-    color: #fff;
+    flex-direction: row;
 }
 
 .header-container > :first-child{
-    color: #fff;
+    color: rgb(255, 255, 255);
     padding-right: 0.5vw;
+    position: relative;
 }
 
+.header-container > :first-child > span{
+    visibility: hidden;
+    position: relative;
+    display:none;
+    background-color: rgb(26, 26, 26);
+    color: #fff;
+    font-size: 12px;
+    width: 200%;
+    text-align: center;
+    border-radius: 6px;
+    padding: 50px;
+    z-index: 10; 
+}
+
+.header-container > :first-child:hover > span {
+    visibility: visible;
+    transition-delay: 0.5s;
+    position:absolute;
+    z-index: 10;
+    position: absolute;
+    top:25px;
+    left:-10px;
+    display:block;
+    background:rgb(0, 0, 0);
+    color:white;
+    padding:6px;
+  }
+
+  /* creates little arrow */
+  .header-container > :first-child:hover > span:after {
+    right: 50%;
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: rgb(0, 0, 0);
+	border-width: 6px;
+	margin-top: -6px;
+    z-index: 10;
+  }
+
+/* // gr */
 
 th{
     background-color: #707070;
@@ -108,7 +154,7 @@ th{
 }
 
 td{
-    padding : 0.47vh 0.6vw;
+    padding : 1vh 0.6vw;
 }
 
 tr.deselected-row:nth-child(even) td{
@@ -187,7 +233,6 @@ fa-icon{
     padding: 0.3vw;
 }
 
-
 .arrow-divs{
     background-color: #d9d9d9;
     border: solid 2px #707070;
@@ -204,17 +249,17 @@ fa-icon{
 
 .arrow-divs > .material-icons{
     transform: scale(1.5);
-    padding-right: .6vw;
+    padding: 8px 8px 8px 5px;
 }
 
-.footer button{
+/* .footer button{
     font-weight: 600;
     font-size: 1.5vw;
     border: solid 2px #707070;
     border-radius: 8px;
     padding: 2vh 6vw;
     cursor: pointer;
-}
+} */
 
 .team-size{
     display: flex;
