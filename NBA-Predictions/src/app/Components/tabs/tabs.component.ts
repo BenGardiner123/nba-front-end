@@ -22,6 +22,8 @@ export class TabsComponent implements OnInit {
 
   Navigate(directory: string) {
     this.currentTeam = this.teamsService.currentTeam;
+
+
     // Stops navigation if a team isnt selected in the MyTeams tab
     if (this.selectedTab === '/MyTeams' && this.currentTeam == '') {
       alert('Please select a team');
