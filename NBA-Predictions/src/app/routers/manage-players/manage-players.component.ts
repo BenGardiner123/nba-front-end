@@ -56,6 +56,12 @@ export class ManagePlayersComponent implements OnInit {
 
     this.teamName = this.teamsService.currentTeam;
     this.headers = await this.playerService.GetPlayerHeaders()
+    let Response = await this.playerService.GetPlayersFromTeam(this.teamName);
+    // For each already selected player, add their player key and add the player to selected players
+    Response.pagedData.forEach(player => {
+      this.selectedPlayersKeys.push(player.player_key);
+      this.selectedPlayers.push(player)
+    });
     // Mapping the array of objects containing a single string attribute
     // Into that of a string array.
     // I feel like this could be done more efficiently with some map functions im not aware of.
@@ -121,6 +127,11 @@ export class ManagePlayersComponent implements OnInit {
       this.searchString = ''
       this.GetPlayers();
     }
+  }
+
+  // Sends a list of player keys to the backend to tell it to set a team to those players
+  UpdateTeam() {
+    this.teamsService.UpdateTeam(this.teamName, this.selectedPlayersKeys);
   }
 
   // function to allow for horizontal scrolling of table using mousewheel

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TeamsService } from "../../services/teams-service.service";
@@ -22,8 +22,11 @@ export class TabsComponent implements OnInit {
 
   Navigate(directory: string) {
     this.currentTeam = this.teamsService.currentTeam;
-
-
+    // If the current tab is Manage Players
+    // Tell the parent to go update the players first
+    if (this.selectedTab == '/ManagePlayers') {
+      this.UpdateTeam();
+    }
     // Stops navigation if a team isnt selected in the MyTeams tab
     if (this.selectedTab === '/MyTeams' && this.currentTeam == '') {
       alert('Please select a team');
@@ -31,6 +34,12 @@ export class TabsComponent implements OnInit {
     else {
       this.router.navigateByUrl('/' + directory);
     }
+  }
+
+  // Emitts an event of (changeDisplay) to parent 
+  @Output() updateTeam = new EventEmitter()
+  UpdateTeam() {
+    this.updateTeam.emit();
   }
 
 }

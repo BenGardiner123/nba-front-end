@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { Team } from '../modules/team';
 
-// x
-
 @Injectable({
   providedIn: 'root'
 })
@@ -53,6 +51,17 @@ export class TeamsService {
       "token": this.token,
       "teamName": team.teamName,
       "isFav": team.isFav
+    }).toPromise();
+  }
+
+  UpdateTeam(teamName: string, playerKeys: number[]) {
+    this.token = JSON.parse(localStorage.getItem('token'));
+    this.http.post("https://localhost:5001/PlayerSelection/UpdatePlayerSelection", {
+      "token": this.token,
+      "teamName": teamName,
+      // FIXME
+      "userId": 0,
+      "playerKeys": playerKeys
     }).toPromise();
   }
 }

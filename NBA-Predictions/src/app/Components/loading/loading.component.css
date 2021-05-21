@@ -15,6 +15,6 @@
 
 @keyframes movement {
     from{transform: translate(0);}
-    to{transform: translate(100vw);}
+    to{transform: translate(92.5vw);}
 }
 

@@ -19,10 +19,11 @@ export class PlayersService {
   constructor(private http: HttpClient) { }
 
   // TODO Error handling 
-  
+
   // Gets all players for a set criteria
   // Used on ManagePlayers
   GetPlayers(pageNum: number, pageSizing: number, searchstring: string, sortstring: string, sortorder: string): Promise<PlayerEnvelope> {
+    this.token = JSON.parse(localStorage.getItem('token'));
     return this.http.get<PlayerEnvelope>(this.APIURL + "SearchPlayer?searchstring=" + searchstring + "&PageNumber=" + pageNum + "&PageSize=" + pageSizing + "&SortString=" + sortstring + "&SortOrder=" + sortorder).toPromise();
   }
 
@@ -30,9 +31,10 @@ export class PlayersService {
   // Used on Teamsummary
   // Return Make model for GetPlayersFromTeamReposonse
   GetPlayersFromTeam(teamName: string): Promise<GetPlayersFromTeamResponse> {
+    this.token = JSON.parse(localStorage.getItem('token'));
     let body = {
-      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjEyMzYxMTIsIlVzZXIiOiIxIn0.qvnQcpQNvfge1OY_qB-r3MKzTaVd-lgxu8zFudasJdY",
-      "teamName": "bob",
+      "token": this.token,
+      "teamName": teamName,
       "sortString": "FIRSTNAME",
       "sortType": "ASC"
     }
@@ -42,6 +44,8 @@ export class PlayersService {
   // Used to get headers
   // Could have been handled in pervious functions 
   GetPlayerHeaders(): Promise<Header[]> {
+    this.token = JSON.parse(localStorage.getItem('token'));
     return this.http.get<Header[]>(this.APIURL + "headers").toPromise();
   }
+
 }
