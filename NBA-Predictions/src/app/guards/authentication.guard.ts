@@ -8,22 +8,19 @@ import { Observable } from 'rxjs';
 })
 export class AuthenticationGuard implements CanActivate {
 
-  constructor(private jwthelper: JwtHelperService){}
+  constructor(private jwthelper: JwtHelperService) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
-      const token = localStorage.getItem('token');
-      if(token && !this.jwthelper.isTokenExpired(token)){
-        return true;
-        console.log(true);
-      }
-      else{
-        return false;
-      }
-      
 
+    const token = localStorage.getItem('token');
+    if (token && !this.jwthelper.isTokenExpired(token)) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
-  
+
 }

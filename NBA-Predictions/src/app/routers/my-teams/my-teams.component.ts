@@ -84,7 +84,7 @@ export class MyTeamsComponent implements OnInit {
 
   // Reorders the selectedTeams list by their dtr
   ReOrderTeams() {
-    this.selectedTeams.sort((a, b) => (a.dtrScores > b.dtrScores) ? 1 : -1);
+    this.selectedTeams.sort((a, b) => (a.dtrScores > b.dtrScores) ? -1 : 1);
   }
 
   // Takes in a team and inverts its favourite: boolean

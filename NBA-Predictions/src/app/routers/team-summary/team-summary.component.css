@@ -198,8 +198,7 @@ input[type=checkbox]{
 }
 
 /*  DTR  */
-
-.DTRCont{
+.dtr-container{
     width: 300px;
     text-align: right;
     margin-bottom: 2.5vh;
@@ -207,23 +206,13 @@ input[type=checkbox]{
     flex-direction: row;
 }
 
-/* .dtrInput{
-    padding-left: 15px;
-    padding-top: 6px;
-    width: 4vw;
-    height: 2vw;
-    background-color: #fff;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-} */
-
-.DTRtext{
+.dtr-text{
     margin-right: 8px;
     margin-left: 8px;
     position: relative;
 }
 
-.DTRtext .dtrTooltip{
+.dtr-text .dtr-tool-tip{
     visibility: hidden;
     background-color: rgb(26, 26, 26);
     color: #fff;
@@ -236,7 +225,7 @@ input[type=checkbox]{
     display:none;
 }
 
-.DTRtext:hover .dtrTooltip {
+.dtr-text:hover .dtr-tool-tip {
     visibility: visible;
     transition-delay: 0.5s;
     position:absolute;
@@ -249,8 +238,7 @@ input[type=checkbox]{
     padding:10px;
   }
 
-  /* creates little arrow */
-  .DTRtext:hover .dtrTooltip:after {
+.dtr-text:hover .dtr-tool-tip:after {
     right: 50%;
 	bottom: 100%;
 	border: solid transparent;
@@ -264,4 +252,12 @@ input[type=checkbox]{
 	border-width: 6px;
 	margin-top: -6px;
     z-index: 10;
-  }
+}
+
+.good-score{
+color: green;
+}
+
+.bad-score{
+    color: red;
+}

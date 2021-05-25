@@ -140,7 +140,8 @@
                     <tr *ngFor="let player of players" (click)="ManageSelectedPlayers(player)"
                         [ngClass]="{'selected-row': selectedPlayersKeys.includes(player.player_key), 'deselected-row': !selectedPlayersKeys.includes(player.player_key)}">
                         <td class="firstColumn">
-                            <input type="checkbox" [checked]='selectedPlayersKeys.includes(player.player_key)' />
+                            <input type="checkbox" [checked]='selectedPlayersKeys.includes(player.player_key)'
+                                [disabled]="selectedPlayersKeys.length == 15" />
                         </td>
                         <!-- This section looks as though it would be easier to iterate over like the headers -->
                         <!-- But being able to add the "column" class really shrinks the jquery section -->

@@ -46,12 +46,12 @@ export class TeamsService {
   // Takes in a team and toggles its favourites value on the backend
   ToggleFavourite(team: Team) {
     this.token = JSON.parse(localStorage.getItem('token'));
-
-    this.http.put(this.APIURL + "setfavourites", {
+    let body = {
       "token": this.token,
-      "teamName": team.teamName,
-      "isFav": team.isFav
-    }).toPromise();
+      "teamNames": team.teamName,
+      "isFav": !team.isFav
+    }
+    this.http.put(this.APIURL + "setfavorites", body).toPromise();
   }
 
   UpdateTeam(teamName: string, playerKeys: number[]) {

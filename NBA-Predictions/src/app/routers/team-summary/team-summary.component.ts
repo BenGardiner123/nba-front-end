@@ -3,6 +3,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { NavService } from '../../services/nav-service.service'
 import { TeamsService } from '../../services/teams-service.service'
 import { PlayersService } from '../../services/players.service'
+import { LoadingService } from '../../services/loading.service'
 
 import { Player } from '../../modules/player';
 import { Header } from 'src/app/modules/header';
@@ -21,14 +22,18 @@ export class TeamSummaryComponent implements OnInit {
   getPlayersResponse: GetPlayersFromTeamResponse;
   headers: any[] = [];
   dtr: number;
+  isGoodScore: boolean = false;
+  isBadScore: boolean = false;
 
   constructor(
     private navService: NavService,
     private playerService: PlayersService,
+    private loadingService: LoadingService,
     private teamsService: TeamsService) {
   }
 
   async ngOnInit(): Promise<void> {
+    this.loadingService.StartLoading();
     this.teamName = this.teamsService.currentTeam;
     this.headers = await this.playerService.GetPlayerHeaders()
     // Mapping the array of objects containing a single string attribute
@@ -41,8 +46,16 @@ export class TeamSummaryComponent implements OnInit {
 
     this.getPlayersResponse = await this.playerService.GetPlayersFromTeam(this.teamName);
     this.dtr = this.getPlayersResponse.dtr
+    // Set dtr colour
+    if (this.dtr > 0) {
+      this.isGoodScore = true;
+    }
+    if (this.dtr < 0) {
+      this.isBadScore = true;
+    }
     this.players = this.getPlayersResponse.pagedData;
     console.log(this.getPlayersResponse)
+    this.loadingService.StopLoading();
 
 
     // OnPageResize awaits the returns of players and headers before being run
