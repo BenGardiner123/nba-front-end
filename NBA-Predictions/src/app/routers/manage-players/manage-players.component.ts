@@ -53,8 +53,6 @@ export class ManagePlayersComponent implements OnInit {
     private loadingService: LoadingService) {
   }
 
-
-
   async ngOnInit(): Promise<void> {
 
     this.loadingService.StartLoading()
@@ -66,17 +64,17 @@ export class ManagePlayersComponent implements OnInit {
     Response.pagedData.forEach(player => {
       this.selectedPlayersKeys.push(player.player_key);
       this.selectedPlayers.push(player)
-      console.log('1')
+      // console.log('1')
     });
     // Mapping the array of objects containing a single string attribute
     // Into that of a string array.
     // I feel like this could be done more efficiently with some map functions im not aware of.
-    console.log('b')
+    // console.log('b')
     for (let i = 0; i < this.headers.length; i++) {
       this.headers.push(this.headers[0].columN_NAME);
       this.headers.shift();
     }
-    console.log('c')
+    // console.log('c')
     // Put 'selected' at the front as its not sent through the API.
     this.headers.unshift('selected');
 
@@ -85,10 +83,10 @@ export class ManagePlayersComponent implements OnInit {
     this.pages = this.playersEnvelope.pages;
 
     this.loadingService.StopLoading()
-    console.log('x')
+    // console.log('x')
     // OnPageResize awaits the returns of players and headers before being run
     this.FreezeColumns();
-    console.log('y')
+    // console.log('y')
   }
 
   // OnPageResize listens to when the widow resizes so it can recalculate the width of the columns in the table 
@@ -96,7 +94,7 @@ export class ManagePlayersComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   @HostListener('window:mousedown', ['$event'])
   @HostListener('window:wheel', ['$event'])
-  FreezeColumns() {
+  public FreezeColumns() {
     console.log("Freeze!")
     let $headers = $('.header-container').slice(0, 3);
     let $firstColumn = $('.firstColumn');
@@ -177,9 +175,9 @@ export class ManagePlayersComponent implements OnInit {
     this.players = this.playersEnvelope.data;
     this.pages = this.playersEnvelope.pages;
     this.loadingService.StopLoading()
-    this.FreezeColumns()
-    console.log('xyz')
-    this.FreezeColumns()
+    // this.FreezeColumns()
+    // console.log('xyz')
+    // this.FreezeColumns()
   }
 
   IncreasePage() {
@@ -238,7 +236,7 @@ export class ManagePlayersComponent implements OnInit {
       return;
     } 
     this.GetPlayers();
-    this.FreezeColumns();
+    // this.FreezeColumns();
   }
 
   ManageSelectedPlayers(player: Player) {

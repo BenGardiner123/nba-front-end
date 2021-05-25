@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
-import { ManagePlayersComponent } from '../routers/manage-players/manage-players.component';
+// import { ManagePlayersComponent } from '../routers/manage-players/manage-players.component';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class LoadingService {
 
   StopLoading(): void {
     this.isLoading.next(false);
-    console.log('s')
+    // console.log('s')
     // this.managePlayersComponent.FreezeColumns();
   }
 }
