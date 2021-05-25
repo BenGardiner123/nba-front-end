@@ -59,8 +59,6 @@ export class TeamsService {
     this.http.post("https://localhost:5001/PlayerSelection/UpdatePlayerSelection", {
       "token": this.token,
       "teamName": teamName,
-      // FIXME
-      "userId": 0,
       "playerKeys": playerKeys
     }).toPromise();
   }

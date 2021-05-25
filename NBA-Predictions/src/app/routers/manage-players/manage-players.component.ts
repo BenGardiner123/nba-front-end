@@ -43,6 +43,7 @@ export class ManagePlayersComponent implements OnInit {
   activeUpSort: string = '';
   activeDownSort: string = '';
   selectedPlayersKeys: number[] = [];
+  error: boolean = false;
 
   constructor(
     private navService: NavService,
@@ -224,6 +225,7 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   ManageSelectedPlayers(player: Player) {
+    this.error = false;
     // If player already selected
     if (this.selectedPlayersKeys.includes(player.player_key)) {
       let index = this.selectedPlayersKeys.indexOf(player.player_key);
@@ -237,7 +239,7 @@ export class ManagePlayersComponent implements OnInit {
     }
     // selectedPlayers are full
     else {
-      // Error
+      this.error = true;
     }
   }
 }

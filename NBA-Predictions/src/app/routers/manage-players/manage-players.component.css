@@ -75,7 +75,8 @@ input{
 .table-container{
     width: 100%;
     overflow-x: scroll;
-    height: 50vh;
+    overflow-y: hidden;
+    min-height: 45vh;
     border: 5px solid #d9d9d9;
     background-color: #d9d9d9;
 }
@@ -122,26 +123,24 @@ table{
     background:rgb(0, 0, 0);
     color:white;
     padding:6px;
-  }
+}
 
-  /* creates little arrow */
-  .header-container > :first-child:hover > span:after {
-    right: 50%;
-	bottom: 100%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-	border-color: rgba(0, 0, 0, 0);
-	border-bottom-color: rgb(0, 0, 0);
-	border-width: 6px;
-	margin-top: -6px;
-    z-index: 10;
-  }
-
-/* // gr */
+/* creates little arrow */
+.header-container > :first-child:hover > span:after {
+right: 50%;
+bottom: 100%;
+border: solid transparent;
+content: " ";
+height: 0;
+width: 0;
+position: absolute;
+pointer-events: none;
+border-color: rgba(0, 0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);
+border-width: 6px;
+margin-top: -6px;
+z-index: 10;
+}
 
 th{
     background-color: #707070;
@@ -252,20 +251,32 @@ fa-icon{
     padding: 8px 8px 8px 5px;
 }
 
-/* .footer button{
-    font-weight: 600;
-    font-size: 1.5vw;
-    border: solid 2px #707070;
-    border-radius: 8px;
-    padding: 2vh 6vw;
-    cursor: pointer;
-} */
-
 .team-size{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #707070;
     font-size: large;
     font-weight: 500;
+}
+
+.team-size :first-child{
+    margin-right: 1vw;
+}
+
+/* Selection Error */
+
+.error-messgae{
+    margin-top: 2vh;
+    color: red;
+    line-height: .6;
+    text-align: center;
+    display: none;
+}
+
+.error-message-display{
+    display: inline;
+}
+
+.error{
+    color: red;
 }

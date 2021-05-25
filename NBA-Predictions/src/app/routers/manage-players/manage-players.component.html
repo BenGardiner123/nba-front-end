@@ -25,7 +25,7 @@
             <div class="table-container" id="tablecont" (wheel)="scroll($event)">
                 <table>
                     <tr>
-                        <th *ngFor="let header of headers" (click)="Sort(header)"
+                        <th *ngFor=" let header of headers" (click)="Sort(header)"
                             [ngClass]="{'selected-up':header==activeUpSort}"
                             [ngClass]="{'selected-down':header==activeDownSort}">
 
@@ -178,8 +178,16 @@
                 </table>
             </div>
 
+            <div class="error-messgae" [ngClass]="{'error-message-display':error}">
+                You can only select 15 players at a time - Please de-select a player before selecting a new
+                one
+            </div>
+
             <div class="footer">
-                <div class="team-size">{{selectedPlayersKeys.length}}/15 Players Selected</div>
+                <div class="team-size">
+                    <div [ngClass]="{'error':error}">{{selectedPlayersKeys.length}}/15</div>
+                    <div>Players Selected</div>
+                </div>
                 <div class="pagination">
                     <div class="arrow-divs" (click)="DecreasePage()">
                         <span class="material-icons">
