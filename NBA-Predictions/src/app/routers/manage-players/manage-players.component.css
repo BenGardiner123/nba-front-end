@@ -83,6 +83,7 @@ input{
 table{
     border-collapse: collapse;
     width: 100%;
+    height: 100%;
 }
 
 .header-container{
@@ -151,18 +152,46 @@ th{
     cursor: pointer;
     user-select: none;
     padding: 1vh .6vw;
+    max-height: 100px;
 }
 
 td{
     padding : 1vh 0.6vw;
+    /* height: 100%; */
+    /* background-color: #751515; */
 }
 
+/* .firstColumn{
+    z-index: 10;
+    background-color: crimson;
+    position: sticky;
+    left: 0;
+}
+
+.secondColumn{
+    position: sticky;
+    z-index: 5;
+    color:rgb(33, 20, 220);
+    left: 0;
+}
+
+.thirdColumn{
+    position: sticky;
+    z-index: 10;
+    color:rgb(50, 220, 20);
+    left: 0;
+} */
+
 tr.deselected-row:nth-child(even) td{
+    /* height: 100%; */
     background-color: #fff;
+    /* background-color: #751515; */
 }
 
 tr.deselected-row:nth-child(odd) td{
+    /* height: 100%; */
     background-color: #d9d9d9;
+    /* background-color: #e2e62d; */
 }
 
 input[type=checkbox]{

@@ -2,6 +2,7 @@
 <app-logo></app-logo>
 <app-logout></app-logout>
 
+
 <div class="body">
     <div>
         <app-tabs (updateTeam)="UpdateTeam()"></app-tabs>
@@ -136,7 +137,9 @@
                                 </span>
                             </div>
                         </th>
+                       
                     </tr>
+                    <!-- <div class="test"> -->
                     <tr *ngFor="let player of players" (click)="ManageSelectedPlayers(player)"
                         [ngClass]="{'selected-row': selectedPlayersKeys.includes(player.player_key), 'deselected-row': !selectedPlayersKeys.includes(player.player_key)}">
                         <td class="firstColumn">
@@ -175,6 +178,7 @@
                         <td>{{ player.stl }}</td>
                         <td>{{ player.pts }}</td>
                     </tr>
+                <!-- </div> -->
                 </table>
             </div>
 

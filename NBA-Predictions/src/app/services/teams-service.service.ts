@@ -56,11 +56,13 @@ export class TeamsService {
 
   UpdateTeam(teamName: string, playerKeys: number[]) {
     this.token = JSON.parse(localStorage.getItem('token'));
+    // this.http.post("https://localhost:5001/PlayerSelection/UpdatePlayerSelection", {
     this.http.post("https://localhost:5001/PlayerSelection/UpdatePlayerSelection", {
-      "token": this.token,
+
+      // "token": this.token,
       "teamName": teamName,
       // FIXME
-      "userId": 0,
+      // "userId": 0,
       "playerKeys": playerKeys
     }).toPromise();
   }

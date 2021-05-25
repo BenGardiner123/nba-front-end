@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
 
 import { NavService } from '../../services/nav-service.service'
 import { TeamsService } from '../../services/teams-service.service'
@@ -14,6 +14,7 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 import * as $ from "jquery";
 import { ActivatedRoute } from '@angular/router';
+// import { interval, Subscription } from 'rxjs';
 
 // import {ScrollingModule} from '@angular/cdk/scrolling';
 
@@ -22,6 +23,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './manage-players.component.html',
   styleUrls: ['./manage-players.component.css']
 })
+
 export class ManagePlayersComponent implements OnInit {
 
   faSortIcon = faSort;
@@ -51,7 +53,10 @@ export class ManagePlayersComponent implements OnInit {
     private loadingService: LoadingService) {
   }
 
+
+
   async ngOnInit(): Promise<void> {
+
     this.loadingService.StartLoading()
 
     this.teamName = this.teamsService.currentTeam;
@@ -61,14 +66,17 @@ export class ManagePlayersComponent implements OnInit {
     Response.pagedData.forEach(player => {
       this.selectedPlayersKeys.push(player.player_key);
       this.selectedPlayers.push(player)
+      console.log('1')
     });
     // Mapping the array of objects containing a single string attribute
     // Into that of a string array.
     // I feel like this could be done more efficiently with some map functions im not aware of.
+    console.log('b')
     for (let i = 0; i < this.headers.length; i++) {
       this.headers.push(this.headers[0].columN_NAME);
       this.headers.shift();
     }
+    console.log('c')
     // Put 'selected' at the front as its not sent through the API.
     this.headers.unshift('selected');
 
@@ -77,15 +85,19 @@ export class ManagePlayersComponent implements OnInit {
     this.pages = this.playersEnvelope.pages;
 
     this.loadingService.StopLoading()
-
+    console.log('x')
     // OnPageResize awaits the returns of players and headers before being run
     this.FreezeColumns();
+    console.log('y')
   }
 
   // OnPageResize listens to when the widow resizes so it can recalculate the width of the columns in the table 
   // And subsequently stick the first coloumns in place depending on their width.
   @HostListener('window:resize', ['$event'])
+  @HostListener('window:mousedown', ['$event'])
+  @HostListener('window:wheel', ['$event'])
   FreezeColumns() {
+    console.log("Freeze!")
     let $headers = $('.header-container').slice(0, 3);
     let $firstColumn = $('.firstColumn');
     let $secondColumn = $('.secondColumn');
@@ -119,6 +131,9 @@ export class ManagePlayersComponent implements OnInit {
       $(this).css({ "position": "sticky", "left": coloumnOfsets[2], "z-index": 1 })
     })
   }
+
+
+
 
   // Called everytime a user changes the value of the search input
   // Does a default GetPlayers call if empty
@@ -162,7 +177,9 @@ export class ManagePlayersComponent implements OnInit {
     this.players = this.playersEnvelope.data;
     this.pages = this.playersEnvelope.pages;
     this.loadingService.StopLoading()
-    // this.FreezeColumns();
+    this.FreezeColumns()
+    console.log('xyz')
+    this.FreezeColumns()
   }
 
   IncreasePage() {
@@ -181,7 +198,7 @@ export class ManagePlayersComponent implements OnInit {
 
   Sort(sortElement) {
     this.sortString = sortElement;
-
+  
     // Logic for sorting
     // Set to defult if already sorting by selected
     if (sortElement == 'selected' && sortElement == this.activeUpSort) {
@@ -217,10 +234,11 @@ export class ManagePlayersComponent implements OnInit {
         this.players.splice(index, 1);
         this.players.unshift(player);
       });
+      
       return;
-    }
+    } 
     this.GetPlayers();
-
+    this.FreezeColumns();
   }
 
   ManageSelectedPlayers(player: Player) {
