@@ -14,8 +14,7 @@ export class LogoutComponent implements OnInit {
   }
 
   Logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    localStorage.clear();
     this.navService.NavLogin();
   }
 

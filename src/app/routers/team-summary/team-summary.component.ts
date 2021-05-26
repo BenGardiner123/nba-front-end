@@ -54,7 +54,6 @@ export class TeamSummaryComponent implements OnInit {
       this.isBadScore = true;
     }
     this.players = this.getPlayersResponse.pagedData;
-    console.log(this.getPlayersResponse)
     this.loadingService.StopLoading();
 
 

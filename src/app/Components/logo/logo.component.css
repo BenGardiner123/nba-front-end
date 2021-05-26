@@ -8,6 +8,7 @@ img {
   position: absolute;
   max-width: 200px;
   max-height: 141.52px;
+  cursor: pointer;
 }
 
 /* Logic to swap to smaller logo when screen is too small */
