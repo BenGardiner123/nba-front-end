@@ -64,7 +64,7 @@
                             <th>DTR</th>
                         </tr>
                         <tr *ngFor="let team of selectedTeams">
-                            <td>{{selectedTeams.indexOf(team)}}</td>
+                            <td>{{selectedTeams.indexOf(team) +1}} </td>
                             <td>{{team.teamName}}</td>
                             <td>{{team.dtrScores}}</td>
                         </tr>
