@@ -25,10 +25,10 @@ export class TabsComponent implements OnInit {
     // If the current tab is Manage Players
     // Tell the parent to go update the players first
     if (this.selectedTab == '/ManagePlayers') {
-      this.UpdateTeam();
+      this.UpdateTeam(directory);
     }
     // Stops navigation if a team isnt selected in the MyTeams tab
-    if (this.selectedTab === '/MyTeams' && this.currentTeam == '') {
+    else if (this.selectedTab === '/MyTeams' && this.currentTeam == '') {
       alert('Please select a team');
     }
     else {
@@ -38,8 +38,8 @@ export class TabsComponent implements OnInit {
 
   // Emitts an event of (changeDisplay) to parent 
   @Output() updateTeam = new EventEmitter()
-  UpdateTeam() {
-    this.updateTeam.emit();
+  UpdateTeam(directory: string) {
+    this.updateTeam.emit(directory);
   }
 
 }

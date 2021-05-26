@@ -11,15 +11,15 @@ import { TeamSummaryComponent } from './routers/team-summary/team-summary.compon
 const routes: Routes = [
   {
     path: "MyTeams", component: MyTeamsComponent
-    // , canActivate: [AuthenticationGuard]
+    , canActivate: [AuthenticationGuard]
   },
   {
     path: "ManagePlayers", component: ManagePlayersComponent
-    // , canActivate: [AuthenticationGuard]
+    , canActivate: [AuthenticationGuard]
   },
   {
     path: "TeamSummary", component: TeamSummaryComponent
-    // , canActivate: [AuthenticationGuard]
+    , canActivate: [AuthenticationGuard]
   },
   { path: "Login", component: LoginPageComponent },
 

@@ -54,12 +54,10 @@ export class TeamsService {
     this.http.put(this.APIURL + "setfavorites", body).toPromise();
   }
 
-  UpdateTeam(teamName: string, playerKeys: number[]) {
+  UpdateTeam(teamName: string, playerKeys: number[]): Promise<any> {
     this.token = JSON.parse(localStorage.getItem('token'));
-    // this.http.post("https://localhost:5001/PlayerSelection/UpdatePlayerSelection", {
-    this.http.post("https://localhost:5001/PlayerSelection/UpdatePlayerSelection", {
-
-      // "token": this.token,
+    return this.http.put("https://localhost:5001/PlayerSelection/UpdatePlayerSelection", {
+      "token": this.token,
       "teamName": teamName,
       "playerKeys": playerKeys
     }).toPromise();

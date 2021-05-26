@@ -5,7 +5,7 @@
 
 <div class="body">
     <div>
-        <app-tabs (updateTeam)="UpdateTeam()"></app-tabs>
+        <app-tabs (updateTeam)="UpdateTeam($event)"></app-tabs>
         <div class="container">
 
             <div class="header">
@@ -137,7 +137,7 @@
                                 </span>
                             </div>
                         </th>
-                       
+
                     </tr>
                     <!-- <div class="test"> -->
                     <tr *ngFor="let player of players" (click)="ManageSelectedPlayers(player)"
@@ -178,7 +178,7 @@
                         <td>{{ player.stl }}</td>
                         <td>{{ player.pts }}</td>
                     </tr>
-                <!-- </div> -->
+                    <!-- </div> -->
                 </table>
             </div>
 

@@ -13,10 +13,8 @@ import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 import * as $ from "jquery";
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-// import { interval, Subscription } from 'rxjs';
-
-// import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-manage-players',
@@ -51,7 +49,8 @@ export class ManagePlayersComponent implements OnInit {
     private navService: NavService,
     private playerService: PlayersService,
     private teamsService: TeamsService,
-    private loadingService: LoadingService) {
+    private loadingService: LoadingService,
+    private router: Router) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -88,7 +87,6 @@ export class ManagePlayersComponent implements OnInit {
   // OnPageResize listens to when the widow resizes so it can recalculate the width of the columns in the table 
   // And subsequently stick the first coloumns in place depending on their width.
   public FreezeColumns() {
-    console.log("Freeze!")
     let $headers = $('.header-container').slice(0, 3);
     // let $firstColumn = $('.firstColumn');
     // let $secondColumn = $('.secondColumn');
@@ -133,12 +131,11 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   // Sends a list of player keys to the backend to tell it to set a team to those players
-  async UpdateTeam() {
+  async UpdateTeam(directory: string) {
     this.loadingService.StartLoading()
-    // Ask Lee if Update teams should be a post so that we get some confirmation that the post is done so we know when we can change page
-    // await setTimeout(2000);
     await this.teamsService.UpdateTeam(this.teamName, this.selectedPlayersKeys);
     this.loadingService.StopLoading()
+    this.router.navigateByUrl('/' + directory);
   }
 
   // function to allow for horizontal scrolling of table using mousewheel
