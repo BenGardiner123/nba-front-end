@@ -24,6 +24,7 @@ export class PlayersService {
   // Used on ManagePlayers
   GetPlayers(pageNum: number, pageSizing: number, searchstring: string, sortstring: string, sortorder: string): Promise<PlayerEnvelope> {
     this.token = JSON.parse(localStorage.getItem('token'));
+
     return this.http.get<PlayerEnvelope>(this.APIURL + "SearchPlayer?searchstring=" + searchstring + "&PageNumber=" + pageNum + "&PageSize=" + pageSizing + "&SortString=" + sortstring + "&SortOrder=" + sortorder).toPromise();
   }
 

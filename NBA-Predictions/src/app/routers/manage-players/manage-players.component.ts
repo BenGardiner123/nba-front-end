@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
 
 import { NavService } from '../../services/nav-service.service'
 import { TeamsService } from '../../services/teams-service.service'
@@ -14,6 +14,7 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 import * as $ from "jquery";
 import { ActivatedRoute } from '@angular/router';
+// import { interval, Subscription } from 'rxjs';
 
 // import {ScrollingModule} from '@angular/cdk/scrolling';
 
@@ -22,6 +23,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './manage-players.component.html',
   styleUrls: ['./manage-players.component.css']
 })
+
 export class ManagePlayersComponent implements OnInit {
 
   faSortIcon = faSort;
@@ -53,6 +55,7 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+
     this.loadingService.StartLoading()
 
     this.teamName = this.teamsService.currentTeam;
@@ -78,19 +81,21 @@ export class ManagePlayersComponent implements OnInit {
     this.pages = this.playersEnvelope.pages;
 
     this.loadingService.StopLoading()
-
     // OnPageResize awaits the returns of players and headers before being run
-    this.FreezeColumns();
+    // this.FreezeColumns();
   }
 
   // OnPageResize listens to when the widow resizes so it can recalculate the width of the columns in the table 
   // And subsequently stick the first coloumns in place depending on their width.
-  @HostListener('window:resize', ['$event'])
-  FreezeColumns() {
+  // @HostListener('window:resize', ['$event'])
+  // @HostListener('window:mousedown', ['$event'])
+  // @HostListener('window:wheel', ['$event'])
+  public FreezeColumns() {
+    console.log("Freeze!")
     let $headers = $('.header-container').slice(0, 3);
-    let $firstColumn = $('.firstColumn');
-    let $secondColumn = $('.secondColumn');
-    let $thirdColumn = $('.thirdColumn');
+    // let $firstColumn = $('.firstColumn');
+    // let $secondColumn = $('.secondColumn');
+    // let $thirdColumn = $('.thirdColumn');
 
     let i = 0, coloumnOfsets = [0];
     // Getting offsets
@@ -109,17 +114,20 @@ export class ManagePlayersComponent implements OnInit {
       $(parentElement).css({ "position": "sticky", "left": coloumnOfsets[i], "z-index": 1 })
       i += 1;
     })
-    $firstColumn.each(function () {
-      $(this).css({ "position": "sticky", "left": coloumnOfsets[0], "z-index": 1 })
-    })
-    $secondColumn.each(function () {
-      $(this).css({ "position": "sticky", "left": coloumnOfsets[1], "z-index": 1 })
+    // $firstColumn.each(function () {
+    //   $(this).css({ "position": "sticky", "left": coloumnOfsets[0], "z-index": 1 })
+    // })
+    // $secondColumn.each(function () {
+    //   $(this).css({ "position": "sticky", "left": coloumnOfsets[1], "z-index": 1 })
 
-    })
-    $thirdColumn.each(function () {
-      $(this).css({ "position": "sticky", "left": coloumnOfsets[2], "z-index": 1 })
-    })
+    // })
+    // $thirdColumn.each(function () {
+    //   $(this).css({ "position": "sticky", "left": coloumnOfsets[2], "z-index": 1 })
+    // })
   }
+
+
+
 
   // Called everytime a user changes the value of the search input
   // Does a default GetPlayers call if empty
@@ -167,7 +175,9 @@ export class ManagePlayersComponent implements OnInit {
     this.players = this.playersEnvelope.data;
     this.pages = this.playersEnvelope.pages;
     this.loadingService.StopLoading()
-    // this.FreezeColumns();
+    // this.FreezeColumns()
+    // console.log('xyz')
+    // this.FreezeColumns()
   }
 
   IncreasePage() {
@@ -186,7 +196,7 @@ export class ManagePlayersComponent implements OnInit {
 
   Sort(sortElement) {
     this.sortString = sortElement;
-
+  
     // Logic for sorting
     // Set to defult if already sorting by selected
     if (sortElement == 'selected' && sortElement == this.activeUpSort) {
@@ -222,10 +232,11 @@ export class ManagePlayersComponent implements OnInit {
         this.players.splice(index, 1);
         this.players.unshift(player);
       });
+      
       return;
-    }
+    } 
     this.GetPlayers();
-
+    // this.FreezeColumns();
   }
 
   ManageSelectedPlayers(player: Player) {
