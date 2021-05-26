@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { NavService } from '../../services/nav-service.service'
 import { TeamsService } from '../../services/teams-service.service'
@@ -82,14 +82,11 @@ export class ManagePlayersComponent implements OnInit {
 
     this.loadingService.StopLoading()
     // OnPageResize awaits the returns of players and headers before being run
-    // this.FreezeColumns();
+    this.FreezeColumns();
   }
 
   // OnPageResize listens to when the widow resizes so it can recalculate the width of the columns in the table 
   // And subsequently stick the first coloumns in place depending on their width.
-  // @HostListener('window:resize', ['$event'])
-  // @HostListener('window:mousedown', ['$event'])
-  // @HostListener('window:wheel', ['$event'])
   public FreezeColumns() {
     console.log("Freeze!")
     let $headers = $('.header-container').slice(0, 3);
@@ -125,9 +122,6 @@ export class ManagePlayersComponent implements OnInit {
     //   $(this).css({ "position": "sticky", "left": coloumnOfsets[2], "z-index": 1 })
     // })
   }
-
-
-
 
   // Called everytime a user changes the value of the search input
   // Does a default GetPlayers call if empty
@@ -175,9 +169,6 @@ export class ManagePlayersComponent implements OnInit {
     this.players = this.playersEnvelope.data;
     this.pages = this.playersEnvelope.pages;
     this.loadingService.StopLoading()
-    // this.FreezeColumns()
-    // console.log('xyz')
-    // this.FreezeColumns()
   }
 
   IncreasePage() {
@@ -196,7 +187,6 @@ export class ManagePlayersComponent implements OnInit {
 
   Sort(sortElement) {
     this.sortString = sortElement;
-  
     // Logic for sorting
     // Set to defult if already sorting by selected
     if (sortElement == 'selected' && sortElement == this.activeUpSort) {
@@ -232,11 +222,10 @@ export class ManagePlayersComponent implements OnInit {
         this.players.splice(index, 1);
         this.players.unshift(player);
       });
-      
+
       return;
-    } 
+    }
     this.GetPlayers();
-    // this.FreezeColumns();
   }
 
   ManageSelectedPlayers(player: Player) {

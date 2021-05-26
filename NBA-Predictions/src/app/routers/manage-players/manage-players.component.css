@@ -320,3 +320,25 @@ fa-icon {
   font-size: large;
   font-weight: 500;
 }
+
+.team-size :first-child{
+  margin-right: 1vw;
+}
+
+/* Selection Error */
+
+.error-messgae{
+  margin-top: 2vh;
+  color: red;
+  line-height: .6;
+  text-align: center;
+  display: none;
+}
+
+.error-message-display{
+  display: inline;
+}
+
+.error{
+  color: red;
+}
