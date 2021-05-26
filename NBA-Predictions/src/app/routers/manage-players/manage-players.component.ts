@@ -81,7 +81,7 @@ export class ManagePlayersComponent implements OnInit {
 
     this.loadingService.StopLoading()
     // OnPageResize awaits the returns of players and headers before being run
-    this.FreezeColumns();
+    // this.FreezeColumns();
   }
 
   // OnPageResize listens to when the widow resizes so it can recalculate the width of the columns in the table 
