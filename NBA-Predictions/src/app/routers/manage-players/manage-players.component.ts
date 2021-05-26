@@ -131,8 +131,12 @@ export class ManagePlayersComponent implements OnInit {
   }
 
   // Sends a list of player keys to the backend to tell it to set a team to those players
-  UpdateTeam() {
-    this.teamsService.UpdateTeam(this.teamName, this.selectedPlayersKeys);
+  async UpdateTeam() {
+    this.loadingService.StartLoading()
+    // Ask Lee if Update teams should be a post so that we get some confirmation that the post is done so we know when we can change page
+    // await setTimeout(2000);
+    await this.teamsService.UpdateTeam(this.teamName, this.selectedPlayersKeys);
+    this.loadingService.StopLoading()
   }
 
   // function to allow for horizontal scrolling of table using mousewheel
