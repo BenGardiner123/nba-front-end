@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Team } from '../modules/team';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -10,7 +12,8 @@ export class TeamsService {
 
 	currentTeam: string = '';
 	token = localStorage.getItem('token');
-	APIURL = "http://dotnetauthentication-prod.us-east-1.elasticbeanstalk.com/Teams/";
+
+	 private APIURL = environment.apiURL + '/Teams'
 
 	constructor(private http: HttpClient) { }
 
@@ -28,13 +31,13 @@ export class TeamsService {
 			"token": this.token,
 			"teamName": teamName
 		}
-		return this.http.post<boolean>(this.APIURL + "addteam", request).toPromise();
+		return this.http.post<boolean>(`${this.APIURL}/addteam`, request).toPromise();
 	}
 
 	// Gets all teams for a user
 	GetAllTeams(): Promise<Team[]> {
 		this.token = JSON.parse(localStorage.getItem('token'));
-		return this.http.post<Team[]>(this.APIURL + "getteams", {
+		return this.http.post<Team[]>(`${this.APIURL}/getteams`, {
 			"token": this.token
 		}).toPromise();
 	}
@@ -45,7 +48,7 @@ export class TeamsService {
 			"token": this.token,
 			"teamName": teamName
 		}
-		this.http.put(this.APIURL + "deleteteam", body).toPromise();
+		this.http.put(`${this.APIURL}/deleteteam`, body).toPromise();
 	}
 
 	// Takes in a team and toggles its favourites value on the backend
@@ -56,12 +59,14 @@ export class TeamsService {
 			"teamNames": team.teamName,
 			"isFav": !team.isFav
 		}
-		this.http.put(this.APIURL + "setfavorites", body).toPromise();
+		this.http.put(`${this.APIURL}/setfavorites`, body).toPromise();
 	}
 
 	UpdateTeam(teamName: string, playerKeys: number[]): Promise<any> {
+
+		//this is another bad example of hardcoding in variables that have to be changed line by line every time the iurl will change
 		this.token = JSON.parse(localStorage.getItem('token'));
-		return this.http.put("http://dotnetauthentication-prod.us-east-1.elasticbeanstalk.com/PlayerSelection/UpdatePlayerSelection", {
+		return this.http.put(`${this.APIURL}/PlayerSelection/UpdatePlayerSelection`, {
 			"token": this.token,
 			"teamName": teamName,
 			"playerKeys": playerKeys

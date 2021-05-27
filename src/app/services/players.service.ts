@@ -6,6 +6,7 @@ import { Player } from '../modules/player';
 import { Header } from '../modules/header';
 import { PlayerEnvelope } from '../modules/playerEnvelope';
 import { GetPlayersFromTeamResponse } from '../modules/GetPlayersFromTeamResponse';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,12 @@ import { GetPlayersFromTeamResponse } from '../modules/GetPlayersFromTeamRespons
 export class PlayersService {
 
   token = localStorage.getItem('token');
-  APIURL = "http://dotnetauthentication-prod.us-east-1.elasticbeanstalk.com/Players/";
+
+  private APIURL = environment.apiURL + '/Players/'
+
+  //this is hardcoded and a good example of what not to do - DRY
+  
+  //APIURL = "http://dotnetauthentication-prod.us-east-1.elasticbeanstalk.com/Players/";
 
   constructor(private http: HttpClient) { }
 
