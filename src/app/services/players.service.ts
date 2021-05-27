@@ -13,8 +13,7 @@ import { GetPlayersFromTeamResponse } from '../modules/GetPlayersFromTeamRespons
 export class PlayersService {
 
   token = localStorage.getItem('token');
-
-  APIURL = "https://localhost:5001/Players/";
+  APIURL = "http://dotnetauthentication-prod.us-east-1.elasticbeanstalk.com/Players/";
 
   constructor(private http: HttpClient) { }
 

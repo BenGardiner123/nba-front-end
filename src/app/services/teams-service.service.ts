@@ -10,7 +10,7 @@ export class TeamsService {
 
 	currentTeam: string = '';
 	token = localStorage.getItem('token');
-	APIURL = "https://localhost:5001/Teams/";
+	APIURL = "http://dotnetauthentication-prod.us-east-1.elasticbeanstalk.com/Teams/";
 
 	constructor(private http: HttpClient) { }
 
@@ -56,7 +56,7 @@ export class TeamsService {
 
 	UpdateTeam(teamName: string, playerKeys: number[]): Promise<any> {
 		this.token = JSON.parse(localStorage.getItem('token'));
-		return this.http.put("https://localhost:5001/PlayerSelection/UpdatePlayerSelection", {
+		return this.http.put("http://dotnetauthentication-prod.us-east-1.elasticbeanstalk.com/PlayerSelection/UpdatePlayerSelection", {
 			"token": this.token,
 			"teamName": teamName,
 			"playerKeys": playerKeys

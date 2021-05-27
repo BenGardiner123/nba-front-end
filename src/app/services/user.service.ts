@@ -8,7 +8,7 @@ import { LoginResponse } from '../modules/LoginResponse';
 })
 export class UserService {
 
-  APIURL = "https://localhost:5001/";
+  APIURL = "http://dotnetauthentication-prod.us-east-1.elasticbeanstalk.com/";
 
   constructor(private http: HttpClient) { }
 

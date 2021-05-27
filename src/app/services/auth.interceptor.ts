@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
         // if error navigate back to login page
         return (next.handle(req).pipe(
             catchError((err: HttpErrorResponse) => {
-                if (err.status) {
+                if (err.status == 403 || err.status == 404) {
                     this.router.navigateByUrl('/Login');
                 }
                 return throwError(err);

@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     private loadingService: LoadingService) { }
 
   ngOnInit(): void {
+    this.loadingService.StopLoading()
   }
 
   async AttemptUserLogin(username, password) {

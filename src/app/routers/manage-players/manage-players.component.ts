@@ -61,9 +61,9 @@ export class ManagePlayersComponent implements OnInit {
     this.headers = await this.playerService.GetPlayerHeaders()
     let Response = await this.playerService.GetPlayersFromTeam(this.teamName);
     // For each already selected player, add their player key and add the player to selected players
-    Response.pagedData.forEach(player => {
+    this.selectedPlayers = [...Response.pagedData]
+    this.selectedPlayers.forEach(player => {
       this.selectedPlayersKeys.push(player.player_key);
-      this.selectedPlayers.push(player)
     });
     // Mapping the array of objects containing a single string attribute
     // Into that of a string array.
@@ -76,7 +76,7 @@ export class ManagePlayersComponent implements OnInit {
     this.headers.unshift('selected');
 
     this.playersEnvelope = await this.playerService.GetPlayers(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
-    this.players = this.playersEnvelope.data;
+    this.players = [...this.playersEnvelope.data];
     this.pages = this.playersEnvelope.pages;
 
     this.loadingService.StopLoading()
@@ -162,7 +162,12 @@ export class ManagePlayersComponent implements OnInit {
   // Should be called after the global variables have been changed.
   async GetPlayers() {
     this.loadingService.StartLoading()
-    this.playersEnvelope = await this.playerService.GetPlayers(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
+    if (this.sortString === 'selected') {
+      this.playersEnvelope = await this.playerService.GetPlayers(this.pageNum, this.pageSize, this.searchString, 'FIRSTNAME', 'ASC');
+    }
+    else {
+      this.playersEnvelope = await this.playerService.GetPlayers(this.pageNum, this.pageSize, this.searchString, this.sortString, this.sortOrder);
+    }
     this.players = this.playersEnvelope.data;
     this.pages = this.playersEnvelope.pages;
     this.loadingService.StopLoading()
