@@ -1,8 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { TeamsService } from "../../services/teams-service.service";
-
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.component.html',
@@ -13,7 +11,7 @@ export class TabsComponent implements OnInit {
   selectedTab: string;
   currentTeam: string;
 
-  constructor(private router: Router, private teamsService: TeamsService) {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
@@ -21,7 +19,7 @@ export class TabsComponent implements OnInit {
   }
 
   Navigate(directory: string) {
-    this.currentTeam = this.teamsService.currentTeam;
+    this.currentTeam = sessionStorage.getItem('currentTeam');
     // If the current tab is Manage Players
     // Tell the parent to go update the players first
     if (this.selectedTab == '/ManagePlayers') {

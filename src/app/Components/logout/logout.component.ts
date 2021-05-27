@@ -15,6 +15,7 @@ export class LogoutComponent implements OnInit {
 
   Logout() {
     localStorage.clear();
+    sessionStorage.clear();
     this.navService.NavLogin();
   }
 

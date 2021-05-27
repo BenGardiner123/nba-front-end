@@ -34,7 +34,7 @@ export class TeamSummaryComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loadingService.StartLoading();
-    this.teamName = this.teamsService.currentTeam;
+    this.teamName = sessionStorage.getItem('currentTeam');
     this.headers = await this.playerService.GetPlayerHeaders()
     // Mapping the array of objects containing a single string attribute
     // Into that of a string array.

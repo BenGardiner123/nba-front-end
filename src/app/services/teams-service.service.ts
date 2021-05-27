@@ -14,6 +14,11 @@ export class TeamsService {
 
 	constructor(private http: HttpClient) { }
 
+	UpdateCurrentTeam(currentTeam) {
+		this.currentTeam = currentTeam;
+		sessionStorage.setItem('currentTeam', this.currentTeam);
+	}
+
 	// Create a new team for a user
 	CreateTeam(teamName: string): Promise<boolean> {
 		this.token = JSON.parse(localStorage.getItem('token'));

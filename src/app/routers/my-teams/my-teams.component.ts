@@ -46,7 +46,7 @@ export class MyTeamsComponent implements OnInit {
     this.username = localStorage.getItem('username');
     this.usersTeams = await this.teamsService.GetAllTeams();
     this.loadingService.StopLoading()
-    this.teamsService.currentTeam = '';
+    sessionStorage.setItem('currentTeam', '');
   }
 
   // Occurs when a user clicks 'Select all teams' checkbox
@@ -65,7 +65,7 @@ export class MyTeamsComponent implements OnInit {
   SelectTeam(team: Team) {
     // If not already selected, select
     if (!this.selectedTeams.includes(team)) {
-      this.teamsService.currentTeam = team.teamName;
+      sessionStorage.setItem('currentTeam', team.teamName);
       this.selectedTeams.push(team);
       this.highlightedTeam = team;
     }
