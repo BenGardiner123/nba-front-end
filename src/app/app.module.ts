@@ -19,7 +19,7 @@ import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { LoadingComponent } from './Components/loading/loading.component';
 
-// import { AuthInterceptor } from './services/auth.interceptor';
+import { AuthInterceptor } from './services/auth.interceptor';
 import { NavService } from './services/nav-service.service';
 import { PlayersService } from './services/players.service';
 import { TeamsService } from './services/teams-service.service';
@@ -54,18 +54,18 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:5001"], //you can add other domains here as well
+        allowedDomains: ["localhost:5001", "http://awseb-AWSEB-11AQJJ1H423AS-215759809.us-east-1.elb.amazonaws.com"],
         disallowedRoutes: []
       }
     })
 
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AuthInterceptor,
-    //   multi: true
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
     // TODO Add services to providers list
     NavService,
     PlayersService,

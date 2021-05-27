@@ -14,6 +14,7 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 import * as $ from "jquery";
 import { ActivatedRoute } from '@angular/router';
+import { HeadersResponse } from 'src/app/modules/headersResponse';
 // import { interval, Subscription } from 'rxjs';
 
 // import {ScrollingModule} from '@angular/cdk/scrolling';
@@ -33,6 +34,7 @@ export class ManagePlayersComponent implements OnInit {
   teamName: string;
   playersEnvelope: PlayerEnvelope;
   players: Player[];
+  headersResponse: HeadersResponse;
   headers: any[];
   selectedPlayers: Player[] = [];
 
@@ -59,7 +61,8 @@ export class ManagePlayersComponent implements OnInit {
     this.loadingService.StartLoading()
 
     this.teamName = this.teamsService.currentTeam;
-    this.headers = await this.playerService.GetPlayerHeaders()
+    this.headersResponse = await this.playerService.GetPlayerHeaders();
+    this.headers = this.headersResponse.data;
     let Response = await this.playerService.GetPlayersFromTeam(this.teamName);
     // For each already selected player, add their player key and add the player to selected players
     Response.pagedData.forEach(player => {

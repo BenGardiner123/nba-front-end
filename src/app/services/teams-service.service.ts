@@ -9,57 +9,43 @@ import { Team } from '../modules/team';
 export class TeamsService {
 
   currentTeam: string = '';
-  token = localStorage.getItem('token');
-  APIURL = "https://localhost:5001/Teams/";
+  APIURL = "http://awseb-AWSEB-NWW3CW9O9SCF-103843184.us-east-1.elb.amazonaws.com/Team/"
 
   constructor(private http: HttpClient) { }
 
-  // Create a new team for a user
+  // Create a new team for a user // working *********************
   CreateTeam(teamName: string): Promise<boolean> {
-    this.token = JSON.parse(localStorage.getItem('token'));
-
     // Send a team name and expect a boolean depending on the success of the http
-    let request = {
-      "token": this.token,
+    let requestBody = {
       "teamName": teamName
     }
-    return this.http.post<boolean>(this.APIURL + "addteam", request).toPromise();
+    return this.http.post<boolean>(this.APIURL + "addteam", requestBody).toPromise();
   }
 
   // Gets all teams for a user
   GetAllTeams(): Promise<Team[]> {
-    this.token = JSON.parse(localStorage.getItem('token'));
-    return this.http.post<Team[]>(this.APIURL + "getteams", {
-      "token": this.token
-    }).toPromise();
+    return this.http.get<Team[]>(this.APIURL + "getteams").toPromise();
   }
 
+  // localhost:5000/Team/deleteteam?teamname=team1
   DeleteTeam(teamName: string) {
-    this.token = JSON.parse(localStorage.getItem('token'));
-    let body = {
-      "token": this.token,
+    let requestBody = {
       "teamName": teamName
     }
-    this.http.put(this.APIURL + "deleteteam", body).toPromise();
+    this.http.put(this.APIURL + "deleteteam", requestBody).toPromise();
   }
 
   // Takes in a team and toggles its favourites value on the backend
   ToggleFavourite(team: Team) {
-    this.token = JSON.parse(localStorage.getItem('token'));
     let body = {
-      "token": this.token,
       "teamNames": team.teamName,
       "isFav": !team.isFav
     }
-    this.http.put(this.APIURL + "setfavorites", body).toPromise();
+    this.http.put(this.APIURL + "setfavorites", body).toPromise(); 
   }
 
   UpdateTeam(teamName: string, playerKeys: number[]) {
-    this.token = JSON.parse(localStorage.getItem('token'));
-    // this.http.post("https://localhost:5001/PlayerSelection/UpdatePlayerSelection", {
-    this.http.post("https://localhost:5001/PlayerSelection/UpdatePlayerSelection", {
-
-      // "token": this.token,
+    this.http.post("http://awseb-AWSEB-NWW3CW9O9SCF-103843184.us-east-1.elb.amazonaws.com/PlayerSelection/UpdatePlayerSelection", {
       "teamName": teamName,
       "playerKeys": playerKeys
     }).toPromise();

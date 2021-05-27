@@ -115,6 +115,10 @@ th{
     justify-content: space-between;
 } 
 
+.table-container:first-child{
+    margin-right: 1.5vw;
+} 
+
 .table-container{
     overflow-y: scroll;
     overflow-x: hidden;

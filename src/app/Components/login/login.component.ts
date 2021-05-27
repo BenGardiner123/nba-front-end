@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
     let credentials: User = {
       'username': username,
-      'passwordHash': password
+      'password': password
     }
 
     this.loadingService.StartLoading()

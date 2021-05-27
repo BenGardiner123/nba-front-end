@@ -6,15 +6,14 @@ import { Player } from '../modules/player';
 import { Header } from '../modules/header';
 import { PlayerEnvelope } from '../modules/playerEnvelope';
 import { GetPlayersFromTeamResponse } from '../modules/GetPlayersFromTeamResponse';
+import { HeadersResponse } from '../modules/headersResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayersService {
 
-  token = localStorage.getItem('token');
-
-  APIURL = "https://localhost:5001/Players/";
+  APIURL = "http://awseb-AWSEB-NWW3CW9O9SCF-103843184.us-east-1.elb.amazonaws.com/Player/";
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +22,6 @@ export class PlayersService {
   // Gets all players for a set criteria
   // Used on ManagePlayers
   GetPlayers(pageNum: number, pageSizing: number, searchstring: string, sortstring: string, sortorder: string): Promise<PlayerEnvelope> {
-    this.token = JSON.parse(localStorage.getItem('token'));
 
     return this.http.get<PlayerEnvelope>(this.APIURL + "SearchPlayer?searchstring=" + searchstring + "&PageNumber=" + pageNum + "&PageSize=" + pageSizing + "&SortString=" + sortstring + "&SortOrder=" + sortorder).toPromise();
   }
@@ -32,9 +30,7 @@ export class PlayersService {
   // Used on Teamsummary
   // Return Make model for GetPlayersFromTeamReposonse
   GetPlayersFromTeam(teamName: string): Promise<GetPlayersFromTeamResponse> {
-    this.token = JSON.parse(localStorage.getItem('token'));
     let body = {
-      "token": this.token,
       "teamName": teamName,
       "sortString": "FIRSTNAME",
       "sortType": "ASC"
@@ -44,9 +40,8 @@ export class PlayersService {
 
   // Used to get headers
   // Could have been handled in pervious functions 
-  GetPlayerHeaders(): Promise<Header[]> {
-    this.token = JSON.parse(localStorage.getItem('token'));
-    return this.http.get<Header[]>(this.APIURL + "headers").toPromise();
+  GetPlayerHeaders(): Promise<HeadersResponse> {
+    return this.http.get<HeadersResponse>(this.APIURL + "headers").toPromise();
   }
 
 }

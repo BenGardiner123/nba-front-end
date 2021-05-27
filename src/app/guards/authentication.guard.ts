@@ -15,11 +15,11 @@ export class AuthenticationGuard implements CanActivate {
 
     const token = localStorage.getItem('token');
     if (token && !this.jwthelper.isTokenExpired(token)) {
-      alert('true')
+      // alert('true')
       return true;
     }
     else {
-      alert('false')
+      // alert('false')
       return false;
     }
   }

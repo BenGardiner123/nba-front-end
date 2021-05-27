@@ -9,18 +9,9 @@ import { TeamSummaryComponent } from './routers/team-summary/team-summary.compon
 
 
 const routes: Routes = [
-  {
-    path: "MyTeams", component: MyTeamsComponent
-    // , canActivate: [AuthenticationGuard]
-  },
-  {
-    path: "ManagePlayers", component: ManagePlayersComponent
-    // , canActivate: [AuthenticationGuard]
-  },
-  {
-    path: "TeamSummary", component: TeamSummaryComponent
-    // , canActivate: [AuthenticationGuard]
-  },
+  { path: "MyTeams", component: MyTeamsComponent, canActivate: [AuthenticationGuard] },
+  { path: "ManagePlayers", component: ManagePlayersComponent, canActivate: [AuthenticationGuard] },
+  { path: "TeamSummary", component: TeamSummaryComponent, canActivate: [AuthenticationGuard] },
   { path: "Login", component: LoginPageComponent },
 
   { path: "**", redirectTo: "Login" }

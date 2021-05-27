@@ -8,6 +8,7 @@ import { LoadingService } from '../../services/loading.service'
 import { Player } from '../../modules/player';
 import { Header } from 'src/app/modules/header';
 import { GetPlayersFromTeamResponse } from 'src/app/modules/GetPlayersFromTeamResponse';
+import { HeadersResponse } from 'src/app/modules/headersResponse';
 
 @Component({
   selector: 'app-team-summary',
@@ -21,6 +22,7 @@ export class TeamSummaryComponent implements OnInit {
   players: Player[] = [];
   getPlayersResponse: GetPlayersFromTeamResponse;
   headers: any[] = [];
+  headersResponse: HeadersResponse;
   dtr: number;
   isGoodScore: boolean = false;
   isBadScore: boolean = false;
@@ -35,7 +37,8 @@ export class TeamSummaryComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.loadingService.StartLoading();
     this.teamName = this.teamsService.currentTeam;
-    this.headers = await this.playerService.GetPlayerHeaders()
+    this.headersResponse = await this.playerService.GetPlayerHeaders();
+    this.headers = this.headersResponse.data;
     // Mapping the array of objects containing a single string attribute
     // Into that of a string array.
     // I feel like this could be done more efficiently with some map functions im not aware of.

@@ -33,19 +33,20 @@ export class RegisterComponent implements OnInit {
 
     let credentials: User = {
       'username': username,
-      'passwordHash': password
+      'password': password
     }
 
     this.loadingService.StartLoading()
     var response = await this.userService.registerUser(credentials)
     this.isRegistered = true;
+    console.log(response);
     // Successful Registration
-    if (response) {
-      this.isSuccessful = true;
-    }
-    else {
-      this.isSuccessful = false;
-    }
+    // if (response) {
+    //   this.isSuccessful = true;
+    // }
+    // else {
+    //   this.isSuccessful = false;
+    // }
 
     this.loadingService.StopLoading()
 
