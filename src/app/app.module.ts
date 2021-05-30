@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -24,6 +25,11 @@ import { NavService } from './services/nav-service.service';
 import { PlayersService } from './services/players.service';
 import { TeamsService } from './services/teams-service.service';
 import { UserService } from './services/user.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MaterialModule} from './material/material.module';
+import { PlayerTableComponent } from './components/player-table/player-table.component';
+import { GenericListComponent } from './utilities/generic-list/generic-list.component'
+
 // TODO Import Services 
 
 export function tokenGetter() {
@@ -43,6 +49,8 @@ export function tokenGetter() {
     TabsComponent,
     MyTeamsComponent,
     LoadingComponent,
+    PlayerTableComponent,
+    GenericListComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +58,7 @@ export function tokenGetter() {
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
+    MaterialModule,
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
@@ -57,7 +66,8 @@ export function tokenGetter() {
         allowedDomains: ["localhost:5001"], //you can add other domains here as well
         disallowedRoutes: []
       }
-    })
+    }),
+    BrowserAnimationsModule
 
   ],
   providers: [
