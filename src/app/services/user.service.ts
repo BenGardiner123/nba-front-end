@@ -9,15 +9,15 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
 
-  private APIURL = environment.apiURL + '/User'
+  private authURL = environment.authURL + '/User'
 
   constructor(private http: HttpClient) { }
 
   registerUser(credentials: User): Promise<boolean> {
-    return this.http.post<boolean>(`${this.APIURL}/register`, credentials).toPromise();
+    return this.http.post<boolean>(`${this.authURL}/register`, credentials).toPromise();
   }
 
   loginUser(credentials: User): Promise<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.APIURL}/Login`, credentials).toPromise();
+    return this.http.post<LoginResponse>(`${this.authURL}/Login`, credentials).toPromise();
   }
 }
