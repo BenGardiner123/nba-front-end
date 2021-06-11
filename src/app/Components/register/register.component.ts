@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   invalidInputs: string[] = [];
   isRegistered: boolean;
   isSuccessful: boolean;
+  isCreated: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -33,15 +34,17 @@ export class RegisterComponent implements OnInit {
 
     let credentials: User = {
       'username': username,
-      'passwordHash': password
+      'password': password
     }
 
     this.loadingService.StartLoading()
     var response = await this.userService.registerUser(credentials)
+    var creationResponse = await this.userService.createNbaUserId(credentials.username);
     this.isRegistered = true;
     // Successful Registration
     if (response) {
       this.isSuccessful = true;
+      this.isCreated = true;
     }
     else {
       this.isSuccessful = false;
